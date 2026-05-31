@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VYB — Run the tour from the group chat</title>
-
+<html lang="en" data-theme="light"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff" id="themeColorMeta">
+<meta name="color-scheme" content="light dark">
+<title>VYB — Run the tour from the group chat</title>
+<meta name="description" content="VYB is an iOS app for touring teams. Drop the VYB number into your iMessage group and an AI Concierge books shows, syncs schedules, and settles money — right in the thread.">
   <!-- SEO -->
-  <meta name="description" content="VYB is tour & artist-operations infrastructure for independent artists. Drop the VYB number into your iMessage group and an AI Concierge books shows, syncs schedules, and settles money — right in the thread.">
   <link rel="canonical" href="https://0xhellohttps.github.io/vyb-web/">
-  <meta name="theme-color" content="#0071e3">
 
   <!-- Icons -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -31,179 +30,882 @@
   <meta name="twitter:title" content="VYB — Run the tour from the group chat">
   <meta name="twitter:description" content="An AI Concierge that books shows, syncs schedules, and settles money — right in your iMessage thread.">
   <meta name="twitter:image" content="https://0xhellohttps.github.io/vyb-web/assets/og-image.png">
+<style>/* ============================================================
+   VYB — marketing site, modeled exactly on typexp.app/#features
+   Monospace (SF Mono) · white canvas · Apple-blue accent ·
+   small understated type · left-aligned · bordered sections.
+   ============================================================ */
 
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #ffffff; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
-    #__bundler_loading { position: fixed; bottom: 20px; right: 20px; font: 13px/1.4 -apple-system, BlinkMacSystemFont, sans-serif; color: #666; background: #fff; padding: 8px 14px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.12); z-index: 10000; }
-    #__bundler_thumbnail { position: fixed; inset: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #ffffff; z-index: 9999; }
-    #__bundler_thumbnail svg { width: 100%; height: 100%; object-fit: contain; }
-    #__bundler_placeholder { color: #999; font-size: 14px; }
-  </style>
-  <noscript>
-    <style>#__bundler_loading { display: none; }</style>
-    <div style="position:fixed;bottom:12px;left:12px;font:13px/1.4 -apple-system,BlinkMacSystemFont,sans-serif;color:#999;background:rgba(255,255,255,0.9);padding:6px 12px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,0.08);z-index:10000;">
-      This page requires JavaScript to display.
-    </div>
-  </noscript>
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: rgba(255,255,255,0.72);
+  --surface-border: rgba(0,0,0,0.08);
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --text-tertiary: #aeaeb2;
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --hero-text: #1d1d1f;
+  --hero-sub: rgba(29,29,31,0.72);
+  --card-bg: rgba(255,255,255,0.65);
+  --card-border: rgba(0,0,0,0.08);
+  --feature-icon: #aeaeb2;
+  --toggle-bg: rgba(0,0,0,0.08);
+  --toggle-thumb: #ffffff;
+  --nav-bg: rgba(255,255,255,0.85);
+  --nav-border: rgba(0,0,0,0.08);
+  --pill-bg: rgba(0,113,227,0.08);
+  --pill-text: #0071e3;
+  --shadow-screenshot: 0 32px 80px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.10);
+  --vyb-grad: linear-gradient(150deg, #0071e3, #5e5ce6);
+
+  --mono: "SF Mono", ui-monospace, Menlo, Monaco, "Cascadia Code", "Source Code Pro", Consolas, monospace;
+  --system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #000000;
+  --surface: rgba(28,28,30,0.72);
+  --surface-border: rgba(255,255,255,0.08);
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1a6;
+  --text-tertiary: #636366;
+  --accent: #2997ff;
+  --accent-hover: #409cff;
+  --hero-text: #f5f5f7;
+  --hero-sub: rgba(245,245,247,0.72);
+  --card-bg: rgba(28,28,30,0.6);
+  --card-border: rgba(255,255,255,0.08);
+  --feature-icon: #636366;
+  --toggle-bg: rgba(255,255,255,0.12);
+  --toggle-thumb: #ffffff;
+  --nav-bg: rgba(0,0,0,0.72);
+  --nav-border: rgba(255,255,255,0.08);
+  --pill-bg: rgba(41,151,255,0.12);
+  --pill-text: #2997ff;
+  --shadow-screenshot: 0 32px 80px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; background: var(--bg); }
+
+body {
+  font-family: var(--mono);
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background .4s ease, color .4s ease;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── NAV ───────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 52px;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-border);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transition: background .4s, border-color .4s;
+}
+.nav-logo { display: flex; align-items: center; gap: 9px; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-primary); }
+.app-icon {
+  width: 27px; height: 27px; border-radius: 7px; flex-shrink: 0;
+  background: var(--vyb-grad);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-family: var(--system); font-weight: 700; font-size: 16px;
+  box-shadow: inset 0 0 0 .5px rgba(255,255,255,.25);
+}
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-link { font-size: 15px; color: var(--text-secondary); transition: color .2s; }
+.nav-link:hover { color: var(--text-primary); }
+.nav-buy-btn {
+  display: inline-flex; align-items: center; padding: 8px 17px;
+  background: var(--accent); color: #fff; border-radius: 6px;
+  font-size: 13px; font-weight: 600; border: none; cursor: pointer;
+  font-family: inherit; letter-spacing: -0.01em; white-space: nowrap;
+  transition: opacity .2s;
+}
+.nav-buy-btn:hover { opacity: .72; }
+@media (max-width: 767px) { .nav-link { display: none; } }
+
+/* theme toggle (sliding switch) */
+.theme-toggle {
+  position: relative; width: 44px; height: 26px;
+  background: var(--toggle-bg); border-radius: 13px; border: none;
+  cursor: pointer; transition: background .3s; flex-shrink: 0;
+}
+.theme-toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 20px; height: 20px; border-radius: 50%; background: var(--toggle-thumb);
+  box-shadow: 0 1px 4px rgba(0,0,0,.25);
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+[data-theme="dark"] .theme-toggle::after { transform: translateX(18px); }
+.tt-icon { position: absolute; top: 50%; transform: translateY(-50%); font-size: 11px; pointer-events: none; transition: opacity .2s; }
+.tt-sun { left: 6px; opacity: 1; }
+.tt-moon { right: 5px; opacity: .5; }
+[data-theme="dark"] .tt-sun { opacity: .5; }
+[data-theme="dark"] .tt-moon { opacity: 1; }
+
+/* ── SHARED ────────────────────────────────────────────── */
+.section-inner { max-width: 1080px; }
+.section-eyebrow { font-size: 15px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.section-title { font-size: 18px; font-weight: 400; line-height: 1.6; color: var(--hero-text); margin-bottom: 12px; }
+.section-subtitle { font-size: 18px; color: var(--text-secondary); line-height: 1.7; max-width: 60ch; }
+
+section { padding: 40px 32px; border-top: 1px solid var(--surface-border); transition: background .4s; }
+
+.download-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 32px; background: var(--text-primary); color: var(--bg);
+  border-radius: 6px; font-size: 17px; font-weight: 600; cursor: pointer;
+  border: none; font-family: inherit; transition: opacity .2s;
+}
+.download-btn:hover { opacity: .72; }
+.download-btn svg { flex-shrink: 0; }
+
+/* ── HERO ──────────────────────────────────────────────── */
+.hero {
+  border-top: none;
+  padding: 104px 32px 56px;
+  display: grid; grid-template-columns: minmax(0,1fr) minmax(0,440px);
+  gap: 48px; align-items: center;
+  max-width: 1144px; margin: 0 auto;
+}
+.hero-content { max-width: 560px; }
+.hero-title { font-size: 39px; font-weight: 600; line-height: 1.34; color: var(--hero-text); margin-bottom: 24px; }
+.hero-cursor { display: inline-block; width: 2px; height: 1em; background: currentColor; margin-left: 3px; vertical-align: text-bottom; animation: blink 1s step-start infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+.hero-subtitle { font-size: 18px; color: var(--hero-sub); line-height: 1.6; margin: 0 0 36px; }
+.hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.hero-note { margin-top: 14px; font-size: 14px; color: var(--hero-sub); opacity: .7; }
+.hero-note + .hero-note { margin-top: 4px; }
+
+.hero-visual { position: relative; display: flex; justify-content: center; }
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding-top: 92px; }
+  .hero-visual { justify-content: flex-start; margin-top: 8px; }
+}
+
+/* ── DEVICE / iMESSAGE MOCK ────────────────────────────── */
+.phone {
+  position: relative; width: 300px; height: 624px;
+  border-radius: 50px; padding: 10px; flex-shrink: 0;
+  background: linear-gradient(160deg, #2a2a2e, #0c0c0e);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,.5) inset, 0 0 0 2px rgba(255,255,255,.05) inset,
+    var(--shadow-screenshot);
+}
+.phone-screen { position: relative; width: 100%; height: 100%; border-radius: 41px; overflow: hidden; background: #fafafa; }
+.notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 96px; height: 27px; border-radius: 999px; background: #0a0a0c; z-index: 30; }
+.imsg { position: absolute; inset: 0; background: #fafafa; color: #1c1c1e; display: flex; flex-direction: column; font-family: var(--system); }
+.imsg-status { height: 46px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px 0 26px; font-size: 13px; font-weight: 600; color: #1c1c1e; }
+.imsg-status .dots { display: flex; align-items: center; gap: 5px; }
+.imsg-head { padding: 50px 14px 11px; text-align: center; border-bottom: .5px solid rgba(0,0,0,.06); background: rgba(250,250,250,.92); }
+.imsg-avatar { width: 46px; height: 46px; border-radius: 50%; margin: 0 auto 6px; background: var(--vyb-grad); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 21px; }
+.imsg-title { font-size: 14px; font-weight: 600; }
+.imsg-sub { font-size: 10.5px; color: rgba(28,28,30,.5); margin-top: 1px; }
+.imsg-body { flex: 1; padding: 12px 12px 16px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+.imsg-body > * { flex-shrink: 0; }
+.imsg-day { text-align: center; font-size: 10px; color: rgba(28,28,30,.4); font-weight: 600; margin: 2px 0 3px; }
+.bub { max-width: 80%; padding: 8px 12px; border-radius: 18px; font-size: 13px; line-height: 1.32; }
+.bub-in { align-self: flex-start; background: #e9e9eb; color: #1c1c1e; border-bottom-left-radius: 5px; }
+.bub-out { align-self: flex-end; background: #0a84ff; color: #fff; border-bottom-right-radius: 5px; }
+.bub-name { font-size: 9.5px; color: rgba(28,28,30,.45); margin: 3px 0 -4px 12px; font-weight: 600; }
+.prop { align-self: flex-start; width: 92%; background: #fff; border-radius: 16px; overflow: hidden; border: .5px solid rgba(0,0,0,.08); box-shadow: 0 8px 20px -8px rgba(20,16,40,.2); }
+.prop-top { display: flex; align-items: center; gap: 8px; padding: 10px 12px 8px; border-bottom: .5px solid rgba(0,0,0,.06); }
+.prop-mark { width: 21px; height: 21px; border-radius: 6px; background: var(--vyb-grad); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 11px; flex-shrink: 0; }
+.prop-kicker { font-size: 8px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: rgba(28,28,30,.45); }
+.prop-h { font-size: 13px; font-weight: 650; margin-top: 1px; }
+.prop-rows { padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; }
+.prop-row { display: flex; justify-content: space-between; font-size: 11px; }
+.prop-row span { color: rgba(28,28,30,.5); }
+.prop-row b { font-weight: 600; }
+.prop-cta { display: flex; gap: 6px; padding: 0 12px 12px; }
+.prop-confirm { flex: 1; height: 32px; border-radius: 9px; background: #34c759; color: #fff; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }
+.prop-later { width: 66px; height: 32px; border-radius: 9px; background: #f0f0f2; color: rgba(28,28,30,.6); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.imsg-input { margin: 0 10px 12px; height: 34px; border-radius: 999px; border: .5px solid rgba(0,0,0,.12); display: flex; align-items: center; padding: 0 14px; color: rgba(28,28,30,.4); font-size: 12px; background: #fff; }
+
+/* floating overlay card (hero) */
+.float-card {
+  position: absolute; z-index: 4; width: 220px; right: -22px; bottom: 64px;
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: 16px; padding: 14px 16px; backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: var(--shadow-screenshot); font-family: var(--system);
+}
+.float-card .fc-kicker { font-size: 9px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.float-card .fc-h { font-size: 14px; font-weight: 650; color: var(--text-primary); margin: 5px 0 8px; line-height: 1.25; }
+.float-card .fc-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-secondary); padding: 3px 0; border-top: .5px solid var(--surface-border); }
+.float-card .fc-row b { color: var(--text-primary); font-weight: 600; }
+@media (max-width: 460px) { .float-card { display: none; } }
+
+/* ── SEE IT IN ACTION (typed demo) ─────────────────────── */
+.demo-window {
+  margin-top: 28px; max-width: 760px;
+  border: 1px solid var(--surface-border); border-radius: 14px; overflow: hidden;
+  background: var(--card-bg); backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-screenshot);
+}
+.demo-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--surface-border); }
+.demo-bar i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.demo-bar .r { background: #ff5f57; } .demo-bar .y { background: #febc2e; } .demo-bar .g { background: #28c840; }
+.demo-bar span { margin-left: 8px; font-size: 11px; color: var(--text-tertiary); letter-spacing: .02em; }
+.demo-body { padding: 24px 24px 28px; font-size: 17px; line-height: 1.75; min-height: 210px; }
+.demo-ctx { color: var(--text-tertiary); }
+.demo-trigger-line { margin-top: 6px; }
+.demo-prompt { color: var(--accent); }
+.demo-trigger { color: var(--text-primary); }
+.demo-cursor { display: inline-block; width: 8px; height: 1.05em; background: var(--accent); vertical-align: text-bottom; margin-left: 1px; animation: blink 1s step-start infinite; }
+.demo-out { margin-top: 14px; padding-left: 14px; border-left: 2px solid var(--accent); color: var(--text-primary); white-space: pre-wrap; }
+.demo-tag { display: inline-block; font-size: 10px; font-weight: 600; font-family: var(--system); color: #fff; background: var(--accent); padding: 1px 7px; border-radius: 20px; margin-bottom: 8px; letter-spacing: .02em; }
+
+/* ── GROUP CHAT DEMO ───────────────────────────────────── */
+.chat-stage { margin-top: 32px; display: flex; justify-content: flex-start; }
+.chat-stage .phone { width: 320px; height: 668px; }
+
+/* ── FEATURES GRID ─────────────────────────────────────── */
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); column-gap: 48px; margin-top: 36px; }
+.feature-card { border-top: 1px solid var(--surface-border); padding: 26px 0; }
+.feature-icon { display: block; font-size: 21px; color: var(--feature-icon); margin-bottom: 12px; line-height: 1; }
+.feature-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 9px; }
+.feature-body { font-size: 17px; color: var(--text-secondary); line-height: 1.6; }
+.feature-body b { color: var(--text-primary); font-weight: 600; }
+
+/* ── SYNC / CARD SHOWCASE ──────────────────────────────── */
+.showcase { margin-top: 44px; display: flex; }
+.vcard {
+  position: relative; width: 420px; max-width: 100%; aspect-ratio: 1.586;
+  border-radius: 22px; padding: 26px; color: #fff; overflow: hidden;
+  background: linear-gradient(135deg, #0a1230 0%, #1f2350 48%, #2f2a6a 100%);
+  box-shadow: var(--shadow-screenshot); font-family: var(--system);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.vcard::after { content:""; position:absolute; inset:0; background: radial-gradient(120% 90% at 88% -10%, rgba(41,151,255,.5), transparent 60%); }
+.vcard-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }
+.vcard-wm { font-weight: 700; font-size: 22px; letter-spacing: -0.02em; }
+.vcard-chip { width: 38px; height: 28px; border-radius: 6px; background: linear-gradient(135deg,#e8c977,#b98d3e); opacity: .9; }
+.vcard-num { font-variant-numeric: tabular-nums; font-size: 15px; letter-spacing: .12em; position: relative; z-index: 2; }
+.vcard-bottom { display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 2; }
+.vcard-bottom .lbl { font-size: 8px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; opacity: .6; }
+.vcard-bottom .val { font-size: 12px; font-weight: 600; margin-top: 3px; }
+
+/* ── HOW IT WORKS ──────────────────────────────────────── */
+.steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; margin-top: 44px; }
+.steps.steps-5 { grid-template-columns: repeat(5,1fr); gap: 26px; }
+.steps.steps-6 { grid-template-columns: repeat(3,1fr); gap: 32px 26px; }
+@media (max-width: 980px) { .steps.steps-5 { grid-template-columns: repeat(3,1fr); } }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr; gap: 26px; } .steps.steps-5, .steps.steps-6 { grid-template-columns: 1fr; } }
+.step-number { font-size: 15px; font-weight: 700; color: var(--accent); letter-spacing: .5px; margin-bottom: 12px; font-variant-numeric: tabular-nums; }
+.step-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 9px; }
+.step-body { font-size: 17px; color: var(--text-secondary); line-height: 1.6; }
+.step-code { display: inline-block; font-family: var(--mono); font-size: 15px; background: var(--pill-bg); color: var(--pill-text); padding: 2px 8px; border-radius: 6px; margin-top: 8px; }
+
+/* ── VYB FOR ENTERPRISE ────────────────────────────────── */
+.ent-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; margin-top: 40px; border-top: 1px solid var(--surface-border); }
+@media (max-width: 760px) { .ent-grid { grid-template-columns: 1fr; } }
+.ent-card { padding: 30px 28px 30px 0; border-bottom: 1px solid var(--surface-border); }
+.ent-card + .ent-card { padding-left: 28px; border-left: 1px solid var(--surface-border); }
+@media (max-width: 760px) { .ent-card + .ent-card { padding-left: 0; border-left: none; } }
+.ent-stat { font-size: 40px; font-weight: 600; line-height: 1; letter-spacing: -0.02em; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.ent-stat .unit { font-size: 22px; color: var(--accent); margin-left: 2px; }
+.ent-label { font-size: 13px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--accent); margin: 16px 0 9px; }
+.ent-body { font-size: 16px; color: var(--text-secondary); line-height: 1.65; }
+.ent-body b { color: var(--text-primary); font-weight: 600; }
+.ent-foot { margin-top: 30px; font-size: 16px; color: var(--text-secondary); line-height: 1.7; max-width: 70ch; }
+.ent-foot b { color: var(--text-primary); font-weight: 600; }
+
+/* A-to-Z finance flow */
+.ent-flow-head { margin-top: 44px; font-size: 13px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--accent); }
+.ent-flow-title { margin-top: 9px; font-size: 18px; font-weight: 400; line-height: 1.6; color: var(--hero-text); }
+.ent-flow { margin-top: 24px; display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--surface-border); border: 1px solid var(--surface-border); border-radius: 12px; overflow: hidden; }
+@media (max-width: 760px) { .ent-flow { grid-template-columns: 1fr; } }
+.flow-item { background: var(--bg); padding: 20px 22px; display: flex; gap: 14px; align-items: flex-start; transition: background .25s; }
+.flow-item:hover { background: var(--pill-bg); }
+.flow-step { font-size: 13px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; flex-shrink: 0; padding-top: 2px; min-width: 22px; }
+.flow-name { font-size: 16px; font-weight: 600; color: var(--text-primary); line-height: 1.35; }
+.flow-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-top: 3px; }
+
+/* ── A-to-Z ORBITAL DIAGRAM ────────────────────────────── */
+.flow-diagram { position: relative; width: 100%; max-width: 680px; margin: 28px auto 8px; aspect-ratio: 1 / 1; }
+.flow-diagram svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.fd-ring { fill: none; stroke: var(--surface-border); stroke-width: 1.5; }
+.fd-track { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 60 1636; opacity: .9; animation: fdOrbit 9s linear infinite; }
+@keyframes fdOrbit { to { stroke-dashoffset: -1696; } }
+.fd-spoke { stroke: var(--surface-border); stroke-width: 1.5; stroke-dasharray: 3 5; }
+.fd-pulse { fill: var(--accent); }
+
+.fd-node {
+  position: absolute; transform: translate(-50%, -50%);
+  width: 156px; display: flex; flex-direction: column; align-items: center; gap: 7px;
+  text-align: center;
+}
+.fd-badge {
+  width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg); border: 1.5px solid var(--accent); color: var(--accent);
+  font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 5px var(--bg); position: relative; z-index: 2;
+  transition: transform .25s, background .25s, color .25s;
+}
+.fd-node:hover .fd-badge { background: var(--accent); color: #fff; transform: scale(1.08); }
+.fd-name { font-size: 13px; font-weight: 600; color: var(--text-primary); line-height: 1.3; letter-spacing: -0.01em; }
+.fd-sub { font-size: 11px; color: var(--text-secondary); line-height: 1.35; }
+
+.fd-hub {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 132px; height: 132px; border-radius: 50%; z-index: 3;
+  background: var(--vyb-grad); color: #fff;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  box-shadow: 0 18px 50px -16px rgba(0,113,227,.6), inset 0 0 0 1px rgba(255,255,255,.2), 0 0 0 8px var(--bg);
+}
+.fd-hub .hub-mark { font-family: var(--system); font-size: 34px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+.fd-hub .hub-sub { font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+
+@media (max-width: 600px) {
+  .flow-diagram { max-width: 440px; }
+  .fd-node { width: 104px; }
+  .fd-name { font-size: 11px; }
+  .fd-sub { display: none; }
+  .fd-badge { width: 34px; height: 34px; font-size: 13px; }
+  .fd-hub { width: 96px; height: 96px; }
+  .fd-hub .hub-mark { font-size: 26px; }
+}
+@media (prefers-reduced-motion: reduce) { .fd-track { animation: none; } .fd-pulse { display: none; } }
+
+/* ── FOOTER ────────────────────────────────────────────── */
+footer { border-top: 1px solid var(--nav-border); padding: 48px 32px; transition: background .4s, border-color .4s; }
+.footer-inner { max-width: 1080px; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
+.footer-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-primary); }
+.footer-brand .app-icon { width: 34px; height: 34px; border-radius: 8px; font-size: 19px; }
+.footer-meta { font-size: 14px; color: var(--text-tertiary); margin-top: 10px; }
+.footer-links { display: flex; gap: 24px; align-items: center; }
+.footer-links a { font-size: 14px; color: var(--text-tertiary); transition: color .2s; }
+.footer-links a:hover { color: var(--accent); }
+@media (max-width: 760px) { .footer-inner { flex-direction: column; align-items: flex-start; } }
+
+/* ── ANIMATIONS ────────────────────────────────────────── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.fade-up { opacity: 0; animation: fadeUp .7s cubic-bezier(.22,1,.36,1) forwards; }
+.fade-up-1 { animation-delay: .05s; }
+.fade-up-2 { animation-delay: .15s; }
+.fade-up-3 { animation-delay: .28s; }
+.fade-up-4 { animation-delay: .42s; }
+.fade-up-5 { animation-delay: .56s; }
+[data-io] { opacity: 0; transform: translateY(28px); transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+[data-io].in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, [data-io] { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .hero-cursor, .demo-cursor { animation: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
 </head>
 <body>
-  <div id="__bundler_thumbnail">
-  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1200" height="800" fill="#ffffff"></rect>
-    <rect x="500" y="300" width="200" height="200" rx="46" fill="#0071e3"></rect>
-    <text x="600" y="470" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="150" font-weight="700" fill="#ffffff" text-anchor="middle">v</text>
-  </svg>
-</div>
-  <div id="__bundler_loading">Unpacking...</div>
 
-  <script>
-    
-document.addEventListener('DOMContentLoaded', async function() {
-  const loading = document.getElementById('__bundler_loading');
-  function setStatus(msg) { if (loading) loading.textContent = msg; }
 
-  // Error sink persists across replaceWith since it's on window, not the DOM.
-  window.addEventListener('error', function(e) {
-    var p = document.body || document.documentElement;
-    var d = document.getElementById('__bundler_err') || p.appendChild(document.createElement('div'));
-    d.id = '__bundler_err';
-    d.style.cssText = 'position:fixed;bottom:12px;left:12px;right:12px;font:12px/1.4 ui-monospace,monospace;background:#2a1215;color:#ff8a80;padding:10px 14px;border-radius:8px;border:1px solid #5c2b2e;z-index:99999;white-space:pre-wrap;max-height:40vh;overflow:auto';
-    d.textContent = (d.textContent ? d.textContent + String.fromCharCode(10) : '') +
-      '[bundle] ' + (e.message || e.type) +
-      (e.filename ? ' (' + e.filename.slice(0, 60) + ':' + e.lineno + ')' : '');
-  }, true);
 
-  try {
-    const manifestEl = document.querySelector('script[type="__bundler/manifest"]');
-    const templateEl = document.querySelector('script[type="__bundler/template"]');
-    if (!manifestEl || !templateEl) {
-      setStatus('Error: missing bundle data');
-      console.error('[bundler] Missing script tags — manifestEl:', !!manifestEl, 'templateEl:', !!templateEl);
-      return;
-    }
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <span class="app-icon">v</span>
+    vyb
+  </a>
+  <div class="nav-right">
+    <a href="#features" class="nav-link">Features</a>
+    <a href="#how-it-works" class="nav-link">How it works</a>
+    <a href="#enterprise" class="nav-link">Enterprise</a>
+    <a href="#who" class="nav-link">Who VYBs</a>
+    <a href="#get" class="nav-buy-btn">Get early access</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <span class="tt-icon tt-sun">☀️</span>
+      <span class="tt-icon tt-moon">🌙</span>
+    </button>
+  </div>
+</nav>
 
-    const manifest = JSON.parse(manifestEl.textContent);
-    let template = JSON.parse(templateEl.textContent);
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <h1 class="hero-title fade-up fade-up-1">Music Industry Infra and Artist OS.<br>Welcome to the modern musician's full stack.<span class="hero-cursor"></span></h1>
+    <p class="hero-subtitle fade-up fade-up-3">VYB lives in your group chat, turning short messages into booked shows — with an AI Concierge that confirms bookings, syncs schedules, and settles money in every thread.</p>
+    <div class="hero-actions fade-up fade-up-4">
+      <a href="#get" class="download-btn">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10h10m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Get early access
+      </a>
+    </div>
+    <p class="hero-note fade-up fade-up-5">Free during early access · iPhone only · No subscription</p>
+    <p class="hero-note fade-up fade-up-5">Requires iOS 17 or later</p>
+  </div>
 
-    const uuids = Object.keys(manifest);
-    setStatus('Unpacking ' + uuids.length + ' assets...');
+  <div class="hero-visual fade-up fade-up-5">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="notch"></div>
+        <div class="imsg">
+          <div class="imsg-status">
+            <span>9:41</span>
+            <span class="dots">
+              <svg width="17" height="11" viewBox="0 0 17 11" fill="#1c1c1e"><rect x="0" y="7" width="3" height="4" rx="1"></rect><rect x="4.5" y="5" width="3" height="6" rx="1"></rect><rect x="9" y="2.5" width="3" height="8.5" rx="1"></rect><rect x="13.5" y="0" width="3" height="11" rx="1"></rect></svg>
+              <svg width="22" height="11" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3" stroke="#1c1c1e" opacity="0.4"></rect><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#1c1c1e"></rect><rect x="23" y="3.5" width="1.5" height="5" rx="0.75" fill="#1c1c1e" opacity="0.4"></rect></svg>
+            </span>
+          </div>
+          <div class="imsg-head">
+            <div class="imsg-avatar">v</div>
+            <div class="imsg-title">Midwest Run · Tour Group</div>
+            <div class="imsg-sub">You, Mara, Dev, @vyb · 4 people</div>
+          </div>
+          <div class="imsg-body">
+            <div class="imsg-day">Today 9:38 AM</div>
+            <div class="bub-name">Mara · Manager</div>
+            <div class="bub bub-in">@vyb the Chicago promoter bumped their offer to $4,200 — can we take it?</div>
+            <div class="prop">
+              <div class="prop-top">
+                <div class="prop-mark">v</div>
+                <div>
+                  <div class="prop-kicker">Booking · needs confirm</div>
+                  <div class="prop-h">Metro Chicago · Fri Oct 17</div>
+                </div>
+              </div>
+              <div class="prop-rows">
+                <div class="prop-row"><span>Guarantee</span><b>$4,200</b></div>
+                <div class="prop-row"><span>Deposit</span><b>$1,260 · 30%</b></div>
+                <div class="prop-row"><span>Routing</span><b>+38 mi · Milwaukee</b></div>
+              </div>
+              <div class="prop-cta">
+                <div class="prop-confirm">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  Confirm in app
+                </div>
+                <div class="prop-later">Hold</div>
+              </div>
+            </div>
+            <div class="bub bub-out">Confirmed ✓ on the calendar &amp; deposit queued.</div>
+            <div class="imsg-input">VYB is handling it…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    const blobUrls = {};
-    await Promise.all(uuids.map(async (uuid) => {
-      const entry = manifest[uuid];
-      try {
-        const binaryStr = atob(entry.data);
-        const bytes = new Uint8Array(binaryStr.length);
-        for (let i = 0; i < binaryStr.length; i++) bytes[i] = binaryStr.charCodeAt(i);
+<!-- SEE IT IN ACTION -->
+<section id="action">
+  <div class="section-inner">
+    <p class="section-eyebrow">In every thread, every time</p>
+    <h2 class="section-title">See it in action.</h2>
+    <div class="demo-window" id="demoWindow">
+      <div class="demo-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span>Midwest Run · Tour Group</span></div>
+      <div class="demo-body">
+        <div class="demo-ctx" id="demoCtx"></div>
+        <div class="demo-trigger-line"><span class="demo-prompt">@vyb&nbsp;</span><span class="demo-trigger" id="demoTrigger"></span><span class="demo-cursor" id="demoCursor"></span></div>
+        <div class="demo-out" id="demoOut" style="display:none;"></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        let finalBytes = bytes;
-        if (entry.compressed) {
-          if (typeof DecompressionStream !== 'undefined') {
-            const ds = new DecompressionStream('gzip');
-            const writer = ds.writable.getWriter();
-            const reader = ds.readable.getReader();
-            writer.write(bytes);
-            writer.close();
-            const chunks = [];
-            let totalLen = 0;
-            while (true) {
-              const { done, value } = await reader.read();
-              if (done) break;
-              chunks.push(value);
-              totalLen += value.length;
-            }
-            finalBytes = new Uint8Array(totalLen);
-            let offset = 0;
-            for (const chunk of chunks) { finalBytes.set(chunk, offset); offset += chunk.length; }
-          } else {
-            console.warn('DecompressionStream not available, asset ' + uuid + ' may not render');
-          }
-        }
+<!-- LIVES IN YOUR GROUP CHAT -->
+<section id="demo">
+  <div class="section-inner">
+    <p class="section-eyebrow">Always there</p>
+    <h2 class="section-title">Lives in your group chat.</h2>
+    <p class="section-subtitle">Drop the VYB number into your tour thread. One message to confirm a booking, move the schedule, or settle a show — and it gets out of the way the rest of the time.</p>
 
-        blobUrls[uuid] = URL.createObjectURL(new Blob([finalBytes], { type: entry.mime }));
-      } catch (err) {
-        console.error('Failed to decode asset ' + uuid + ':', err);
-        blobUrls[uuid] = URL.createObjectURL(new Blob([], { type: entry.mime }));
-      }
-    }));
+    <div class="chat-stage" data-io="">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="notch"></div>
+          <div class="imsg">
+            <div class="imsg-status">
+              <span>9:41</span>
+              <span class="dots">
+                <svg width="17" height="11" viewBox="0 0 17 11" fill="#1c1c1e"><rect x="0" y="7" width="3" height="4" rx="1"></rect><rect x="4.5" y="5" width="3" height="6" rx="1"></rect><rect x="9" y="2.5" width="3" height="8.5" rx="1"></rect><rect x="13.5" y="0" width="3" height="11" rx="1"></rect></svg>
+                <svg width="22" height="11" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3" stroke="#1c1c1e" opacity="0.4"></rect><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#1c1c1e"></rect><rect x="23" y="3.5" width="1.5" height="5" rx="0.75" fill="#1c1c1e" opacity="0.4"></rect></svg>
+              </span>
+            </div>
+            <div class="imsg-head">
+              <div class="imsg-avatar">v</div>
+              <div class="imsg-title">Midwest Run · Tour Group</div>
+              <div class="imsg-sub">Concierge active · 4 people</div>
+            </div>
+            <div class="imsg-body">
+              <div class="imsg-day">Today 8:02 AM</div>
+              <div class="bub-name">Dev · Tour Manager</div>
+              <div class="bub bub-in">van's making bad noises, can we push lobby call to 11?</div>
+              <div class="prop">
+                <div class="prop-top">
+                  <div class="prop-mark">v</div>
+                  <div>
+                    <div class="prop-kicker">Schedule · auto-applied</div>
+                    <div class="prop-h">Lobby call → 11:00 AM</div>
+                  </div>
+                </div>
+                <div class="prop-rows">
+                  <div class="prop-row"><span>Affects</span><b>6 crew · 1 van</b></div>
+                  <div class="prop-row"><span>Calendars</span><b>Updated</b></div>
+                  <div class="prop-row"><span>Revert window</span><b>24 hours</b></div>
+                </div>
+              </div>
+              <div class="bub bub-out">Done — everyone's calendar moved. I'll watch the soundcheck buffer.</div>
+              <div class="imsg-input">iMessage</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    const extResEl = document.querySelector('script[type="__bundler/ext_resources"]');
-    const extResources = extResEl ? JSON.parse(extResEl.textContent) : [];
-    const resourceMap = {};
-    for (const entry of extResources) {
-      if (blobUrls[entry.uuid]) resourceMap[entry.id] = blobUrls[entry.uuid];
-    }
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-inner">
+    <p class="section-eyebrow">Features</p>
+    <h2 class="section-title">Purpose-built.<br>No overhead.</h2>
+    <p class="section-subtitle">Small, fast, and out of the way. The Concierge proposes the move; you tap to confirm. Nothing money-related happens behind your back.</p>
 
-    setStatus('Rendering...');
-    for (const uuid of uuids) template = template.split(uuid).join(blobUrls[uuid]);
+    <div class="features-grid">
+      <div class="feature-card" data-io="">
+        <span class="feature-icon">@</span>
+        <h3 class="feature-title">iMessage Concierge</h3>
+        <p class="feature-body">Tag <b>@vyb</b> in the thread, or let it passively catch booking and schedule signals, and it replies with a proposal card.</p>
+      </div>
+      <div class="feature-card" data-io="">
+        <span class="feature-icon">✓</span>
+        <h3 class="feature-title">Tap-to-confirm money</h3>
+        <p class="feature-body">Every payment needs one explicit tap in the app. The Concierge can propose, but the confirm tap is the legal record.</p>
+      </div>
+      <div class="feature-card" data-io="">
+        <span class="feature-icon">▭</span>
+        <h3 class="feature-title">The VYB Card</h3>
+        <p class="feature-body">Issue virtual team cards, set per-person spend caps, and push them straight into Apple Wallet for the road.</p>
+      </div>
+      <div class="feature-card" data-io="">
+        <span class="feature-icon">⇅</span>
+        <h3 class="feature-title">Live calendar sync</h3>
+        <p class="feature-body">A schedule change in the chat writes straight to everyone's calendar — with a 24-hour revert window, just in case.</p>
+      </div>
+      <div class="feature-card" data-io="">
+        <span class="feature-icon">≡</span>
+        <h3 class="feature-title">Bidding queue</h3>
+        <p class="feature-body">Holds, formal offers and routing math in one place. Accept a bid and the deposit flow kicks off automatically.</p>
+      </div>
+      <div class="feature-card" data-io="">
+        <span class="feature-icon">¶</span>
+        <h3 class="feature-title">VYB Talk briefs</h3>
+        <p class="feature-body">A persona-scoped synthesis of the entire tour chat — so everyone gets the version of "what's happening" that's theirs.</p>
+      </div>
+      <div class="feature-card" data-io="">
+        <span class="feature-icon">◎</span>
+        <h3 class="feature-title">Live map</h3>
+        <p class="feature-body">Crew, flights and venues on one moving map — with location scope that defaults to the people who need it.</p>
+      </div>
+      <div class="feature-card" data-io="">
+        <span class="feature-icon">♪</span>
+        <h3 class="feature-title">VYB Listen</h3>
+        <p class="feature-body">Share mixes with linear version control and time-coded comments on the playhead. Grant listen, edit, or none.</p>
+      </div>
+      <div class="feature-card" data-io="">
+        <span class="feature-icon">★</span>
+        <h3 class="feature-title">Venue trust scores</h3>
+        <p class="feature-body">Honest, attributed-safe ratings on every room — so the team knows what they're walking into before load-in.</p>
+      </div>
+      <div class="feature-card" data-io="">
+        <span class="feature-icon">▤</span>
+        <h3 class="feature-title">Studio management</h3>
+        <p class="feature-body">Book rooms, track sessions, and keep musicians, engineers, and gear organized — every session lands on the schedule.</p>
+      </div>
+      <div class="feature-card" data-io="">
+        <span class="feature-icon">⇪</span>
+        <h3 class="feature-title">File sharing</h3>
+        <p class="feature-body">Send stems, sessions, and assets to the right people in seconds — with per-person <b>listen, edit, or none</b> permissions.</p>
+      </div>
+      <div class="feature-card" data-io="">
+        <span class="feature-icon">⑂</span>
+        <h3 class="feature-title">Bounce version control</h3>
+        <p class="feature-body">Every bounce is a tracked version on a linear timeline — compare takes, roll back, and never lose the one that worked.</p>
+      </div>
+      <div class="feature-card" data-io="">
+        <span class="feature-icon">▶</span>
+        <h3 class="feature-title">Playback</h3>
+        <p class="feature-body">Stream any version in-app with time-coded comments dropped right on the playhead — feedback that points to the exact moment.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // Strip integrity + crossorigin — blob URLs from a file:// document inherit
-    // a null origin, so crossorigin forces a CORS fetch that SRI then rejects.
-    // The manifest bytes are ours; SRI protects against CDN compromise, not this.
-    template = template.replace(/\s+integrity="[^"]*"/gi, '').replace(/\s+crossorigin="[^"]*"/gi, '');
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="section-inner">
+    <p class="section-eyebrow">How it works</p>
+    <h2 class="section-title">Set up in four steps.</h2>
+    <p class="section-subtitle">Four steps and the Concierge is running your tour — no migration, no new app for the team to learn.</p>
 
-    const resourceScript = '<script>window.__resources = ' +
-      JSON.stringify(resourceMap).split('</' + 'script>').join('<\\/' + 'script>') +
-      ';</' + 'script>';
-    // Inject after <head> so the DOCTYPE stays first; prepending the script
-    // would push the parser into quirks mode. DOMParser always emits a <head>
-    // (synthesizing one if the source HTML omitted it) but may carry
-    // attributes through, so match the full opening tag. slice() rather than
-    // replace() keeps us clear of $-pattern substitution in resourceScript.
-    const headOpen = template.match(/<head[^>]*>/i);
-    if (headOpen) {
-      const i = headOpen.index + headOpen[0].length;
-      template = template.slice(0, i) + resourceScript + template.slice(i);
-    }
+    <div class="steps">
+      <div class="step" data-io="">
+        <div class="step-number">01</div>
+        <h3 class="step-title">Add the number</h3>
+        <p class="step-body">Drop the VYB number into your tour's iMessage group, the same way you'd add any teammate.</p>
+      </div>
+      <div class="step" data-io="">
+        <div class="step-number">02</div>
+        <h3 class="step-title">Tag the Concierge</h3>
+        <p class="step-body">Ask for what you need, or just keep talking — VYB catches booking and schedule signals.<br><span class="step-code">@vyb</span></p>
+      </div>
+      <div class="step" data-io="">
+        <div class="step-number">03</div>
+        <h3 class="step-title">Review the card</h3>
+        <p class="step-body">VYB replies in-thread with a clear proposal: the booking, the change, the cost — laid out to review.</p>
+      </div>
+      <div class="step" data-io="">
+        <div class="step-number">04</div>
+        <h3 class="step-title">Confirm anywhere</h3>
+        <p class="step-body">One tap in iMessage or the app. The whole tour updates live.<br><span class="step-code">tap to confirm</span></p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // Parse the template and swap the root element. Scripts inserted via
-    // DOMParser/replaceWith are inert per spec — re-create each with
-    // createElement so they execute, awaiting onload for src scripts to
-    // preserve ordering (React before ReactDOM before Babel before text/babel).
-    const doc = new DOMParser().parseFromString(template, 'text/html');
-    document.documentElement.replaceWith(doc.documentElement);
-    const dead = Array.from(document.scripts);
-    for (const old of dead) {
-      const s = document.createElement('script');
-      for (const a of old.attributes) s.setAttribute(a.name, a.value);
-      s.textContent = old.textContent;
-      // text/babel scripts with a src: fetch and inline. transformScriptTags
-      // does XHR against the src, but blob:null/ from a file:// origin is
-      // silently dropped. Inlining makes it a plain inline babel script,
-      // which transformScriptTags handles unconditionally.
-      if ((s.type === 'text/babel' || s.type === 'text/jsx') && s.src) {
-        const r = await fetch(s.src);
-        s.textContent = await r.text();
-        s.removeAttribute('src');
-      }
-      const p = s.src ? new Promise(function(r) { s.onload = s.onerror = r; }) : null;
-      old.replaceWith(s);
-      if (p) await p;
-    }
-    // Babel standalone auto-transforms type=text/babel on DOMContentLoaded,
-    // which fired before we swapped the document. Trigger manually if present.
-    if (window.Babel && typeof window.Babel.transformScriptTags === 'function') {
-      window.Babel.transformScriptTags();
-    }
-  } catch (err) {
-    setStatus('Error unpacking: ' + err.message);
-    console.error('Bundle unpack error:', err);
-  }
-});
+<!-- SYNC / CARD -->
+<section id="sync">
+  <div class="section-inner">
+    <p class="section-eyebrow">Sync &amp; the Card</p>
+    <h2 class="section-title">Your tour,<br>everywhere.</h2>
+    <p class="section-subtitle" style="margin-bottom: 8px;">Every confirmation syncs to the schedule, the calendar, and the VYB Card in under half a second — across every device on the tour.</p>
+    <div class="showcase" data-io="">
+      <div class="vcard">
+        <div class="vcard-top">
+          <span class="vcard-wm">vyb</span>
+          <span class="vcard-chip"></span>
+        </div>
+        <div class="vcard-num">4242&nbsp;&nbsp;7741&nbsp;&nbsp;0098&nbsp;&nbsp;2210</div>
+        <div class="vcard-bottom">
+          <div><div class="lbl">Cardholder</div><div class="val">D. OKAFOR · TOUR MGR</div></div>
+          <div style="text-align:right;"><div class="lbl">Cap / day</div><div class="val">$600</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  </script>
+<!-- VYB FOR ENTERPRISE -->
+<section id="enterprise">
+  <div class="section-inner">
+    <p class="section-eyebrow">VYB for Enterprise</p>
+    <h2 class="section-title">Infrastructure for promoters,<br>agencies, and venue groups.</h2>
+    <p class="section-subtitle">When you're running hundreds of events a year, the margin lives in operations. VYB is built so faster settlement, zero chargebacks, and live reputation data make every event go smoothly — at any scale.</p>
 
-  <script type="__bundler/manifest">
-{"8fca1f5f-7f59-418d-9127-d4247bd057d4":{"mime":"application/javascript","compressed":true,"data":"H4sIAAAAAAAAE8VX3W4bRRS+71OcttBdF3vtpCGgpKFK0wAVDankCFQ1vRjvjr2r7O64M7NJLYjEFQ8AXPIe3PMoeRK+M/trx8QgIRFZsXfmnDPn+87PnB0+pu/ePCeTWEk3P/1GNpaZJKtms1T2yS7mMqJIZqpPJtQqTWkqImno8fCePy3y0CYqJ79HP9wj8gojyVidhNbbx/Ol0BTbLKUDilRYZDK3Qf3jOJX8VYt9c/wGUt7lYjJwDkAfO8PHdPPbT/jQmfOqfPgfPwy7dLgkqItsJmtQzxcvI99zOM6cmNercWbSio1KRypV+gSSHb330LpK8khdBZmwYXwio0T4nj/Xciq1GYSsMzAh6+9RJPRFj7Wh3kRJzOfpwndbLlzkghMYaQ8tgjYprPS9SFhRhaDvzNAz8vjboz3y0mQW29IromRKPuPpOVQrdkKVW6DqGHk4cn/OzsOp+ystXVcYjVUayXZAeZGmvGH1gn5ol1MVinSMJzGTTNxLKzMfidPbp2sKmRTyJaDV9tzBB7X+s8bQwUGLKHtf0ikNH9hhyFFXBjkQUXR8CTCvEgNMUgNdmoQXwLZaAVQfep+/S5qWjPJCCWsJjWnR3MH6bZjXziRArHExFvlMLvkoayc5cvdLOrBU+ywbKpZ8pvqgpYIct81gkOS0sXL+k09bfvC8COWGmiiFokGmGP9epYS66MacrSWqW5PvC6kXY5nKEAwdpqnvvXVVkah3ZcIyfZUDP/5I933vJXJdG+loPp0YqS+l9gi0lN71Gt5VMFX6WIRxp3fKlGMg0yBMhTEcQI6m7yW5C3lZIthHby2tsMdqYrhQ5BWtO7trPUdJSlN7QFQtrHOkFSoxyiAxrfl85vwMrNAovvXewq2gyFXphl/LVjnEf9dVDVz3YcvGWppYpdEejYKt7WbzDpr4gMZ82vKznJwPxlJSYjkCwqk/6FxktDHNNqdfaD8cL11rq32cDzqyH9oGDtJnm1XOIDVD7jRqqrCbtU4L22qEhd6scVRoo3R1QbDW+Oj42+Mx1N66CNR5AJzoP8MhnQgtKNJqbkhQmuSSucU1gRZZaBdIEXn9SsuWKKA5UerCiR3FSShmijjahODSaWhp67NWRcwg/hziyDPC5TFNdCZbk+AB+7gTtWps/fkHfamTytJ5/lUBH5Gtkuijnf72aAQ1iBC9kHOF8QbLW/3t3dF5fhhFyAWrnGfowjJHp2PZqJJEByggcfP7r16VretZeSEvUYMyMmwsU5fSWcyUzoFiDR3zwsRo/JPJgo9NWWtra4WDMRpTVGC0KOboOrcoeNVq3/z8C9T3APTw5DzfpVCjHQDFFiKaU46mN01kdJ7jYtALlctzz7Ro2duIpbXEtkWnsjFCur0Tb4Z9xjHPRI6bCxmqIzSIkkp2IEXFxmuwO7ly1yXALpjjuoAeLq5CrtBw6sTnqQhvU1DMEysYDdzfxfAhUvfzo893zvOjmFtOE10ebY+EdkhDMSd1AT7ODmlre29nxEKpEpG7wDaBPpyhggjBCS9KtFqpjCYSWIBcZVli7fqoX8XCsreuXHRhLCZpVkJXw1hLx9ncLui5sjaVz1ZYeI1JCGCmGkexei7tlcJUsEzIqhUGuxPs0pA+Pc9fi4VhOTIik4OcRwneN6rII0h9zg+xMkxpmsDETgAlNGNRz3LRwIgp4KI2tDUdovD/XdNA+DoacQ9qOjZ33LHVaNN9finoU4LRBmnYHUISesoDmg6QlTMbd26pNLDygz0qp0gqhQymLumPYKm6KIgwOJ0lmQS+5beRNafTJ7RVebDP98+THaycCBsHaBuRyqD2mLZ36wuqunGdgl9PQUvzNJJzMQ4lb3duZhPC27KdvjXvSmPuulgFFAZYridCvhxWBDyv3HRXQGDsApNolBg+lXdz+LUkkeSY+74+O3nV0XWXwW3dJOcWPphgBr0o37SoIaz0hd/2giqF+zRaN+n+PfnV9t8e33H9DoC1d8tiSyifmjk6nZtEDh7wvTZA2Tz4wkNg2X0xww/v6ZCl6kVYCZDK3Ff84dPhrE/eo9Tue732oI2wyGW7bzijevRxFe0qh/c7Yp0MaZdd6o1GzQqed7brx844w/VRzhmPHtH9anbtJhqGK+tejKZogHK/2XAjwf8xHzpHK7d67s2t9hBtT+4v0fEPJsInzV6FqJn87pxtvnczt9frDs4Nl10Cp22hju4o1OmGOp3WdXJnyd0q1zvz/d/l+nRNqk/vzvTre9c9Tsq/AIDqhCP+EQAA"}}
-  </script>
+    <div class="ent-grid">
+      <div class="ent-card" data-io="">
+        <div class="ent-stat">T+1<span class="unit">→ instant</span></div>
+        <div class="ent-label">Faster settlement</div>
+        <p class="ent-body">Guarantees, deposits, and night-of splits settle the moment a show is confirmed — not days later. <b>Funds move on confirmation</b>, with every transaction tagged to an event, a person, and a contract.</p>
+      </div>
+      <div class="ent-card" data-io="">
+        <div class="ent-stat">0<span class="unit">chargebacks</span></div>
+        <div class="ent-label">Zero chargebacks</div>
+        <p class="ent-body">Every payment is authorized by an explicit in-app tap that becomes the signed record. There's no disputed "who agreed to what" — <b>the confirmation is the contract</b>, so disputes and reversals fall away.</p>
+      </div>
+      <div class="ent-card" data-io="">
+        <div class="ent-stat">4.6<span class="unit">/ 5 avg</span></div>
+        <div class="ent-label">Reputation management</div>
+        <p class="ent-body">Attributed-safe trust scores on every venue, promoter, and artist surface the risk before load-in. <b>Reputation travels with the network</b>, so the right rooms book the right acts and nights run clean.</p>
+      </div>
+    </div>
 
-  <script type="__bundler/ext_resources">
-[]
-  </script>
+    <p class="ent-foot" data-io="">Centralized billing, role-based permissions across every persona, and an audit trail on every confirmation — <b>VYB gives operations teams a single source of truth</b> that scales from a club night to a national run.</p>
 
-  <script type="__bundler/template">
-"<!DOCTYPE html>\n<html lang=\"en\" data-theme=\"light\"><head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<meta name=\"theme-color\" content=\"#ffffff\" id=\"themeColorMeta\">\n<meta name=\"color-scheme\" content=\"light dark\">\n<title>VYB — Run the tour from the group chat<\u002Ftitle>\n<meta name=\"description\" content=\"VYB is an iOS app for touring teams. Drop the VYB number into your iMessage group and an AI Concierge books shows, syncs schedules, and settles money — right in the thread.\">\n<style>/* ============================================================\n   VYB — marketing site, modeled exactly on typexp.app/#features\n   Monospace (SF Mono) · white canvas · Apple-blue accent ·\n   small understated type · left-aligned · bordered sections.\n   ============================================================ */\n\n:root {\n  color-scheme: light;\n  --bg: #ffffff;\n  --surface: rgba(255,255,255,0.72);\n  --surface-border: rgba(0,0,0,0.08);\n  --text-primary: #1d1d1f;\n  --text-secondary: #6e6e73;\n  --text-tertiary: #aeaeb2;\n  --accent: #0071e3;\n  --accent-hover: #0077ed;\n  --hero-text: #1d1d1f;\n  --hero-sub: rgba(29,29,31,0.72);\n  --card-bg: rgba(255,255,255,0.65);\n  --card-border: rgba(0,0,0,0.08);\n  --feature-icon: #aeaeb2;\n  --toggle-bg: rgba(0,0,0,0.08);\n  --toggle-thumb: #ffffff;\n  --nav-bg: rgba(255,255,255,0.85);\n  --nav-border: rgba(0,0,0,0.08);\n  --pill-bg: rgba(0,113,227,0.08);\n  --pill-text: #0071e3;\n  --shadow-screenshot: 0 32px 80px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.10);\n  --vyb-grad: linear-gradient(150deg, #0071e3, #5e5ce6);\n\n  --mono: \"SF Mono\", ui-monospace, Menlo, Monaco, \"Cascadia Code\", \"Source Code Pro\", Consolas, monospace;\n  --system: -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Helvetica Neue\", sans-serif;\n}\n\n[data-theme=\"dark\"] {\n  color-scheme: dark;\n  --bg: #000000;\n  --surface: rgba(28,28,30,0.72);\n  --surface-border: rgba(255,255,255,0.08);\n  --text-primary: #f5f5f7;\n  --text-secondary: #a1a1a6;\n  --text-tertiary: #636366;\n  --accent: #2997ff;\n  --accent-hover: #409cff;\n  --hero-text: #f5f5f7;\n  --hero-sub: rgba(245,245,247,0.72);\n  --card-bg: rgba(28,28,30,0.6);\n  --card-border: rgba(255,255,255,0.08);\n  --feature-icon: #636366;\n  --toggle-bg: rgba(255,255,255,0.12);\n  --toggle-thumb: #ffffff;\n  --nav-bg: rgba(0,0,0,0.72);\n  --nav-border: rgba(255,255,255,0.08);\n  --pill-bg: rgba(41,151,255,0.12);\n  --pill-text: #2997ff;\n  --shadow-screenshot: 0 32px 80px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.4);\n}\n\n*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }\n\nhtml { scroll-behavior: smooth; background: var(--bg); }\n\nbody {\n  font-family: var(--mono);\n  background: var(--bg);\n  color: var(--text-primary);\n  line-height: 1.5;\n  -webkit-font-smoothing: antialiased;\n  transition: background .4s ease, color .4s ease;\n}\n\na { text-decoration: none; color: inherit; }\n\n/* ── NAV ───────────────────────────────────────────────── */\nnav {\n  position: fixed; top: 0; left: 0; right: 0; z-index: 100;\n  display: flex; align-items: center; justify-content: space-between;\n  padding: 0 32px; height: 52px;\n  background: var(--nav-bg);\n  border-bottom: 1px solid var(--nav-border);\n  backdrop-filter: blur(20px) saturate(180%);\n  -webkit-backdrop-filter: blur(20px) saturate(180%);\n  transition: background .4s, border-color .4s;\n}\n.nav-logo { display: flex; align-items: center; gap: 9px; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-primary); }\n.app-icon {\n  width: 27px; height: 27px; border-radius: 7px; flex-shrink: 0;\n  background: var(--vyb-grad);\n  display: flex; align-items: center; justify-content: center;\n  color: #fff; font-family: var(--system); font-weight: 700; font-size: 16px;\n  box-shadow: inset 0 0 0 .5px rgba(255,255,255,.25);\n}\n.nav-right { display: flex; align-items: center; gap: 20px; }\n.nav-link { font-size: 15px; color: var(--text-secondary); transition: color .2s; }\n.nav-link:hover { color: var(--text-primary); }\n.nav-buy-btn {\n  display: inline-flex; align-items: center; padding: 8px 17px;\n  background: var(--accent); color: #fff; border-radius: 6px;\n  font-size: 13px; font-weight: 600; border: none; cursor: pointer;\n  font-family: inherit; letter-spacing: -0.01em; white-space: nowrap;\n  transition: opacity .2s;\n}\n.nav-buy-btn:hover { opacity: .72; }\n@media (max-width: 767px) { .nav-link { display: none; } }\n\n/* theme toggle (sliding switch) */\n.theme-toggle {\n  position: relative; width: 44px; height: 26px;\n  background: var(--toggle-bg); border-radius: 13px; border: none;\n  cursor: pointer; transition: background .3s; flex-shrink: 0;\n}\n.theme-toggle::after {\n  content: ''; position: absolute; top: 3px; left: 3px;\n  width: 20px; height: 20px; border-radius: 50%; background: var(--toggle-thumb);\n  box-shadow: 0 1px 4px rgba(0,0,0,.25);\n  transition: transform .3s cubic-bezier(.34,1.56,.64,1);\n}\n[data-theme=\"dark\"] .theme-toggle::after { transform: translateX(18px); }\n.tt-icon { position: absolute; top: 50%; transform: translateY(-50%); font-size: 11px; pointer-events: none; transition: opacity .2s; }\n.tt-sun { left: 6px; opacity: 1; }\n.tt-moon { right: 5px; opacity: .5; }\n[data-theme=\"dark\"] .tt-sun { opacity: .5; }\n[data-theme=\"dark\"] .tt-moon { opacity: 1; }\n\n/* ── SHARED ────────────────────────────────────────────── */\n.section-inner { max-width: 1080px; }\n.section-eyebrow { font-size: 15px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }\n.section-title { font-size: 18px; font-weight: 400; line-height: 1.6; color: var(--hero-text); margin-bottom: 12px; }\n.section-subtitle { font-size: 18px; color: var(--text-secondary); line-height: 1.7; max-width: 60ch; }\n\nsection { padding: 40px 32px; border-top: 1px solid var(--surface-border); transition: background .4s; }\n\n.download-btn {\n  display: inline-flex; align-items: center; gap: 10px;\n  padding: 16px 32px; background: var(--text-primary); color: var(--bg);\n  border-radius: 6px; font-size: 17px; font-weight: 600; cursor: pointer;\n  border: none; font-family: inherit; transition: opacity .2s;\n}\n.download-btn:hover { opacity: .72; }\n.download-btn svg { flex-shrink: 0; }\n\n/* ── HERO ──────────────────────────────────────────────── */\n.hero {\n  border-top: none;\n  padding: 104px 32px 56px;\n  display: grid; grid-template-columns: minmax(0,1fr) minmax(0,440px);\n  gap: 48px; align-items: center;\n  max-width: 1144px; margin: 0 auto;\n}\n.hero-content { max-width: 560px; }\n.hero-title { font-size: 39px; font-weight: 600; line-height: 1.34; color: var(--hero-text); margin-bottom: 24px; }\n.hero-cursor { display: inline-block; width: 2px; height: 1em; background: currentColor; margin-left: 3px; vertical-align: text-bottom; animation: blink 1s step-start infinite; }\n@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }\n.hero-subtitle { font-size: 18px; color: var(--hero-sub); line-height: 1.6; margin: 0 0 36px; }\n.hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }\n.hero-note { margin-top: 14px; font-size: 14px; color: var(--hero-sub); opacity: .7; }\n.hero-note + .hero-note { margin-top: 4px; }\n\n.hero-visual { position: relative; display: flex; justify-content: center; }\n@media (max-width: 900px) {\n  .hero { grid-template-columns: 1fr; padding-top: 92px; }\n  .hero-visual { justify-content: flex-start; margin-top: 8px; }\n}\n\n/* ── DEVICE / iMESSAGE MOCK ────────────────────────────── */\n.phone {\n  position: relative; width: 300px; height: 624px;\n  border-radius: 50px; padding: 10px; flex-shrink: 0;\n  background: linear-gradient(160deg, #2a2a2e, #0c0c0e);\n  box-shadow:\n    0 2px 4px rgba(0,0,0,.5) inset, 0 0 0 2px rgba(255,255,255,.05) inset,\n    var(--shadow-screenshot);\n}\n.phone-screen { position: relative; width: 100%; height: 100%; border-radius: 41px; overflow: hidden; background: #fafafa; }\n.notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 96px; height: 27px; border-radius: 999px; background: #0a0a0c; z-index: 30; }\n.imsg { position: absolute; inset: 0; background: #fafafa; color: #1c1c1e; display: flex; flex-direction: column; font-family: var(--system); }\n.imsg-status { height: 46px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px 0 26px; font-size: 13px; font-weight: 600; color: #1c1c1e; }\n.imsg-status .dots { display: flex; align-items: center; gap: 5px; }\n.imsg-head { padding: 50px 14px 11px; text-align: center; border-bottom: .5px solid rgba(0,0,0,.06); background: rgba(250,250,250,.92); }\n.imsg-avatar { width: 46px; height: 46px; border-radius: 50%; margin: 0 auto 6px; background: var(--vyb-grad); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 21px; }\n.imsg-title { font-size: 14px; font-weight: 600; }\n.imsg-sub { font-size: 10.5px; color: rgba(28,28,30,.5); margin-top: 1px; }\n.imsg-body { flex: 1; padding: 12px 12px 16px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }\n.imsg-body > * { flex-shrink: 0; }\n.imsg-day { text-align: center; font-size: 10px; color: rgba(28,28,30,.4); font-weight: 600; margin: 2px 0 3px; }\n.bub { max-width: 80%; padding: 8px 12px; border-radius: 18px; font-size: 13px; line-height: 1.32; }\n.bub-in { align-self: flex-start; background: #e9e9eb; color: #1c1c1e; border-bottom-left-radius: 5px; }\n.bub-out { align-self: flex-end; background: #0a84ff; color: #fff; border-bottom-right-radius: 5px; }\n.bub-name { font-size: 9.5px; color: rgba(28,28,30,.45); margin: 3px 0 -4px 12px; font-weight: 600; }\n.prop { align-self: flex-start; width: 92%; background: #fff; border-radius: 16px; overflow: hidden; border: .5px solid rgba(0,0,0,.08); box-shadow: 0 8px 20px -8px rgba(20,16,40,.2); }\n.prop-top { display: flex; align-items: center; gap: 8px; padding: 10px 12px 8px; border-bottom: .5px solid rgba(0,0,0,.06); }\n.prop-mark { width: 21px; height: 21px; border-radius: 6px; background: var(--vyb-grad); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 11px; flex-shrink: 0; }\n.prop-kicker { font-size: 8px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: rgba(28,28,30,.45); }\n.prop-h { font-size: 13px; font-weight: 650; margin-top: 1px; }\n.prop-rows { padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; }\n.prop-row { display: flex; justify-content: space-between; font-size: 11px; }\n.prop-row span { color: rgba(28,28,30,.5); }\n.prop-row b { font-weight: 600; }\n.prop-cta { display: flex; gap: 6px; padding: 0 12px 12px; }\n.prop-confirm { flex: 1; height: 32px; border-radius: 9px; background: #34c759; color: #fff; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }\n.prop-later { width: 66px; height: 32px; border-radius: 9px; background: #f0f0f2; color: rgba(28,28,30,.6); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }\n.imsg-input { margin: 0 10px 12px; height: 34px; border-radius: 999px; border: .5px solid rgba(0,0,0,.12); display: flex; align-items: center; padding: 0 14px; color: rgba(28,28,30,.4); font-size: 12px; background: #fff; }\n\n/* floating overlay card (hero) */\n.float-card {\n  position: absolute; z-index: 4; width: 220px; right: -22px; bottom: 64px;\n  background: var(--card-bg); border: 1px solid var(--card-border);\n  border-radius: 16px; padding: 14px 16px; backdrop-filter: blur(24px) saturate(180%);\n  -webkit-backdrop-filter: blur(24px) saturate(180%);\n  box-shadow: var(--shadow-screenshot); font-family: var(--system);\n}\n.float-card .fc-kicker { font-size: 9px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }\n.float-card .fc-h { font-size: 14px; font-weight: 650; color: var(--text-primary); margin: 5px 0 8px; line-height: 1.25; }\n.float-card .fc-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-secondary); padding: 3px 0; border-top: .5px solid var(--surface-border); }\n.float-card .fc-row b { color: var(--text-primary); font-weight: 600; }\n@media (max-width: 460px) { .float-card { display: none; } }\n\n/* ── SEE IT IN ACTION (typed demo) ─────────────────────── */\n.demo-window {\n  margin-top: 28px; max-width: 760px;\n  border: 1px solid var(--surface-border); border-radius: 14px; overflow: hidden;\n  background: var(--card-bg); backdrop-filter: blur(20px);\n  box-shadow: var(--shadow-screenshot);\n}\n.demo-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--surface-border); }\n.demo-bar i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }\n.demo-bar .r { background: #ff5f57; } .demo-bar .y { background: #febc2e; } .demo-bar .g { background: #28c840; }\n.demo-bar span { margin-left: 8px; font-size: 11px; color: var(--text-tertiary); letter-spacing: .02em; }\n.demo-body { padding: 24px 24px 28px; font-size: 17px; line-height: 1.75; min-height: 210px; }\n.demo-ctx { color: var(--text-tertiary); }\n.demo-trigger-line { margin-top: 6px; }\n.demo-prompt { color: var(--accent); }\n.demo-trigger { color: var(--text-primary); }\n.demo-cursor { display: inline-block; width: 8px; height: 1.05em; background: var(--accent); vertical-align: text-bottom; margin-left: 1px; animation: blink 1s step-start infinite; }\n.demo-out { margin-top: 14px; padding-left: 14px; border-left: 2px solid var(--accent); color: var(--text-primary); white-space: pre-wrap; }\n.demo-tag { display: inline-block; font-size: 10px; font-weight: 600; font-family: var(--system); color: #fff; background: var(--accent); padding: 1px 7px; border-radius: 20px; margin-bottom: 8px; letter-spacing: .02em; }\n\n/* ── GROUP CHAT DEMO ───────────────────────────────────── */\n.chat-stage { margin-top: 32px; display: flex; justify-content: flex-start; }\n.chat-stage .phone { width: 320px; height: 668px; }\n\n/* ── FEATURES GRID ─────────────────────────────────────── */\n.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); column-gap: 48px; margin-top: 36px; }\n.feature-card { border-top: 1px solid var(--surface-border); padding: 26px 0; }\n.feature-icon { display: block; font-size: 21px; color: var(--feature-icon); margin-bottom: 12px; line-height: 1; }\n.feature-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 9px; }\n.feature-body { font-size: 17px; color: var(--text-secondary); line-height: 1.6; }\n.feature-body b { color: var(--text-primary); font-weight: 600; }\n\n/* ── SYNC / CARD SHOWCASE ──────────────────────────────── */\n.showcase { margin-top: 44px; display: flex; }\n.vcard {\n  position: relative; width: 420px; max-width: 100%; aspect-ratio: 1.586;\n  border-radius: 22px; padding: 26px; color: #fff; overflow: hidden;\n  background: linear-gradient(135deg, #0a1230 0%, #1f2350 48%, #2f2a6a 100%);\n  box-shadow: var(--shadow-screenshot); font-family: var(--system);\n  display: flex; flex-direction: column; justify-content: space-between;\n}\n.vcard::after { content:\"\"; position:absolute; inset:0; background: radial-gradient(120% 90% at 88% -10%, rgba(41,151,255,.5), transparent 60%); }\n.vcard-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }\n.vcard-wm { font-weight: 700; font-size: 22px; letter-spacing: -0.02em; }\n.vcard-chip { width: 38px; height: 28px; border-radius: 6px; background: linear-gradient(135deg,#e8c977,#b98d3e); opacity: .9; }\n.vcard-num { font-variant-numeric: tabular-nums; font-size: 15px; letter-spacing: .12em; position: relative; z-index: 2; }\n.vcard-bottom { display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 2; }\n.vcard-bottom .lbl { font-size: 8px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; opacity: .6; }\n.vcard-bottom .val { font-size: 12px; font-weight: 600; margin-top: 3px; }\n\n/* ── HOW IT WORKS ──────────────────────────────────────── */\n.steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; margin-top: 44px; }\n@media (max-width: 760px) { .steps { grid-template-columns: 1fr; gap: 26px; } }\n.step-number { font-size: 15px; font-weight: 700; color: var(--accent); letter-spacing: .5px; margin-bottom: 12px; font-variant-numeric: tabular-nums; }\n.step-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 9px; }\n.step-body { font-size: 17px; color: var(--text-secondary); line-height: 1.6; }\n.step-code { display: inline-block; font-family: var(--mono); font-size: 15px; background: var(--pill-bg); color: var(--pill-text); padding: 2px 8px; border-radius: 6px; margin-top: 8px; }\n\n/* ── FOOTER ────────────────────────────────────────────── */\nfooter { border-top: 1px solid var(--nav-border); padding: 48px 32px; transition: background .4s, border-color .4s; }\n.footer-inner { max-width: 1080px; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 40px; }\n.footer-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-primary); }\n.footer-brand .app-icon { width: 34px; height: 34px; border-radius: 8px; font-size: 19px; }\n.footer-meta { font-size: 14px; color: var(--text-tertiary); margin-top: 10px; }\n.footer-links { display: flex; gap: 24px; align-items: center; }\n.footer-links a { font-size: 14px; color: var(--text-tertiary); transition: color .2s; }\n.footer-links a:hover { color: var(--accent); }\n@media (max-width: 760px) { .footer-inner { flex-direction: column; align-items: flex-start; } }\n\n/* ── ANIMATIONS ────────────────────────────────────────── */\n@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }\n.fade-up { opacity: 0; animation: fadeUp .7s cubic-bezier(.22,1,.36,1) forwards; }\n.fade-up-1 { animation-delay: .05s; }\n.fade-up-2 { animation-delay: .15s; }\n.fade-up-3 { animation-delay: .28s; }\n.fade-up-4 { animation-delay: .42s; }\n.fade-up-5 { animation-delay: .56s; }\n[data-io] { opacity: 0; transform: translateY(28px); transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }\n[data-io].in { opacity: 1; transform: none; }\n@media (prefers-reduced-motion: reduce) {\n  .fade-up, [data-io] { opacity: 1 !important; transform: none !important; animation: none !important; }\n  .hero-cursor, .demo-cursor { animation: none; }\n  html { scroll-behavior: auto; }\n}\n<\u002Fstyle>\n<\u002Fhead>\n<body>\n\n\n\n<!-- NAV -->\n<nav>\n  <a href=\"#hero\" class=\"nav-logo\">\n    <span class=\"app-icon\">v<\u002Fspan>\n    vyb\n  <\u002Fa>\n  <div class=\"nav-right\">\n    <a href=\"#features\" class=\"nav-link\">Features<\u002Fa>\n    <a href=\"#how-it-works\" class=\"nav-link\">How it works<\u002Fa>\n    <a href=\"#get\" class=\"nav-buy-btn\">Get early access<\u002Fa>\n    <button class=\"theme-toggle\" id=\"themeToggle\" aria-label=\"Toggle dark mode\">\n      <span class=\"tt-icon tt-sun\">☀️<\u002Fspan>\n      <span class=\"tt-icon tt-moon\">🌙<\u002Fspan>\n    <\u002Fbutton>\n  <\u002Fdiv>\n<\u002Fnav>\n\n<!-- HERO -->\n<section class=\"hero\" id=\"hero\">\n  <div class=\"hero-content\">\n    <h1 class=\"hero-title fade-up fade-up-1\">Music Industry Infra and Artist OS.<br>Welcome to the modern musician's full stack.<span class=\"hero-cursor\"><\u002Fspan><\u002Fh1>\n    <p class=\"hero-subtitle fade-up fade-up-3\">VYB lives in your group chat, turning short messages into booked shows — with an AI Concierge that confirms bookings, syncs schedules, and settles money in every thread.<\u002Fp>\n    <div class=\"hero-actions fade-up fade-up-4\">\n      <a href=\"#get\" class=\"download-btn\">\n        <svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\"><path d=\"M5 10h10m0 0l-4-4m4 4l-4 4\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><\u002Fpath><\u002Fsvg>\n        Get early access\n      <\u002Fa>\n    <\u002Fdiv>\n    <p class=\"hero-note fade-up fade-up-5\">Free during early access · iPhone only · No subscription<\u002Fp>\n    <p class=\"hero-note fade-up fade-up-5\">Requires iOS 17 or later<\u002Fp>\n  <\u002Fdiv>\n\n  <div class=\"hero-visual fade-up fade-up-5\">\n    <div class=\"phone\">\n      <div class=\"phone-screen\">\n        <div class=\"notch\"><\u002Fdiv>\n        <div class=\"imsg\">\n          <div class=\"imsg-status\">\n            <span>9:41<\u002Fspan>\n            <span class=\"dots\">\n              <svg width=\"17\" height=\"11\" viewBox=\"0 0 17 11\" fill=\"#1c1c1e\"><rect x=\"0\" y=\"7\" width=\"3\" height=\"4\" rx=\"1\"><\u002Frect><rect x=\"4.5\" y=\"5\" width=\"3\" height=\"6\" rx=\"1\"><\u002Frect><rect x=\"9\" y=\"2.5\" width=\"3\" height=\"8.5\" rx=\"1\"><\u002Frect><rect x=\"13.5\" y=\"0\" width=\"3\" height=\"11\" rx=\"1\"><\u002Frect><\u002Fsvg>\n              <svg width=\"22\" height=\"11\" viewBox=\"0 0 25 12\" fill=\"none\"><rect x=\"0.5\" y=\"0.5\" width=\"21\" height=\"11\" rx=\"3\" stroke=\"#1c1c1e\" opacity=\"0.4\"><\u002Frect><rect x=\"2\" y=\"2\" width=\"16\" height=\"8\" rx=\"1.5\" fill=\"#1c1c1e\"><\u002Frect><rect x=\"23\" y=\"3.5\" width=\"1.5\" height=\"5\" rx=\"0.75\" fill=\"#1c1c1e\" opacity=\"0.4\"><\u002Frect><\u002Fsvg>\n            <\u002Fspan>\n          <\u002Fdiv>\n          <div class=\"imsg-head\">\n            <div class=\"imsg-avatar\">v<\u002Fdiv>\n            <div class=\"imsg-title\">Midwest Run · Tour Group<\u002Fdiv>\n            <div class=\"imsg-sub\">You, Mara, Dev, @vyb · 4 people<\u002Fdiv>\n          <\u002Fdiv>\n          <div class=\"imsg-body\">\n            <div class=\"imsg-day\">Today 9:38 AM<\u002Fdiv>\n            <div class=\"bub-name\">Mara · Manager<\u002Fdiv>\n            <div class=\"bub bub-in\">@vyb the Chicago promoter bumped their offer to $4,200 — can we take it?<\u002Fdiv>\n            <div class=\"prop\">\n              <div class=\"prop-top\">\n                <div class=\"prop-mark\">v<\u002Fdiv>\n                <div>\n                  <div class=\"prop-kicker\">Booking · needs confirm<\u002Fdiv>\n                  <div class=\"prop-h\">Metro Chicago · Fri Oct 17<\u002Fdiv>\n                <\u002Fdiv>\n              <\u002Fdiv>\n              <div class=\"prop-rows\">\n                <div class=\"prop-row\"><span>Guarantee<\u002Fspan><b>$4,200<\u002Fb><\u002Fdiv>\n                <div class=\"prop-row\"><span>Deposit<\u002Fspan><b>$1,260 · 30%<\u002Fb><\u002Fdiv>\n                <div class=\"prop-row\"><span>Routing<\u002Fspan><b>+38 mi · Milwaukee<\u002Fb><\u002Fdiv>\n              <\u002Fdiv>\n              <div class=\"prop-cta\">\n                <div class=\"prop-confirm\">\n                  <svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#fff\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"><\u002Fpolyline><\u002Fsvg>\n                  Confirm in app\n                <\u002Fdiv>\n                <div class=\"prop-later\">Hold<\u002Fdiv>\n              <\u002Fdiv>\n            <\u002Fdiv>\n            <div class=\"bub bub-out\">Confirmed ✓ on the calendar &amp; deposit queued.<\u002Fdiv>\n            <div class=\"imsg-input\">VYB is handling it…<\u002Fdiv>\n          <\u002Fdiv>\n        <\u002Fdiv>\n      <\u002Fdiv>\n    <\u002Fdiv>\n  <\u002Fdiv>\n<\u002Fsection>\n\n<!-- SEE IT IN ACTION -->\n<section id=\"action\">\n  <div class=\"section-inner\">\n    <p class=\"section-eyebrow\">In every thread, every time<\u002Fp>\n    <h2 class=\"section-title\">See it in action.<\u002Fh2>\n    <div class=\"demo-window\" id=\"demoWindow\">\n      <div class=\"demo-bar\"><i class=\"r\"><\u002Fi><i class=\"y\"><\u002Fi><i class=\"g\"><\u002Fi><span>Midwest Run · Tour Group<\u002Fspan><\u002Fdiv>\n      <div class=\"demo-body\">\n        <div class=\"demo-ctx\" id=\"demoCtx\"><\u002Fdiv>\n        <div class=\"demo-trigger-line\"><span class=\"demo-prompt\">@vyb&nbsp;<\u002Fspan><span class=\"demo-trigger\" id=\"demoTrigger\"><\u002Fspan><span class=\"demo-cursor\" id=\"demoCursor\"><\u002Fspan><\u002Fdiv>\n        <div class=\"demo-out\" id=\"demoOut\" style=\"display:none;\"><\u002Fdiv>\n      <\u002Fdiv>\n    <\u002Fdiv>\n  <\u002Fdiv>\n<\u002Fsection>\n\n<!-- LIVES IN YOUR GROUP CHAT -->\n<section id=\"demo\">\n  <div class=\"section-inner\">\n    <p class=\"section-eyebrow\">Always there<\u002Fp>\n    <h2 class=\"section-title\">Lives in your group chat.<\u002Fh2>\n    <p class=\"section-subtitle\">Drop the VYB number into your tour thread. One message to confirm a booking, move the schedule, or settle a show — and it gets out of the way the rest of the time.<\u002Fp>\n\n    <div class=\"chat-stage\" data-io=\"\">\n      <div class=\"phone\">\n        <div class=\"phone-screen\">\n          <div class=\"notch\"><\u002Fdiv>\n          <div class=\"imsg\">\n            <div class=\"imsg-status\">\n              <span>9:41<\u002Fspan>\n              <span class=\"dots\">\n                <svg width=\"17\" height=\"11\" viewBox=\"0 0 17 11\" fill=\"#1c1c1e\"><rect x=\"0\" y=\"7\" width=\"3\" height=\"4\" rx=\"1\"><\u002Frect><rect x=\"4.5\" y=\"5\" width=\"3\" height=\"6\" rx=\"1\"><\u002Frect><rect x=\"9\" y=\"2.5\" width=\"3\" height=\"8.5\" rx=\"1\"><\u002Frect><rect x=\"13.5\" y=\"0\" width=\"3\" height=\"11\" rx=\"1\"><\u002Frect><\u002Fsvg>\n                <svg width=\"22\" height=\"11\" viewBox=\"0 0 25 12\" fill=\"none\"><rect x=\"0.5\" y=\"0.5\" width=\"21\" height=\"11\" rx=\"3\" stroke=\"#1c1c1e\" opacity=\"0.4\"><\u002Frect><rect x=\"2\" y=\"2\" width=\"16\" height=\"8\" rx=\"1.5\" fill=\"#1c1c1e\"><\u002Frect><rect x=\"23\" y=\"3.5\" width=\"1.5\" height=\"5\" rx=\"0.75\" fill=\"#1c1c1e\" opacity=\"0.4\"><\u002Frect><\u002Fsvg>\n              <\u002Fspan>\n            <\u002Fdiv>\n            <div class=\"imsg-head\">\n              <div class=\"imsg-avatar\">v<\u002Fdiv>\n              <div class=\"imsg-title\">Midwest Run · Tour Group<\u002Fdiv>\n              <div class=\"imsg-sub\">Concierge active · 4 people<\u002Fdiv>\n            <\u002Fdiv>\n            <div class=\"imsg-body\">\n              <div class=\"imsg-day\">Today 8:02 AM<\u002Fdiv>\n              <div class=\"bub-name\">Dev · Tour Manager<\u002Fdiv>\n              <div class=\"bub bub-in\">van's making bad noises, can we push lobby call to 11?<\u002Fdiv>\n              <div class=\"prop\">\n                <div class=\"prop-top\">\n                  <div class=\"prop-mark\">v<\u002Fdiv>\n                  <div>\n                    <div class=\"prop-kicker\">Schedule · auto-applied<\u002Fdiv>\n                    <div class=\"prop-h\">Lobby call → 11:00 AM<\u002Fdiv>\n                  <\u002Fdiv>\n                <\u002Fdiv>\n                <div class=\"prop-rows\">\n                  <div class=\"prop-row\"><span>Affects<\u002Fspan><b>6 crew · 1 van<\u002Fb><\u002Fdiv>\n                  <div class=\"prop-row\"><span>Calendars<\u002Fspan><b>Updated<\u002Fb><\u002Fdiv>\n                  <div class=\"prop-row\"><span>Revert window<\u002Fspan><b>24 hours<\u002Fb><\u002Fdiv>\n                <\u002Fdiv>\n              <\u002Fdiv>\n              <div class=\"bub bub-out\">Done — everyone's calendar moved. I'll watch the soundcheck buffer.<\u002Fdiv>\n              <div class=\"imsg-input\">iMessage<\u002Fdiv>\n            <\u002Fdiv>\n          <\u002Fdiv>\n        <\u002Fdiv>\n      <\u002Fdiv>\n    <\u002Fdiv>\n  <\u002Fdiv>\n<\u002Fsection>\n\n<!-- FEATURES -->\n<section id=\"features\">\n  <div class=\"section-inner\">\n    <p class=\"section-eyebrow\">Features<\u002Fp>\n    <h2 class=\"section-title\">Purpose-built.<br>No overhead.<\u002Fh2>\n    <p class=\"section-subtitle\">Small, fast, and out of the way. The Concierge proposes the move; you tap to confirm. Nothing money-related happens behind your back.<\u002Fp>\n\n    <div class=\"features-grid\">\n      <div class=\"feature-card\" data-io=\"\">\n        <span class=\"feature-icon\">@<\u002Fspan>\n        <h3 class=\"feature-title\">iMessage Concierge<\u002Fh3>\n        <p class=\"feature-body\">Tag <b>@vyb<\u002Fb> in the thread, or let it passively catch booking and schedule signals, and it replies with a proposal card.<\u002Fp>\n      <\u002Fdiv>\n      <div class=\"feature-card\" data-io=\"\">\n        <span class=\"feature-icon\">✓<\u002Fspan>\n        <h3 class=\"feature-title\">Tap-to-confirm money<\u002Fh3>\n        <p class=\"feature-body\">Every payment needs one explicit tap in the app. The Concierge can propose, but the confirm tap is the legal record.<\u002Fp>\n      <\u002Fdiv>\n      <div class=\"feature-card\" data-io=\"\">\n        <span class=\"feature-icon\">▭<\u002Fspan>\n        <h3 class=\"feature-title\">The VYB Card<\u002Fh3>\n        <p class=\"feature-body\">Issue virtual team cards, set per-person spend caps, and push them straight into Apple Wallet for the road.<\u002Fp>\n      <\u002Fdiv>\n      <div class=\"feature-card\" data-io=\"\">\n        <span class=\"feature-icon\">⇅<\u002Fspan>\n        <h3 class=\"feature-title\">Live calendar sync<\u002Fh3>\n        <p class=\"feature-body\">A schedule change in the chat writes straight to everyone's calendar — with a 24-hour revert window, just in case.<\u002Fp>\n      <\u002Fdiv>\n      <div class=\"feature-card\" data-io=\"\">\n        <span class=\"feature-icon\">≡<\u002Fspan>\n        <h3 class=\"feature-title\">Bidding queue<\u002Fh3>\n        <p class=\"feature-body\">Holds, formal offers and routing math in one place. Accept a bid and the deposit flow kicks off automatically.<\u002Fp>\n      <\u002Fdiv>\n      <div class=\"feature-card\" data-io=\"\">\n        <span class=\"feature-icon\">¶<\u002Fspan>\n        <h3 class=\"feature-title\">VYB Talk briefs<\u002Fh3>\n        <p class=\"feature-body\">A persona-scoped synthesis of the entire tour chat — so everyone gets the version of \"what's happening\" that's theirs.<\u002Fp>\n      <\u002Fdiv>\n      <div class=\"feature-card\" data-io=\"\">\n        <span class=\"feature-icon\">◎<\u002Fspan>\n        <h3 class=\"feature-title\">Live map<\u002Fh3>\n        <p class=\"feature-body\">Crew, flights and venues on one moving map — with location scope that defaults to the people who need it.<\u002Fp>\n      <\u002Fdiv>\n      <div class=\"feature-card\" data-io=\"\">\n        <span class=\"feature-icon\">♪<\u002Fspan>\n        <h3 class=\"feature-title\">VYB Listen<\u002Fh3>\n        <p class=\"feature-body\">Share mixes with linear version control and time-coded comments on the playhead. Grant listen, edit, or none.<\u002Fp>\n      <\u002Fdiv>\n      <div class=\"feature-card\" data-io=\"\">\n        <span class=\"feature-icon\">★<\u002Fspan>\n        <h3 class=\"feature-title\">Venue trust scores<\u002Fh3>\n        <p class=\"feature-body\">Honest, attributed-safe ratings on every room — so the team knows what they're walking into before load-in.<\u002Fp>\n      <\u002Fdiv>\n    <\u002Fdiv>\n  <\u002Fdiv>\n<\u002Fsection>\n\n<!-- SYNC / CARD -->\n<section id=\"sync\">\n  <div class=\"section-inner\">\n    <p class=\"section-eyebrow\">Sync &amp; the Card<\u002Fp>\n    <h2 class=\"section-title\">Your tour,<br>everywhere.<\u002Fh2>\n    <p class=\"section-subtitle\" style=\"margin-bottom: 8px;\">Every confirmation syncs to the schedule, the calendar, and the VYB Card in under half a second — across every device on the tour.<\u002Fp>\n    <div class=\"showcase\" data-io=\"\">\n      <div class=\"vcard\">\n        <div class=\"vcard-top\">\n          <span class=\"vcard-wm\">vyb<\u002Fspan>\n          <span class=\"vcard-chip\"><\u002Fspan>\n        <\u002Fdiv>\n        <div class=\"vcard-num\">4242&nbsp;&nbsp;7741&nbsp;&nbsp;0098&nbsp;&nbsp;2210<\u002Fdiv>\n        <div class=\"vcard-bottom\">\n          <div><div class=\"lbl\">Cardholder<\u002Fdiv><div class=\"val\">D. OKAFOR · TOUR MGR<\u002Fdiv><\u002Fdiv>\n          <div style=\"text-align:right;\"><div class=\"lbl\">Cap / day<\u002Fdiv><div class=\"val\">$600<\u002Fdiv><\u002Fdiv>\n        <\u002Fdiv>\n      <\u002Fdiv>\n    <\u002Fdiv>\n  <\u002Fdiv>\n<\u002Fsection>\n\n<!-- HOW IT WORKS -->\n<section id=\"how-it-works\">\n  <div class=\"section-inner\">\n    <p class=\"section-eyebrow\">How it works<\u002Fp>\n    <h2 class=\"section-title\">Set up in four steps.<\u002Fh2>\n    <p class=\"section-subtitle\">Four steps and the Concierge is running your tour — no migration, no new app for the team to learn.<\u002Fp>\n\n    <div class=\"steps\">\n      <div class=\"step\" data-io=\"\">\n        <div class=\"step-number\">01<\u002Fdiv>\n        <h3 class=\"step-title\">Add the number<\u002Fh3>\n        <p class=\"step-body\">Drop the VYB number into your tour's iMessage group, the same way you'd add any teammate.<\u002Fp>\n      <\u002Fdiv>\n      <div class=\"step\" data-io=\"\">\n        <div class=\"step-number\">02<\u002Fdiv>\n        <h3 class=\"step-title\">Tag the Concierge<\u002Fh3>\n        <p class=\"step-body\">Ask for what you need, or just keep talking — VYB catches booking and schedule signals.<br><span class=\"step-code\">@vyb<\u002Fspan><\u002Fp>\n      <\u002Fdiv>\n      <div class=\"step\" data-io=\"\">\n        <div class=\"step-number\">03<\u002Fdiv>\n        <h3 class=\"step-title\">Review the card<\u002Fh3>\n        <p class=\"step-body\">VYB replies in-thread with a clear proposal: the booking, the change, the cost — laid out to review.<\u002Fp>\n      <\u002Fdiv>\n      <div class=\"step\" data-io=\"\">\n        <div class=\"step-number\">04<\u002Fdiv>\n        <h3 class=\"step-title\">Confirm anywhere<\u002Fh3>\n        <p class=\"step-body\">One tap in iMessage or the app. The whole tour updates live.<br><span class=\"step-code\">tap to confirm<\u002Fspan><\u002Fp>\n      <\u002Fdiv>\n    <\u002Fdiv>\n  <\u002Fdiv>\n<\u002Fsection>\n\n<!-- CTA -->\n<section id=\"get\">\n  <div class=\"section-inner\">\n    <p class=\"section-eyebrow\">Get VYB<\u002Fp>\n    <h2 class=\"section-title\">Every booking,<br>one tap.<\u002Fh2>\n    <p class=\"section-subtitle\" style=\"margin-bottom: 36px;\">Rolling out to touring teams now · No invite code required.<\u002Fp>\n    <a href=\"#get\" class=\"download-btn\">\n      <svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\"><path d=\"M5 10h10m0 0l-4-4m4 4l-4 4\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><\u002Fpath><\u002Fsvg>\n      Get early access\n    <\u002Fa>\n    <p style=\"margin-top:16px; font-size:17px; font-weight:500; color:var(--text-secondary);\">Free during early access · iPhone only · No subscription<\u002Fp>\n    <p style=\"margin-top:8px; font-size:15px; color:var(--text-tertiary);\">Requires iOS 17 or later · Sign in with Apple<\u002Fp>\n  <\u002Fdiv>\n<\u002Fsection>\n\n<!-- FOOTER -->\n<footer>\n  <div class=\"footer-inner\">\n    <div>\n      <div class=\"footer-brand\"><span class=\"app-icon\">v<\u002Fspan> vyb<\u002Fdiv>\n      <div class=\"footer-meta\">© 2026 VYB · THIS IS A HTTPS PRODUCT<\u002Fdiv>\n    <\u002Fdiv>\n    <div class=\"footer-links\">\n      <a href=\"#features\">Features<\u002Fa>\n      <a href=\"#\">Security<\u002Fa>\n      <a href=\"#\">Privacy<\u002Fa>\n      <a href=\"#\">Contact<\u002Fa>\n    <\u002Fdiv>\n  <\u002Fdiv>\n<\u002Ffooter>\n\n<script src=\"8fca1f5f-7f59-418d-9127-d4247bd057d4\"><\u002Fscript>\n\n\n<\u002Fbody><\u002Fhtml>"
-  </script>
-</body>
-</html>
+    <p class="ent-flow-head" data-io="">A to Z, connected</p>
+    <h3 class="ent-flow-title" data-io="">From the first invoice to the final settlement, VYB makes sure you never miss a beat.</h3>
+
+    <div class="flow-diagram" data-io="">
+      <svg viewBox="0 0 760 760" aria-hidden="true">
+        <!-- spokes -->
+        <line class="fd-spoke" x1="380" y1="380" x2="380" y2="110"></line>
+        <line class="fd-spoke" x1="380" y1="380" x2="613.8" y2="245"></line>
+        <line class="fd-spoke" x1="380" y1="380" x2="613.8" y2="515"></line>
+        <line class="fd-spoke" x1="380" y1="380" x2="380" y2="650"></line>
+        <line class="fd-spoke" x1="380" y1="380" x2="146.2" y2="515"></line>
+        <line class="fd-spoke" x1="380" y1="380" x2="146.2" y2="245"></line>
+        <!-- ring -->
+        <circle class="fd-ring" cx="380" cy="380" r="270"></circle>
+        <path class="fd-track" d="M 380 110 A 270 270 0 0 1 380 650 A 270 270 0 0 1 380 110"></path>
+        <!-- travelling pulse -->
+        <circle class="fd-pulse" r="6">
+          <animateMotion dur="9s" repeatCount="indefinite" rotate="auto" path="M 380 110 A 270 270 0 0 1 380 650 A 270 270 0 0 1 380 110"></animateMotion>
+        </circle>
+      </svg>
+
+      <div class="fd-hub">
+        <span class="hub-mark">vyb</span>
+        <span class="hub-sub">Ops engine</span>
+      </div>
+
+      <div class="fd-node" style="left:50%; top:14.5%;">
+        <div class="fd-badge">1</div>
+        <div class="fd-name">Accounts payable</div>
+        <div class="fd-sub">Invoices captured &amp; queued</div>
+      </div>
+      <div class="fd-node" style="left:80.8%; top:32.2%;">
+        <div class="fd-badge">2</div>
+        <div class="fd-name">Vendor onboarding</div>
+        <div class="fd-sub">W-9s, banking, compliance</div>
+      </div>
+      <div class="fd-node" style="left:80.8%; top:67.8%;">
+        <div class="fd-badge">3</div>
+        <div class="fd-name">Tax reporting</div>
+        <div class="fd-sub">1099s filed automatically</div>
+      </div>
+      <div class="fd-node" style="left:50%; top:85.5%;">
+        <div class="fd-badge">4</div>
+        <div class="fd-name">Contractor payouts</div>
+        <div class="fd-sub">Paid on confirmation</div>
+      </div>
+      <div class="fd-node" style="left:19.2%; top:67.8%;">
+        <div class="fd-badge">5</div>
+        <div class="fd-name">Artist settlements</div>
+        <div class="fd-sub">Splits reconciled night-of</div>
+      </div>
+      <div class="fd-node" style="left:19.2%; top:32.2%;">
+        <div class="fd-badge">6</div>
+        <div class="fd-name">Multi-entity accounting</div>
+        <div class="fd-sub">One ledger per entity</div>
+      </div>
+    </div>
+    <div class="ent-flow" data-io="">
+      <div class="flow-item">
+        <span class="flow-step">01</span>
+        <div>
+          <div class="flow-name">Accounts payable automation</div>
+          <div class="flow-desc">Invoices captured, matched, and queued for one-tap approval — no manual entry.</div>
+        </div>
+      </div>
+      <div class="flow-item">
+        <span class="flow-step">02</span>
+        <div>
+          <div class="flow-name">Vendor onboarding</div>
+          <div class="flow-desc">Collect W-9s, banking, and compliance docs the moment a vendor joins the network.</div>
+        </div>
+      </div>
+      <div class="flow-item">
+        <span class="flow-step">03</span>
+        <div>
+          <div class="flow-name">Tax reporting (1099s)</div>
+          <div class="flow-desc">Year-end 1099s generated and filed automatically from the payouts already on record.</div>
+        </div>
+      </div>
+      <div class="flow-item">
+        <span class="flow-step">04</span>
+        <div>
+          <div class="flow-name">Contractor payouts</div>
+          <div class="flow-desc">Crew, techs, and freelancers paid on confirmation — to the account they chose.</div>
+        </div>
+      </div>
+      <div class="flow-item">
+        <span class="flow-step">05</span>
+        <div>
+          <div class="flow-name">Artist settlements</div>
+          <div class="flow-desc">Night-of splits reconciled against the deal and settled the moment the show wraps.</div>
+        </div>
+      </div>
+      <div class="flow-item">
+        <span class="flow-step">06</span>
+        <div>
+          <div class="flow-name">Multi-entity accounting</div>
+          <div class="flow-desc">Every entity, tour, and room kept on its own ledger — rolled up into one clean view.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO VYBS WELL -->
+<section id="who">
+  <div class="section-inner">
+    <p class="section-eyebrow">Who VYBs Well</p>
+    <h2 class="section-title">Built for the rooms<br>that run live events.</h2>
+    <p class="section-subtitle">Wherever events get booked, settled, and run at volume, VYB keeps the whole operation on the beat.</p>
+
+    <div class="steps">
+      <div class="step" data-io="">
+        <div class="step-number">01</div>
+        <h3 class="step-title">Hotels</h3>
+        <p class="step-body">Program residencies, lobby sets, and in-house events across every property — all on one schedule and ledger.</p>
+      </div>
+      <div class="step" data-io="">
+        <div class="step-number">02</div>
+        <h3 class="step-title">Hospitality groups</h3>
+        <p class="step-body">Coordinate talent and entertainment programming across a portfolio of venues from a single source of truth.</p>
+      </div>
+      <div class="step" data-io="">
+        <div class="step-number">03</div>
+        <h3 class="step-title">Stadiums</h3>
+        <p class="step-body">Run high-stakes settlements and vendor payouts at arena scale, with an audit trail on every confirmation.</p>
+      </div>
+      <div class="step" data-io="">
+        <div class="step-number">04</div>
+        <h3 class="step-title">Large-scale venues</h3>
+        <p class="step-body">Manage holds, offers, and routing for a packed calendar — the Concierge keeps every date moving.</p>
+      </div>
+      <div class="step" data-io="">
+        <div class="step-number">05</div>
+        <h3 class="step-title">Restaurants</h3>
+        <p class="step-body">Book talent for dinner service and private events, settle the night, and pay vendors on confirmation.</p>
+      </div>
+      <div class="step" data-io="">
+        <div class="step-number">06</div>
+        <h3 class="step-title">Clubs</h3>
+        <p class="step-body">Lock DJs and artists, handle deposits and night-of splits, and track venue reputation across the network.</p>
+      </div>
+      <div class="step" data-io="">
+        <div class="step-number">07</div>
+        <h3 class="step-title">Booking agents</h3>
+        <p class="step-body">Work the hold queue, routing math, and offers across a whole roster — every deal settled and tracked end to end.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="get">
+  <div class="section-inner">
+    <p class="section-eyebrow">Get VYB</p>
+    <h2 class="section-title">Every booking,<br>one tap.</h2>
+    <p class="section-subtitle" style="margin-bottom: 36px;">Rolling out to touring teams now · Invite Code Required.</p>
+    <a href="#get" class="download-btn">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10h10m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      Get early access
+    </a>
+    <p style="margin-top:16px; font-size:17px; font-weight:500; color:var(--text-secondary);">Free during early access · iPhone only · No subscription</p>
+    <p style="margin-top:8px; font-size:15px; color:var(--text-tertiary);">Requires iOS 17 or later · Sign in with Apple</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand"><span class="app-icon">v</span> vyb</div>
+      <div class="footer-meta">© 2026 VYB · THIS IS A HTTPS PRODUCT</div>
+    </div>
+    <div class="footer-links">
+      <a href="#features">Features</a>
+      <a href="#">Security</a>
+      <a href="#">Privacy</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="da0ee7a1-0d31-4f9e-9c87-23535c54fa5c"></script>
+
+
+</body></html>
