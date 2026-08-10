@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff" id="themeColorMeta">
+<meta name="color-scheme" content="light dark">
+<title>VYB Pulse — Artist development &amp; financial infrastructure</title>
+<meta name="description" content="VYB Pulse is VYB's artist development initiative: non-recoupable development capital, mentorship and the VYB financial stack for a small cohort of independent artists. No equity, nothing recouped.">
+<meta property="og:title" content="VYB Pulse — Artist development &amp; financial infrastructure">
+<meta property="og:description" content="VYB Pulse is VYB's artist development initiative: non-recoupable development capital, mentorship and the VYB financial stack for a small cohort of independent artists. No equity, nothing recouped.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vybapp.io/pulse">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://vybapp.io/pulse">
+<style>/* ============================================================
+   VYB — marketing site, modeled exactly on typexp.app/#features
+   Monospace (SF Mono) · white canvas · Apple-blue accent ·
+   small understated type · left-aligned · bordered sections.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: rgba(255,255,255,0.72);
+  --surface-border: rgba(0,0,0,0.08);
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --text-tertiary: #aeaeb2;
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --hero-text: #1d1d1f;
+  --hero-sub: rgba(29,29,31,0.72);
+  --card-bg: rgba(255,255,255,0.65);
+  --card-border: rgba(0,0,0,0.08);
+  --feature-icon: #aeaeb2;
+  --toggle-bg: rgba(0,0,0,0.08);
+  --toggle-thumb: #ffffff;
+  --nav-bg: rgba(255,255,255,0.85);
+  --nav-border: rgba(0,0,0,0.08);
+  --pill-bg: rgba(0,113,227,0.08);
+  --pill-text: #0071e3;
+  --shadow-screenshot: 0 32px 80px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.10);
+  --vyb-grad: linear-gradient(150deg, #0071e3, #5e5ce6);
+
+  --mono: "SF Mono", ui-monospace, Menlo, Monaco, "Cascadia Code", "Source Code Pro", Consolas, monospace;
+  --system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #000000;
+  --surface: rgba(28,28,30,0.72);
+  --surface-border: rgba(255,255,255,0.08);
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1a6;
+  --text-tertiary: #636366;
+  --accent: #2997ff;
+  --accent-hover: #409cff;
+  --hero-text: #f5f5f7;
+  --hero-sub: rgba(245,245,247,0.72);
+  --card-bg: rgba(28,28,30,0.6);
+  --card-border: rgba(255,255,255,0.08);
+  --feature-icon: #636366;
+  --toggle-bg: rgba(255,255,255,0.12);
+  --toggle-thumb: #ffffff;
+  --nav-bg: rgba(0,0,0,0.72);
+  --nav-border: rgba(255,255,255,0.08);
+  --pill-bg: rgba(41,151,255,0.12);
+  --pill-text: #2997ff;
+  --shadow-screenshot: 0 32px 80px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; background: var(--bg); }
+
+body {
+  font-family: var(--mono);
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background .4s ease, color .4s ease;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── NAV ───────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 52px;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-border);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transition: background .4s, border-color .4s;
+}
+.nav-logo { display: flex; align-items: center; gap: 9px; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-primary); }
+.app-icon {
+  width: 27px; height: 27px; border-radius: 7px; flex-shrink: 0;
+  background: var(--vyb-grad);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-family: var(--system); font-weight: 700; font-size: 16px;
+  box-shadow: inset 0 0 0 .5px rgba(255,255,255,.25);
+}
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-link { font-size: 15px; color: var(--text-secondary); transition: color .2s; }
+.nav-link:hover { color: var(--text-primary); }
+.nav-buy-btn {
+  display: inline-flex; align-items: center; padding: 8px 17px;
+  background: var(--accent); color: #fff; border-radius: 6px;
+  font-size: 13px; font-weight: 600; border: none; cursor: pointer;
+  font-family: inherit; letter-spacing: -0.01em; white-space: nowrap;
+  transition: opacity .2s;
+}
+.nav-buy-btn:hover { opacity: .72; }
+@media (max-width: 767px) { .nav-link { display: none; } }
+
+/* theme toggle (sliding switch) */
+.theme-toggle {
+  position: relative; width: 44px; height: 26px;
+  background: var(--toggle-bg); border-radius: 13px; border: none;
+  cursor: pointer; transition: background .3s; flex-shrink: 0;
+}
+.theme-toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 20px; height: 20px; border-radius: 50%; background: var(--toggle-thumb);
+  box-shadow: 0 1px 4px rgba(0,0,0,.25);
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+[data-theme="dark"] .theme-toggle::after { transform: translateX(18px); }
+.tt-icon { position: absolute; top: 50%; transform: translateY(-50%); font-size: 11px; pointer-events: none; transition: opacity .2s; }
+.tt-sun { left: 6px; opacity: 1; }
+.tt-moon { right: 5px; opacity: .5; }
+[data-theme="dark"] .tt-sun { opacity: .5; }
+[data-theme="dark"] .tt-moon { opacity: 1; }
+
+/* ── SHARED ────────────────────────────────────────────── */
+.section-inner { max-width: 1080px; margin: 0 auto; }
+.section-eyebrow { font-size: 15px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.section-title { font-size: 18px; font-weight: 400; line-height: 1.6; color: var(--hero-text); margin-bottom: 12px; }
+.section-subtitle { font-size: 18px; color: var(--text-secondary); line-height: 1.7; max-width: 60ch; }
+
+section { padding: 40px 32px; border-top: 1px solid var(--surface-border); transition: background .4s; }
+
+.download-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 32px; background: var(--text-primary); color: var(--bg);
+  border-radius: 6px; font-size: 17px; font-weight: 600; cursor: pointer;
+  border: none; font-family: inherit; transition: opacity .2s;
+}
+.download-btn:hover { opacity: .72; }
+.download-btn svg { flex-shrink: 0; }
+
+/* ── HERO ──────────────────────────────────────────────── */
+.hero {
+  border-top: none;
+  padding: 104px 32px 56px;
+  display: grid; grid-template-columns: minmax(0,1fr) minmax(0,440px);
+  gap: 48px; align-items: center;
+  max-width: 1144px; margin: 0 auto;
+}
+.hero-content { max-width: 560px; }
+.hero-title { font-size: 39px; font-weight: 600; line-height: 1.34; color: var(--hero-text); margin-bottom: 24px; }
+.hero-cursor { display: inline-block; width: 2px; height: 1em; background: currentColor; margin-left: 3px; vertical-align: text-bottom; animation: blink 1s step-start infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+.hero-subtitle { font-size: 18px; color: var(--hero-sub); line-height: 1.6; margin: 0 0 36px; }
+.hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.hero-note { margin-top: 14px; font-size: 14px; color: var(--hero-sub); opacity: .7; }
+.hero-note + .hero-note { margin-top: 4px; }
+
+.hero-visual { position: relative; display: flex; justify-content: center; }
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding-top: 92px; }
+  .hero-visual { justify-content: flex-start; margin-top: 8px; }
+}
+
+/* ── DEVICE / iMESSAGE MOCK ────────────────────────────── */
+.phone {
+  position: relative; width: 300px; height: 624px;
+  border-radius: 50px; padding: 10px; flex-shrink: 0;
+  background: linear-gradient(160deg, #2a2a2e, #0c0c0e);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,.5) inset, 0 0 0 2px rgba(255,255,255,.05) inset,
+    var(--shadow-screenshot);
+}
+.phone-screen { position: relative; width: 100%; height: 100%; border-radius: 41px; overflow: hidden; background: #fafafa; }
+.notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 96px; height: 27px; border-radius: 999px; background: #0a0a0c; z-index: 30; }
+.imsg { position: absolute; inset: 0; background: #fafafa; color: #1c1c1e; display: flex; flex-direction: column; font-family: var(--system); }
+.imsg-status { height: 46px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px 0 26px; font-size: 13px; font-weight: 600; color: #1c1c1e; }
+.imsg-status .dots { display: flex; align-items: center; gap: 5px; }
+.imsg-head { padding: 50px 14px 11px; text-align: center; border-bottom: .5px solid rgba(0,0,0,.06); background: rgba(250,250,250,.92); }
+.imsg-avatar { width: 46px; height: 46px; border-radius: 50%; margin: 0 auto 6px; background: var(--vyb-grad); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 21px; }
+.imsg-title { font-size: 14px; font-weight: 600; }
+.imsg-sub { font-size: 10.5px; color: rgba(28,28,30,.5); margin-top: 1px; }
+.imsg-body { flex: 1; padding: 12px 12px 16px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+.imsg-body > * { flex-shrink: 0; }
+.imsg-day { text-align: center; font-size: 10px; color: rgba(28,28,30,.4); font-weight: 600; margin: 2px 0 3px; }
+.bub { max-width: 80%; padding: 8px 12px; border-radius: 18px; font-size: 13px; line-height: 1.32; }
+.bub-in { align-self: flex-start; background: #e9e9eb; color: #1c1c1e; border-bottom-left-radius: 5px; }
+.bub-out { align-self: flex-end; background: #0a84ff; color: #fff; border-bottom-right-radius: 5px; }
+.bub-name { font-size: 9.5px; color: rgba(28,28,30,.45); margin: 3px 0 -4px 12px; font-weight: 600; }
+.prop { align-self: flex-start; width: 92%; background: #fff; border-radius: 16px; overflow: hidden; border: .5px solid rgba(0,0,0,.08); box-shadow: 0 8px 20px -8px rgba(20,16,40,.2); }
+.prop-top { display: flex; align-items: center; gap: 8px; padding: 10px 12px 8px; border-bottom: .5px solid rgba(0,0,0,.06); }
+.prop-mark { width: 21px; height: 21px; border-radius: 6px; background: var(--vyb-grad); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 11px; flex-shrink: 0; }
+.prop-kicker { font-size: 8px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: rgba(28,28,30,.45); }
+.prop-h { font-size: 13px; font-weight: 650; margin-top: 1px; }
+.prop-rows { padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; }
+.prop-row { display: flex; justify-content: space-between; font-size: 11px; }
+.prop-row span { color: rgba(28,28,30,.5); }
+.prop-row b { font-weight: 600; }
+.prop-cta { display: flex; gap: 6px; padding: 0 12px 12px; }
+.prop-confirm { flex: 1; height: 32px; border-radius: 9px; background: #34c759; color: #fff; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }
+.prop-later { width: 66px; height: 32px; border-radius: 9px; background: #f0f0f2; color: rgba(28,28,30,.6); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.imsg-input { margin: 0 10px 12px; height: 34px; border-radius: 999px; border: .5px solid rgba(0,0,0,.12); display: flex; align-items: center; padding: 0 14px; color: rgba(28,28,30,.4); font-size: 12px; background: #fff; }
+
+/* floating overlay card (hero) */
+.float-card {
+  position: absolute; z-index: 4; width: 220px; right: -22px; bottom: 64px;
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: 16px; padding: 14px 16px; backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: var(--shadow-screenshot); font-family: var(--system);
+}
+.float-card .fc-kicker { font-size: 9px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.float-card .fc-h { font-size: 14px; font-weight: 650; color: var(--text-primary); margin: 5px 0 8px; line-height: 1.25; }
+.float-card .fc-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-secondary); padding: 3px 0; border-top: .5px solid var(--surface-border); }
+.float-card .fc-row b { color: var(--text-primary); font-weight: 600; }
+@media (max-width: 460px) { .float-card { display: none; } }
+
+/* ── SEE IT IN ACTION (typed demo) ─────────────────────── */
+.demo-window {
+  margin-top: 28px; max-width: 760px;
+  border: 1px solid var(--surface-border); border-radius: 14px; overflow: hidden;
+  background: var(--card-bg); backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-screenshot);
+}
+.demo-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--surface-border); }
+.demo-bar i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.demo-bar .r { background: #ff5f57; } .demo-bar .y { background: #febc2e; } .demo-bar .g { background: #28c840; }
+.demo-bar span { margin-left: 8px; font-size: 11px; color: var(--text-tertiary); letter-spacing: .02em; }
+.demo-body { padding: 24px 24px 28px; font-size: 17px; line-height: 1.75; min-height: 210px; }
+.demo-ctx { color: var(--text-tertiary); }
+.demo-trigger-line { margin-top: 6px; }
+.demo-prompt { color: var(--accent); }
+.demo-trigger { color: var(--text-primary); }
+.demo-cursor { display: inline-block; width: 8px; height: 1.05em; background: var(--accent); vertical-align: text-bottom; margin-left: 1px; animation: blink 1s step-start infinite; }
+.demo-out { margin-top: 14px; padding-left: 14px; border-left: 2px solid var(--accent); color: var(--text-primary); white-space: pre-wrap; }
+.demo-tag { display: inline-block; font-size: 10px; font-weight: 600; font-family: var(--system); color: #fff; background: var(--accent); padding: 1px 7px; border-radius: 20px; margin-bottom: 8px; letter-spacing: .02em; }
+
+/* ── GROUP CHAT DEMO ───────────────────────────────────── */
+.chat-stage { margin-top: 32px; display: flex; justify-content: flex-start; }
+.chat-stage .phone { width: 320px; height: 668px; }
+
+/* ── FEATURES GRID ─────────────────────────────────────── */
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); column-gap: 48px; margin-top: 36px; }
+.feature-card { border-top: 1px solid var(--surface-border); padding: 26px 0; }
+.feature-icon { display: block; font-size: 21px; color: var(--feature-icon); margin-bottom: 12px; line-height: 1; }
+.feature-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 9px; }
+.feature-body { font-size: 17px; color: var(--text-secondary); line-height: 1.6; }
+.feature-body b { color: var(--text-primary); font-weight: 600; }
+
+/* ── SYNC / CARD SHOWCASE ──────────────────────────────── */
+.showcase { margin-top: 44px; display: flex; }
+.vcard {
+  position: relative; width: 420px; max-width: 100%; aspect-ratio: 1.586;
+  border-radius: 22px; padding: 26px; color: #fff; overflow: hidden;
+  background: linear-gradient(135deg, #0a1230 0%, #1f2350 48%, #2f2a6a 100%);
+  box-shadow: var(--shadow-screenshot); font-family: var(--system);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.vcard::after { content:""; position:absolute; inset:0; background: radial-gradient(120% 90% at 88% -10%, rgba(41,151,255,.5), transparent 60%); }
+.vcard-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }
+.vcard-wm { font-weight: 700; font-size: 22px; letter-spacing: -0.02em; }
+.vcard-chip { width: 38px; height: 28px; border-radius: 6px; background: linear-gradient(135deg,#e8c977,#b98d3e); opacity: .9; }
+.vcard-num { font-variant-numeric: tabular-nums; font-size: 15px; letter-spacing: .12em; position: relative; z-index: 2; }
+.vcard-bottom { display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 2; }
+.vcard-bottom .lbl { font-size: 8px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; opacity: .6; }
+.vcard-bottom .val { font-size: 12px; font-weight: 600; margin-top: 3px; }
+
+/* ── HOW IT WORKS ──────────────────────────────────────── */
+.steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; margin-top: 44px; }
+.steps.steps-5 { grid-template-columns: repeat(5,1fr); gap: 26px; }
+.steps.steps-6 { grid-template-columns: repeat(3,1fr); gap: 32px 26px; }
+@media (max-width: 980px) { .steps.steps-5 { grid-template-columns: repeat(3,1fr); } }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr; gap: 26px; } .steps.steps-5, .steps.steps-6 { grid-template-columns: 1fr; } }
+.step-number { font-size: 15px; font-weight: 700; color: var(--accent); letter-spacing: .5px; margin-bottom: 12px; font-variant-numeric: tabular-nums; }
+.step-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 9px; }
+.step-body { font-size: 17px; color: var(--text-secondary); line-height: 1.6; }
+.step-code { display: inline-block; font-family: var(--mono); font-size: 15px; background: var(--pill-bg); color: var(--pill-text); padding: 2px 8px; border-radius: 6px; margin-top: 8px; }
+
+/* ── VYB FOR ENTERPRISE ────────────────────────────────── */
+.ent-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; margin-top: 40px; border-top: 1px solid var(--surface-border); }
+@media (max-width: 760px) { .ent-grid { grid-template-columns: 1fr; } }
+.ent-card { padding: 30px 28px 30px 0; border-bottom: 1px solid var(--surface-border); }
+.ent-card + .ent-card { padding-left: 28px; border-left: 1px solid var(--surface-border); }
+@media (max-width: 760px) { .ent-card + .ent-card { padding-left: 0; border-left: none; } }
+.ent-stat { font-size: 40px; font-weight: 600; line-height: 1; letter-spacing: -0.02em; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.ent-stat .unit { font-size: 22px; color: var(--accent); margin-left: 2px; }
+.ent-label { font-size: 13px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--accent); margin: 16px 0 9px; }
+.ent-body { font-size: 16px; color: var(--text-secondary); line-height: 1.65; }
+.ent-body b { color: var(--text-primary); font-weight: 600; }
+.ent-foot { margin-top: 30px; font-size: 16px; color: var(--text-secondary); line-height: 1.7; max-width: 70ch; }
+.ent-foot b { color: var(--text-primary); font-weight: 600; }
+
+/* A-to-Z finance flow */
+.ent-flow-head { margin-top: 44px; font-size: 13px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--accent); }
+.ent-flow-title { margin-top: 9px; font-size: 18px; font-weight: 400; line-height: 1.6; color: var(--hero-text); }
+.ent-flow { margin-top: 24px; display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--surface-border); border: 1px solid var(--surface-border); border-radius: 12px; overflow: hidden; }
+@media (max-width: 760px) { .ent-flow { grid-template-columns: 1fr; } }
+.flow-item { background: var(--bg); padding: 20px 22px; display: flex; gap: 14px; align-items: flex-start; transition: background .25s; }
+.flow-item:hover { background: var(--pill-bg); }
+.flow-step { font-size: 13px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; flex-shrink: 0; padding-top: 2px; min-width: 22px; }
+.flow-name { font-size: 16px; font-weight: 600; color: var(--text-primary); line-height: 1.35; }
+.flow-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-top: 3px; }
+
+/* ── A-to-Z ORBITAL DIAGRAM ────────────────────────────── */
+.flow-diagram { position: relative; width: 100%; max-width: 680px; margin: 28px auto 8px; aspect-ratio: 1 / 1; }
+.flow-diagram svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.fd-ring { fill: none; stroke: var(--surface-border); stroke-width: 1.5; }
+.fd-track { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 60 1636; opacity: .9; animation: fdOrbit 9s linear infinite; }
+@keyframes fdOrbit { to { stroke-dashoffset: -1696; } }
+.fd-spoke { stroke: var(--surface-border); stroke-width: 1.5; stroke-dasharray: 3 5; }
+.fd-pulse { fill: var(--accent); }
+
+.fd-node {
+  position: absolute; transform: translate(-50%, -50%);
+  width: 156px; display: flex; flex-direction: column; align-items: center; gap: 7px;
+  text-align: center;
+}
+.fd-badge {
+  width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg); border: 1.5px solid var(--accent); color: var(--accent);
+  font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 5px var(--bg); position: relative; z-index: 2;
+  transition: transform .25s, background .25s, color .25s;
+}
+.fd-node:hover .fd-badge { background: var(--accent); color: #fff; transform: scale(1.08); }
+.fd-name { font-size: 13px; font-weight: 600; color: var(--text-primary); line-height: 1.3; letter-spacing: -0.01em; }
+.fd-sub { font-size: 11px; color: var(--text-secondary); line-height: 1.35; }
+
+.fd-hub {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 132px; height: 132px; border-radius: 50%; z-index: 3;
+  background: var(--vyb-grad); color: #fff;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  box-shadow: 0 18px 50px -16px rgba(0,113,227,.6), inset 0 0 0 1px rgba(255,255,255,.2), 0 0 0 8px var(--bg);
+}
+.fd-hub .hub-mark { font-family: var(--system); font-size: 34px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+.fd-hub .hub-sub { font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+
+@media (max-width: 600px) {
+  .flow-diagram { max-width: 440px; }
+  .fd-node { width: 104px; }
+  .fd-name { font-size: 11px; }
+  .fd-sub { display: none; }
+  .fd-badge { width: 34px; height: 34px; font-size: 13px; }
+  .fd-hub { width: 96px; height: 96px; }
+  .fd-hub .hub-mark { font-size: 26px; }
+}
+@media (prefers-reduced-motion: reduce) { .fd-track { animation: none; } .fd-pulse { display: none; } }
+
+/* ── FOOTER ────────────────────────────────────────────── */
+footer { border-top: 1px solid var(--nav-border); padding: 48px 32px; transition: background .4s, border-color .4s; }
+.footer-inner { max-width: 1080px; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
+.footer-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-primary); }
+.footer-brand .app-icon { width: 34px; height: 34px; border-radius: 8px; font-size: 19px; }
+.footer-meta { font-size: 14px; color: var(--text-tertiary); margin-top: 10px; }
+.footer-links { display: flex; gap: 24px; align-items: center; }
+.footer-links a { font-size: 14px; color: var(--text-tertiary); transition: color .2s; }
+.footer-links a:hover { color: var(--accent); }
+@media (max-width: 760px) { .footer-inner { flex-direction: column; align-items: flex-start; } }
+
+/* ── ANIMATIONS ────────────────────────────────────────── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.fade-up { opacity: 0; animation: fadeUp .7s cubic-bezier(.22,1,.36,1) forwards; }
+.fade-up-1 { animation-delay: .05s; }
+.fade-up-2 { animation-delay: .15s; }
+.fade-up-3 { animation-delay: .28s; }
+.fade-up-4 { animation-delay: .42s; }
+.fade-up-5 { animation-delay: .56s; }
+[data-io] { opacity: 0; transform: translateY(28px); transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+[data-io].in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, [data-io] { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .hero-cursor, .demo-cursor { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+
+/* VYB Payfac stack — The Engine */
+#engine .pf-stack { max-width: 760px; margin-top: 44px; }
+#engine .pf-band { border: 1px solid var(--card-border); background: var(--card-bg); border-radius: 16px; padding: 18px 20px; }
+#engine .pf-label { display: block; font: 600 12px/1.3 var(--mono); text-transform: uppercase; letter-spacing: .8px; color: var(--text-tertiary); margin-bottom: 12px; }
+#engine .pf-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+#engine .pf-chip { font: 600 14px/1.2 var(--mono); color: var(--pill-text); background: var(--pill-bg); border-radius: 999px; padding: 9px 14px; }
+#engine .pf-chip-muted { color: var(--text-secondary); background: var(--toggle-bg); }
+#engine .pf-arrow { color: var(--text-tertiary); font-size: 20px; line-height: 1; text-align: center; margin: 10px 0; }
+#engine .pf-core { border-color: var(--accent); }
+#engine .pf-label-on { color: var(--accent); font-size: 13px; margin-bottom: 6px; }
+#engine .pf-core-sub { font-size: 16px; font-weight: 500; color: var(--text-primary); margin-bottom: 16px; }
+#engine .pf-trio { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+#engine .pf-k { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 5px; }
+#engine .pf-d { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+#engine .pf-bar-s { font-size: 16px; color: var(--text-secondary); line-height: 1.55; }
+@media (max-width: 760px) { #engine .pf-trio { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   /pulse — VYB Pulse
+   Secondary layout: full-bleed dark hero + sticky section rail.
+   Deliberately distinct from the index page's stacked sections.
+   ============================================================ */
+
+.pl-page { --pl-measure: 68ch; }
+
+/* nav sits transparent over the dark hero, then solidifies on scroll */
+body.nav-over nav {
+  background: transparent; border-bottom-color: transparent; backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+body.nav-over .nav-logo { color: #f5f5f7; }
+body.nav-over .nav-link { color: rgba(255,255,255,0.70); }
+body.nav-over .nav-link:hover { color: #f5f5f7; }
+body.nav-over .theme-toggle { background: rgba(255,255,255,0.20); }
+nav, .nav-logo, .nav-link, .theme-toggle { transition: background .25s, color .25s, border-color .25s; }
+
+/* ---------- full-bleed dark hero ---------- */
+.pl-hero {
+  background: #000;
+  color: #f5f5f7;
+  padding: 132px 32px 72px;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+.pl-hero-inner { max-width: 1140px; margin: 0 auto; }
+.pl-kicker {
+  font-size: 13px; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 26px;
+}
+.pl-hero h1 {
+  font-size: 58px; font-weight: 600; line-height: 1.14; letter-spacing: -.025em;
+  color: #f5f5f7; max-width: 22ch; margin-bottom: 28px;
+}
+.pl-hero .pl-sub {
+  font-size: 20px; line-height: 1.65; color: #a1a1a6; max-width: 62ch;
+}
+.pl-hero-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 38px; }
+.pl-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--accent); color: #fff;
+  font-size: 16px; font-weight: 600;
+  padding: 15px 26px; border-radius: 980px;
+  transition: background .2s, transform .2s;
+}
+.pl-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.pl-btn-ghost {
+  display: inline-flex; align-items: center;
+  font-size: 16px; font-weight: 500; color: #a1a1a6;
+  padding: 15px 4px; transition: color .2s;
+}
+.pl-btn-ghost:hover { color: #f5f5f7; }
+
+/* hero stat strip */
+.pl-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  margin-top: 64px; border-top: 1px solid rgba(255,255,255,0.14);
+}
+.pl-strip div { padding: 26px 24px 0 0; }
+.pl-strip .n { font-size: 34px; font-weight: 600; letter-spacing: -.02em; color: #f5f5f7; line-height: 1.05; white-space: nowrap; }
+.pl-strip .u { display: block; font-size: 13px; font-weight: 400; letter-spacing: .4px; text-transform: uppercase; color: #6e6e73; margin-top: 9px; white-space: normal; }
+.pl-strip .l { font-size: 14px; line-height: 1.55; color: #8e8e93; margin-top: 12px; max-width: 26ch; }
+
+/* ---------- two-column shell with sticky rail ---------- */
+.pl-shell {
+  display: grid; grid-template-columns: 208px minmax(0, 1fr);
+  gap: 72px; max-width: 1140px; margin: 0 auto; padding: 0 32px 40px;
+}
+.pl-rail { position: sticky; top: 92px; align-self: start; padding-top: 60px; }
+.pl-rail-h {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase;
+  color: var(--text-tertiary); margin-bottom: 18px;
+}
+.pl-rail a {
+  display: flex; gap: 12px; align-items: baseline;
+  font-size: 14px; line-height: 1.4; color: var(--text-secondary);
+  padding: 8px 0; border-left: 2px solid transparent; padding-left: 14px;
+  margin-left: -16px; transition: color .2s, border-color .2s;
+}
+.pl-rail a .i { font-size: 11px; color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+.pl-rail a:hover { color: var(--text-primary); }
+.pl-rail a.on { color: var(--accent); border-left-color: var(--accent); }
+.pl-rail a.on .i { color: var(--accent); }
+
+/* ---------- sections inside the main column ---------- */
+.pl-main { padding-top: 0; }
+section.pl-sec { padding: 60px 0; border-top: 1px solid var(--surface-border); scroll-margin-top: 88px; }
+section.pl-sec:first-child { border-top: none; }
+.pl-sec-num {
+  font-size: 12px; font-weight: 700; letter-spacing: 1.8px;
+  color: var(--accent); margin-bottom: 16px; font-variant-numeric: tabular-nums;
+}
+.pl-h {
+  font-size: 32px; font-weight: 600; line-height: 1.24; letter-spacing: -.02em;
+  color: var(--hero-text); margin-bottom: 16px; max-width: 32ch;
+}
+.pl-lede { font-size: 18px; line-height: 1.7; color: var(--text-secondary); max-width: var(--pl-measure); }
+.pl-lede b { color: var(--hero-text); font-weight: 600; }
+.pl-note { font-size: 13px; line-height: 1.7; color: var(--text-tertiary); margin-top: 26px; max-width: var(--pl-measure); }
+
+/* ---------- numbered list rows (the model, the journey) ---------- */
+.pl-rows { margin-top: 34px; border-top: 1px solid var(--surface-border); }
+.pl-row {
+  display: grid; grid-template-columns: 44px minmax(0,210px) minmax(0,1fr);
+  gap: 24px; align-items: start;
+  padding: 22px 0; border-bottom: 1px solid var(--surface-border);
+}
+.pl-row .r-i { font-size: 13px; font-weight: 700; color: var(--accent); padding-top: 4px; font-variant-numeric: tabular-nums; }
+.pl-row .r-t { font-size: 17px; font-weight: 600; color: var(--hero-text); line-height: 1.4; }
+.pl-row .r-d { font-size: 15px; line-height: 1.65; color: var(--text-secondary); }
+.pl-row .r-d b { color: var(--hero-text); font-weight: 600; }
+
+/* ---------- grant panel ---------- */
+.pl-grant {
+  display: grid; grid-template-columns: minmax(0,300px) minmax(0,1fr);
+  gap: 36px; margin-top: 34px; align-items: start;
+}
+.pl-grant-box {
+  border: 1px solid var(--card-border); border-radius: 18px; padding: 26px;
+  background: var(--card-bg);
+}
+.pl-grant-box .amt { font-size: 36px; font-weight: 600; letter-spacing: -.025em; color: var(--hero-text); line-height: 1.05; }
+.pl-grant-box .amt-sub { font-size: 14px; line-height: 1.65; color: var(--text-secondary); margin-top: 12px; }
+.pl-sub-h { font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 14px; }
+
+.pl-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.pl-chip {
+  font-size: 14px; line-height: 1.2; color: var(--text-secondary);
+  background: var(--pill-bg); border: 1px solid var(--card-border);
+  border-radius: 999px; padding: 9px 14px;
+}
+
+/* ---------- terms: three stacked statements ---------- */
+.pl-terms { margin-top: 34px; }
+.pl-term {
+  display: grid; grid-template-columns: minmax(0,190px) minmax(0,1fr);
+  gap: 32px; padding: 26px 0; border-top: 1px solid var(--surface-border); align-items: start;
+}
+.pl-term .t-n { font-size: 32px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); line-height: 1.05; }
+.pl-term .t-n span { display: block; font-size: 13px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--accent); margin-top: 8px; }
+.pl-term .t-b { font-size: 16px; line-height: 1.7; color: var(--text-secondary); }
+.pl-term .t-b b { color: var(--hero-text); font-weight: 600; }
+.pl-term .t-b .t-h { display: block; font-size: 16px; font-weight: 600; color: var(--hero-text); margin-bottom: 8px; }
+
+/* ---------- passport ---------- */
+.pl-pass { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 16px; margin-top: 34px; }
+.pl-pass-col { border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; background: var(--card-bg); }
+.pl-pass-col h3 { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.pl-pass-col ul { list-style: none; }
+.pl-pass-col li { font-size: 14px; line-height: 1.5; color: var(--text-secondary); padding: 7px 0; border-top: 1px solid var(--surface-border); }
+.pl-pass-col li:first-child { border-top: none; padding-top: 0; }
+
+.pl-quotes { margin-top: 22px; border-left: 2px solid var(--accent); padding: 4px 0 4px 24px; }
+.pl-quotes q { display: block; font-size: 17px; line-height: 1.6; color: var(--hero-text); font-style: normal; padding: 9px 0; }
+.pl-quotes q + q { border-top: 1px solid var(--surface-border); }
+
+/* ---------- tiers ---------- */
+.pl-tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr)); gap: 16px; margin-top: 34px; }
+.pl-tier { border: 1px solid var(--card-border); border-radius: 16px; padding: 22px; background: var(--card-bg); }
+.pl-tier .t { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.pl-tier .c { font-size: 24px; font-weight: 600; color: var(--hero-text); letter-spacing: -.02em; }
+.pl-tier .g { font-size: 14px; color: var(--text-secondary); margin-top: 7px; }
+.pl-tier .d { font-size: 14px; color: var(--text-tertiary); margin-top: 14px; line-height: 1.6; }
+
+/* ---------- partners / cta ---------- */
+.pl-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 30px; margin-top: 34px; }
+.pl-col h3 { font-size: 16px; font-weight: 600; color: var(--hero-text); margin-bottom: 10px; }
+.pl-col p { font-size: 15px; line-height: 1.65; color: var(--text-secondary); }
+
+.pl-cta { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 16px; margin-top: 34px; }
+.pl-cta-card { border: 1px solid var(--card-border); border-radius: 16px; padding: 22px; background: var(--card-bg); display: flex; flex-direction: column; }
+.pl-cta-card h3 { font-size: 16px; font-weight: 600; color: var(--hero-text); margin-bottom: 8px; }
+.pl-cta-card p { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 18px; flex: 1; }
+.pl-cta-card a { font-size: 15px; font-weight: 600; color: var(--accent); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1000px) {
+  .pl-shell { grid-template-columns: 1fr; gap: 0; }
+  .pl-rail { display: none; }
+  .pl-hero h1 { font-size: 44px; }
+  .pl-strip { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  .pl-hero { padding: 108px 24px 56px; }
+  .pl-hero h1 { font-size: 34px; max-width: none; }
+  .pl-hero .pl-sub { font-size: 18px; }
+  .pl-shell { padding: 0 24px 32px; }
+  .pl-h { font-size: 25px; }
+  .pl-row { grid-template-columns: 30px minmax(0,1fr); gap: 14px; }
+  .pl-row .r-d { grid-column: 2; }
+  .pl-grant { grid-template-columns: 1fr; gap: 24px; }
+  .pl-term { grid-template-columns: 1fr; gap: 12px; }
+}
+@media (max-width: 480px) {
+  .pl-strip { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">
+    <span class="app-icon">v</span>
+    vyb
+  </a>
+  <div class="nav-right">
+    <a href="/#features" class="nav-link">Features</a>
+    <a href="/#enterprise" class="nav-link">Enterprise</a>
+    <a href="/pulse" class="nav-link" aria-current="page">VYB Pulse</a>
+    <a href="mailto:blake@vybapp.io?subject=VYB%20Pulse" class="nav-buy-btn">Register interest</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <span class="tt-icon tt-sun">☀️</span>
+      <span class="tt-icon tt-moon">🌙</span>
+    </button>
+  </div>
+</nav>
+
+<div class="pl-page">
+
+<!-- ============ HERO ============ -->
+<header class="pl-hero" id="top">
+  <div class="pl-hero-inner">
+    <p class="pl-kicker">VYB Pulse</p>
+    <h1>Artist development, with the financial infrastructure attached.</h1>
+    <p class="pl-sub">Most programmes hand an artist a cheque and wish them luck. VYB Pulse provides development capital <em>and</em> the financial stack underneath it — so the artist doesn't just fund the next project, they build the business that outlives it.</p>
+    <div class="pl-hero-actions">
+      <a href="mailto:blake@vybapp.io?subject=VYB%20Pulse%20—%20artist%20interest" class="pl-btn">Register interest →</a>
+      <a href="#partners" class="pl-btn-ghost">Partner with the programme</a>
+    </div>
+
+    <div class="pl-strip">
+      <div><div class="n">10<span class="u">artists</span></div><div class="l">A deliberately small first cohort.</div></div>
+      <div><div class="n">$15–25K<span class="u">per artist</span></div><div class="l">Development capital, paid as a grant.</div></div>
+      <div><div class="n">0<span class="u">% equity</span></div><div class="l">No stake in you, your masters, or your catalogue.</div></div>
+      <div><div class="n">100<span class="u">% non-recoupable</span></div><div class="l">Not a loan. Not an advance. Nothing is paid back.</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ SHELL: RAIL + MAIN ============ -->
+<div class="pl-shell">
+
+  <aside class="pl-rail">
+    <div class="pl-rail-h">The programme</div>
+    <div id="plRail" class="pl-rail-nav">
+      <a href="#model"><span class="i">01</span> The model</a>
+      <a href="#package"><span class="i">02</span> What you receive</a>
+      <a href="#journey"><span class="i">03</span> The journey</a>
+      <a href="#terms"><span class="i">04</span> The terms</a>
+      <a href="#passport"><span class="i">05</span> The passport</a>
+      <a href="#tiers"><span class="i">06</span> Where it goes</a>
+      <a href="#report"><span class="i">07</span> Research</a>
+      <a href="#partners"><span class="i">08</span> Partners</a>
+      <a href="#involved"><span class="i">09</span> Get involved</a>
+    </div>
+  </aside>
+
+  <main class="pl-main">
+
+    <!-- 01 THE MODEL -->
+    <section class="pl-sec" id="model">
+      <div class="pl-sec-num">01 — THE MODEL</div>
+      <h2 class="pl-h">Five things every artist in the cohort receives.</h2>
+      <p class="pl-lede">Capital gets attention. Infrastructure is what actually changes the trajectory — because it's still there in year three.</p>
+
+      <div class="pl-rows">
+        <div class="pl-row" data-io=""><div class="r-i">01</div><div class="r-t">Capital</div><div class="r-d">A <b>non-recoupable development grant</b> to fund the record, the run, the visuals — whatever the next step actually is.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">02</div><div class="r-t">Infrastructure</div><div class="r-d">The VYB financial stack: accounts, payments, reconciliation and settlement, running the real money behind the work.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">03</div><div class="r-t">Intelligence</div><div class="r-d">Data and analytics on the business — what a room really pays, which markets carry themselves, where the margin goes.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">04</div><div class="r-t">Development</div><div class="r-d">Mentors, operators and industry experts who have already solved the problem in front of you.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">05</div><div class="r-t">Distribution</div><div class="r-d">Access to VYB's network of venues, festivals, promoters and brands — introductions that turn into dates.</div></div>
+      </div>
+    </section>
+
+    <!-- 02 WHAT YOU RECEIVE -->
+    <section class="pl-sec" id="package">
+      <div class="pl-sec-num">02 — WHAT YOU RECEIVE</div>
+      <h2 class="pl-h">The grant is the headline. The stack is the point.</h2>
+      <p class="pl-lede">Every cohort artist is set up on VYB with their team from day one — not handed a login and left to it.</p>
+
+      <div class="pl-grant">
+        <div class="pl-grant-box" data-io="">
+          <div class="amt">$15K–$25K</div>
+          <div class="amt-sub">Development capital, paid as a grant. No equity, no royalty participation, no claim on your masters, and nothing recouped from future earnings.</div>
+        </div>
+        <div data-io="">
+          <div class="pl-sub-h">Plus the infrastructure</div>
+          <div class="pl-chips">
+            <span class="pl-chip">VYB account &amp; team access</span>
+            <span class="pl-chip">Financial dashboard</span>
+            <span class="pl-chip">Revenue tracking</span>
+            <span class="pl-chip">Tour economics</span>
+            <span class="pl-chip">Payment reconciliation</span>
+            <span class="pl-chip">Budgeting</span>
+            <span class="pl-chip">Cash-flow analysis</span>
+            <span class="pl-chip">Sponsorship tracking</span>
+            <span class="pl-chip">Vendor payments</span>
+            <span class="pl-chip">Artist &amp; team payments</span>
+            <span class="pl-chip">Financial education</span>
+            <span class="pl-chip">Industry mentorship</span>
+          </div>
+          <p class="pl-lede" style="margin-top:22px;">The grant funds a moment. <b>The infrastructure compounds</b> — every show, settlement and sponsorship you run through it makes the picture of your business sharper.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 THE JOURNEY -->
+    <section class="pl-sec" id="journey">
+      <div class="pl-sec-num">03 — THE JOURNEY</div>
+      <h2 class="pl-h">From selection to a business that runs itself.</h2>
+
+      <div class="pl-rows">
+        <div class="pl-row" data-io=""><div class="r-i">01</div><div class="r-t">Selected</div><div class="r-d">A small cohort, chosen for the work and for the point in the career where infrastructure changes the outcome.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">02</div><div class="r-t">Capital</div><div class="r-d">Development capital lands as a grant — yours, unconditionally, to spend on the next step.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">03</div><div class="r-t">Infrastructure</div><div class="r-d">You and your team are set up on VYB: accounts, dashboard, payment rails, reconciliation.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">04</div><div class="r-t">Development</div><div class="r-d">Mentorship, financial education and market access — with introductions into the network.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">05</div><div class="r-t">Compounding</div><div class="r-d">Shows, merch, sponsorship and licensing flow through the stack. The picture gets sharper every month.</div></div>
+      </div>
+    </section>
+
+    <!-- 04 THE TERMS -->
+    <section class="pl-sec" id="terms">
+      <div class="pl-sec-num">04 — THE TERMS</div>
+      <h2 class="pl-h">What we don't take.</h2>
+      <p class="pl-lede">A development programme that quietly takes a piece of the artist isn't development. It's a deal with a nicer name.</p>
+
+      <div class="pl-terms">
+        <div class="pl-term" data-io="">
+          <div class="t-n">0%<span>equity</span></div>
+          <div class="t-b"><span class="t-h">No stake in you</span>No equity in your business, no share of your masters, no participation in your publishing or catalogue. <b>You own what you make</b>, exactly as you did before.</div>
+        </div>
+        <div class="pl-term" data-io="">
+          <div class="t-n">100%<span>non-recoupable</span></div>
+          <div class="t-b"><span class="t-h">Nothing is paid back</span>The grant is philanthropic support, not an advance. It isn't recouped from touring, streaming or any other income. <b>There's no balance to work off.</b></div>
+        </div>
+        <div class="pl-term" data-io="">
+          <div class="t-n">2<span>separate entities</span></div>
+          <div class="t-b"><span class="t-h">Structurally separate</span>Grants are made through an appropriately structured non-profit, held deliberately separate from VYB's commercial business — <b>so support stays support</b>, and the two are never confused.</div>
+        </div>
+      </div>
+
+      <p class="pl-lede" style="margin-top:26px;">VYB earns the ordinary way — payment processing, software and services, on the same commercial terms as any other customer. <b>We do well when your business grows</b>, not by taking a piece of it.</p>
+    </section>
+
+    <!-- 05 PASSPORT -->
+    <section class="pl-sec" id="passport">
+      <div class="pl-sec-num">05 — THE ARTIST FINANCIAL PASSPORT</div>
+      <h2 class="pl-h">A financial operating system for your career.</h2>
+      <p class="pl-lede">Every cohort artist gets a living financial profile — one place where the whole economics of the work resolves, instead of living across a manager's spreadsheet, a shoebox of settlements and a bank app.</p>
+
+      <div class="pl-pass">
+        <div class="pl-pass-col" data-io=""><h3>Revenue</h3><ul><li>Live</li><li>Streaming</li><li>Merchandise</li><li>Licensing</li><li>Sponsorship</li><li>Other</li></ul></div>
+        <div class="pl-pass-col" data-io=""><h3>Costs</h3><ul><li>Production</li><li>Touring</li><li>Management</li><li>Marketing</li><li>Personnel</li><li>Travel</li></ul></div>
+        <div class="pl-pass-col" data-io=""><h3>Performance</h3><ul><li>Revenue per show</li><li>Profit per show</li><li>Revenue per city</li><li>Audience growth</li><li>Repeat bookings</li><li>Conversion</li></ul></div>
+        <div class="pl-pass-col" data-io=""><h3>Financial health</h3><ul><li>Cash flow</li><li>Burn</li><li>Runway</li><li>Outstanding receivables</li><li>Settlement time</li></ul></div>
+      </div>
+
+      <div class="pl-quotes" data-io="">
+        <q>You're losing 17% of gross tour revenue to production costs.</q>
+        <q>Chicago generated 2.3× the contribution margin of Los Angeles.</q>
+        <q>Your current routing produces $42K less profit than the alternative.</q>
+      </div>
+      <p class="pl-note">Illustrative of the kind of insight the passport is designed to surface once enough of an artist's activity runs through it.</p>
+    </section>
+
+    <!-- 06 WHERE IT GOES -->
+    <section class="pl-sec" id="tiers">
+      <div class="pl-sec-num">06 — WHERE IT GOES</div>
+      <h2 class="pl-h">A pipeline, not a one-off.</h2>
+      <p class="pl-lede">The intention is to stay with artists as they grow, rather than fund one moment and disappear. Over time VYB Pulse is designed to run as three connected tiers.</p>
+
+      <div class="pl-tiers">
+        <div class="pl-tier" data-io=""><div class="t">Emerging</div><div class="c">~10 artists</div><div class="g">$10K–$15K grants</div><div class="d">The entry cohort — capital, infrastructure and the first real view of the business.</div></div>
+        <div class="pl-tier" data-io=""><div class="t">Breakthrough</div><div class="c">~5 artists</div><div class="g">$25K–$50K grants</div><div class="d">Artists with traction, scaling touring and team — where routing and cash flow start to decide everything.</div></div>
+        <div class="pl-tier" data-io=""><div class="t">Vanguard</div><div class="c">1–3 artists</div><div class="g">$50K–$100K+ project funding</div><div class="d">Ambitious projects that need real production capital behind them.</div></div>
+      </div>
+
+      <p class="pl-lede" style="margin-top:26px;">Alongside the cohorts: fellowships, residencies, educational programming, technology access, and partnerships with festivals, universities and cultural institutions.</p>
+    </section>
+
+    <!-- 07 RESEARCH -->
+    <section class="pl-sec" id="report">
+      <div class="pl-sec-num">07 — RESEARCH</div>
+      <h2 class="pl-h">The VYB Artist Economy Report.</h2>
+      <p class="pl-lede">The economics of live music are badly documented — which is precisely why they stay unfair. VYB intends to publish an annual report drawn from anonymised, aggregated activity across the network.</p>
+
+      <div class="pl-chips" style="margin-top:28px;" data-io="">
+        <span class="pl-chip">Artist revenue</span>
+        <span class="pl-chip">Touring economics</span>
+        <span class="pl-chip">Venue economics</span>
+        <span class="pl-chip">Festival economics</span>
+        <span class="pl-chip">Payment friction</span>
+        <span class="pl-chip">Settlement times</span>
+        <span class="pl-chip">International payments</span>
+        <span class="pl-chip">Artist profitability</span>
+        <span class="pl-chip">Emerging markets</span>
+      </div>
+      <p class="pl-lede" style="margin-top:22px;">Aggregated and anonymised. No individual artist's numbers are ever published, and cohort participation never means giving up the privacy of your business.</p>
+    </section>
+
+    <!-- 08 PARTNERS -->
+    <section class="pl-sec" id="partners">
+      <div class="pl-sec-num">08 — PARTNERS</div>
+      <h2 class="pl-h">Built to be funded by more than one party.</h2>
+      <p class="pl-lede">VYB seeds the programme, but it's designed as a capital stack — so that partner support multiplies what reaches artists rather than replacing it.</p>
+
+      <div class="pl-cols">
+        <div class="pl-col" data-io=""><h3>Strategic sponsors</h3><p>Financial institutions, technology and cloud companies, audio and hardware brands, consumer, fashion, telecom and hospitality partners.</p></div>
+        <div class="pl-col" data-io=""><h3>Festivals &amp; cultural institutions</h3><p>Curatorial partners who already know how to develop artists, and can offer the cohort stages, market access and international exposure.</p></div>
+        <div class="pl-col" data-io=""><h3>Public &amp; philanthropic</h3><p>Cultural funding bodies, universities, foundations and individual donors adding grant capital to the pool.</p></div>
+      </div>
+
+      <p class="pl-lede" style="margin-top:28px;">The ambition is straightforward: a modest VYB commitment, matched several times over by partners who care about the same outcome, turning into a programme that is <b>meaningfully larger than anything VYB would fund alone</b>.</p>
+    </section>
+
+    <!-- 09 GET INVOLVED -->
+    <section class="pl-sec" id="involved">
+      <div class="pl-sec-num">09 — GET INVOLVED</div>
+      <h2 class="pl-h">Three ways in.</h2>
+
+      <div class="pl-cta">
+        <div class="pl-cta-card" data-io="">
+          <h3>Artists</h3>
+          <p>Register your interest for the inaugural cohort and we'll come back to you when applications open.</p>
+          <a href="mailto:blake@vybapp.io?subject=VYB%20Pulse%20—%20artist%20interest">Register interest →</a>
+        </div>
+        <div class="pl-cta-card" data-io="">
+          <h3>Partners &amp; sponsors</h3>
+          <p>Add capital, stages, technology or market access to the programme.</p>
+          <a href="mailto:blake@vybapp.io?subject=VYB%20Pulse%20—%20partnership">Start a conversation →</a>
+        </div>
+        <div class="pl-cta-card" data-io="">
+          <h3>Mentors</h3>
+          <p>Operators, managers, agents and finance people willing to sit with an artist and answer the hard questions.</p>
+          <a href="mailto:blake@vybapp.io?subject=VYB%20Pulse%20—%20mentorship">Volunteer →</a>
+        </div>
+      </div>
+
+      <p class="pl-note">VYB Pulse is in development. Cohort size, grant amounts, tiers and programme structure described on this page are indicative of current planning and will be confirmed in the final programme terms. Nothing here is an offer, a commitment to fund, or a guarantee of selection.</p>
+    </section>
+
+  </main>
+</div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand"><span class="app-icon">v</span> vyb</div>
+      <div class="footer-meta">© 2026 VYB · VYB PULSE</div>
+    </div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/#enterprise">Enterprise</a>
+      <a href="mailto:blake@vybapp.io?subject=VYB%20Pulse">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var html = document.documentElement;
+  var KEY = 'vyb-theme';
+  var toggle = document.getElementById('themeToggle');
+  var meta = document.getElementById('themeColorMeta');
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function apply(dark) {
+    html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    if (meta) meta.setAttribute('content', dark ? '#000000' : '#ffffff');
+  }
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch (e) {}
+  var dark = stored ? stored === 'dark' : mq.matches;
+  apply(dark);
+
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      dark = !dark;
+      apply(dark);
+      try { localStorage.setItem(KEY, dark ? 'dark' : 'light'); } catch (e) {}
+    });
+  }
+  mq.addEventListener('change', function (e) {
+    if (!stored) { dark = e.matches; apply(dark); }
+  });
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var io = document.querySelectorAll('[data-io]');
+  if (reduce || !('IntersectionObserver' in window)) {
+    io.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    io.forEach(function (el) { obs.observe(el); });
+  }
+
+  /* transparent nav while over the dark hero */
+  var hero = document.querySelector('.pl-hero');
+  if (hero) {
+    var syncNav = function () {
+      var over = window.scrollY < hero.offsetHeight - 56;
+      document.body.classList.toggle('nav-over', over);
+    };
+    syncNav();
+    window.addEventListener('scroll', syncNav, { passive: true });
+    window.addEventListener('resize', syncNav);
+  }
+
+  /* rail scrollspy */
+  var rail = document.getElementById('plRail');
+  if (rail) {
+    var links = [].slice.call(rail.querySelectorAll('a'));
+    var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    if (links.length) { links[0].classList.add('on'); }
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var i = secs.indexOf(e.target);
+        if (i < 0) return;
+        links.forEach(function (l) { l.classList.remove('on'); });
+        links[i].classList.add('on');
+      });
+    }, { rootMargin: '-12% 0px -72% 0px' });
+    secs.forEach(function (s) { if (s) spy.observe(s); });
+  }
+})();
+</script>
+</body></html>
