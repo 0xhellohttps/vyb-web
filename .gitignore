@@ -8,6 +8,7 @@ case-study.html
 .claude/case_body.html
 .claude/case_extra.css
 .claude/build_case_study.py
+.claude/gen_case_charts.py
 
 # Internal PDF export of the acquisition models
 *.pdf
