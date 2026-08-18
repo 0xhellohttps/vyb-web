@@ -1,3 +1,13 @@
 .DS_Store
 notes/
 .claude/settings.local.json
+
+# Internal-only, never public. vyb-web is a PUBLIC repo — committing these
+# would expose them in the repo file listing and permanently in git history.
+case-study.html
+.claude/case_body.html
+.claude/case_extra.css
+.claude/build_case_study.py
+
+# Internal PDF export of the acquisition models
+*.pdf
