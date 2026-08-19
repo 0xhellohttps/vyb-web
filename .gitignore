@@ -9,6 +9,8 @@ case-study.html
 .claude/case_extra.css
 .claude/build_case_study.py
 .claude/gen_case_charts.py
+# maps real names -> the anonymized labels on models.html: a de-anonymization key
+.claude/build_models.py
 
 # Internal PDF export of the acquisition models
 *.pdf

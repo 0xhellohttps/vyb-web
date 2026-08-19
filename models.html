@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff" id="themeColorMeta">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<title>Payment models for live music — illustrative</title>
+<meta name="description" content="Illustrative, anonymized models of what live-music operators and festivals could represent as payment businesses. Hypothetical estimates only; no company is named.">
+<style>/* ============================================================
+   VYB — marketing site, modeled exactly on typexp.app/#features
+   Monospace (SF Mono) · white canvas · Apple-blue accent ·
+   small understated type · left-aligned · bordered sections.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: rgba(255,255,255,0.72);
+  --surface-border: rgba(0,0,0,0.08);
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --text-tertiary: #aeaeb2;
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --hero-text: #1d1d1f;
+  --hero-sub: rgba(29,29,31,0.72);
+  --card-bg: rgba(255,255,255,0.65);
+  --card-border: rgba(0,0,0,0.08);
+  --feature-icon: #aeaeb2;
+  --toggle-bg: rgba(0,0,0,0.08);
+  --toggle-thumb: #ffffff;
+  --nav-bg: rgba(255,255,255,0.85);
+  --nav-border: rgba(0,0,0,0.08);
+  --pill-bg: rgba(0,113,227,0.08);
+  --pill-text: #0071e3;
+  --shadow-screenshot: 0 32px 80px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.10);
+  --vyb-grad: linear-gradient(150deg, #0071e3, #5e5ce6);
+
+  --mono: "SF Mono", ui-monospace, Menlo, Monaco, "Cascadia Code", "Source Code Pro", Consolas, monospace;
+  --system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #000000;
+  --surface: rgba(28,28,30,0.72);
+  --surface-border: rgba(255,255,255,0.08);
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1a6;
+  --text-tertiary: #636366;
+  --accent: #2997ff;
+  --accent-hover: #409cff;
+  --hero-text: #f5f5f7;
+  --hero-sub: rgba(245,245,247,0.72);
+  --card-bg: rgba(28,28,30,0.6);
+  --card-border: rgba(255,255,255,0.08);
+  --feature-icon: #636366;
+  --toggle-bg: rgba(255,255,255,0.12);
+  --toggle-thumb: #ffffff;
+  --nav-bg: rgba(0,0,0,0.72);
+  --nav-border: rgba(255,255,255,0.08);
+  --pill-bg: rgba(41,151,255,0.12);
+  --pill-text: #2997ff;
+  --shadow-screenshot: 0 32px 80px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; background: var(--bg); }
+
+body {
+  font-family: var(--mono);
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background .4s ease, color .4s ease;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── NAV ───────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 52px;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-border);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transition: background .4s, border-color .4s;
+}
+.nav-logo { display: flex; align-items: center; gap: 9px; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-primary); }
+.app-icon {
+  width: 27px; height: 27px; border-radius: 7px; flex-shrink: 0;
+  background: var(--vyb-grad);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-family: var(--system); font-weight: 700; font-size: 16px;
+  box-shadow: inset 0 0 0 .5px rgba(255,255,255,.25);
+}
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-link { font-size: 15px; color: var(--text-secondary); transition: color .2s; }
+.nav-link:hover { color: var(--text-primary); }
+.nav-buy-btn {
+  display: inline-flex; align-items: center; padding: 8px 17px;
+  background: var(--accent); color: #fff; border-radius: 6px;
+  font-size: 13px; font-weight: 600; border: none; cursor: pointer;
+  font-family: inherit; letter-spacing: -0.01em; white-space: nowrap;
+  transition: opacity .2s;
+}
+.nav-buy-btn:hover { opacity: .72; }
+@media (max-width: 767px) { .nav-link { display: none; } }
+
+/* theme toggle (sliding switch) */
+.theme-toggle {
+  position: relative; width: 44px; height: 26px;
+  background: var(--toggle-bg); border-radius: 13px; border: none;
+  cursor: pointer; transition: background .3s; flex-shrink: 0;
+}
+.theme-toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 20px; height: 20px; border-radius: 50%; background: var(--toggle-thumb);
+  box-shadow: 0 1px 4px rgba(0,0,0,.25);
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+[data-theme="dark"] .theme-toggle::after { transform: translateX(18px); }
+.tt-icon { position: absolute; top: 50%; transform: translateY(-50%); font-size: 11px; pointer-events: none; transition: opacity .2s; }
+.tt-sun { left: 6px; opacity: 1; }
+.tt-moon { right: 5px; opacity: .5; }
+[data-theme="dark"] .tt-sun { opacity: .5; }
+[data-theme="dark"] .tt-moon { opacity: 1; }
+
+/* ── SHARED ────────────────────────────────────────────── */
+.section-inner { max-width: 1080px; margin: 0 auto; }
+.section-eyebrow { font-size: 15px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.section-title { font-size: 18px; font-weight: 400; line-height: 1.6; color: var(--hero-text); margin-bottom: 12px; }
+.section-subtitle { font-size: 18px; color: var(--text-secondary); line-height: 1.7; max-width: 60ch; }
+
+section { padding: 40px 32px; border-top: 1px solid var(--surface-border); transition: background .4s; }
+
+.download-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 32px; background: var(--text-primary); color: var(--bg);
+  border-radius: 6px; font-size: 17px; font-weight: 600; cursor: pointer;
+  border: none; font-family: inherit; transition: opacity .2s;
+}
+.download-btn:hover { opacity: .72; }
+.download-btn svg { flex-shrink: 0; }
+
+/* ── HERO ──────────────────────────────────────────────── */
+.hero {
+  border-top: none;
+  padding: 104px 32px 56px;
+  display: grid; grid-template-columns: minmax(0,1fr) minmax(0,440px);
+  gap: 48px; align-items: center;
+  max-width: 1144px; margin: 0 auto;
+}
+.hero-content { max-width: 560px; }
+.hero-title { font-size: 39px; font-weight: 600; line-height: 1.34; color: var(--hero-text); margin-bottom: 24px; }
+.hero-cursor { display: inline-block; width: 2px; height: 1em; background: currentColor; margin-left: 3px; vertical-align: text-bottom; animation: blink 1s step-start infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+.hero-subtitle { font-size: 18px; color: var(--hero-sub); line-height: 1.6; margin: 0 0 36px; }
+.hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.hero-note { margin-top: 14px; font-size: 14px; color: var(--hero-sub); opacity: .7; }
+.hero-note + .hero-note { margin-top: 4px; }
+
+.hero-visual { position: relative; display: flex; justify-content: center; }
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding-top: 92px; }
+  .hero-visual { justify-content: flex-start; margin-top: 8px; }
+}
+
+/* ── DEVICE / iMESSAGE MOCK ────────────────────────────── */
+.phone {
+  position: relative; width: 300px; height: 624px;
+  border-radius: 50px; padding: 10px; flex-shrink: 0;
+  background: linear-gradient(160deg, #2a2a2e, #0c0c0e);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,.5) inset, 0 0 0 2px rgba(255,255,255,.05) inset,
+    var(--shadow-screenshot);
+}
+.phone-screen { position: relative; width: 100%; height: 100%; border-radius: 41px; overflow: hidden; background: #fafafa; }
+.notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 96px; height: 27px; border-radius: 999px; background: #0a0a0c; z-index: 30; }
+.imsg { position: absolute; inset: 0; background: #fafafa; color: #1c1c1e; display: flex; flex-direction: column; font-family: var(--system); }
+.imsg-status { height: 46px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px 0 26px; font-size: 13px; font-weight: 600; color: #1c1c1e; }
+.imsg-status .dots { display: flex; align-items: center; gap: 5px; }
+.imsg-head { padding: 50px 14px 11px; text-align: center; border-bottom: .5px solid rgba(0,0,0,.06); background: rgba(250,250,250,.92); }
+.imsg-avatar { width: 46px; height: 46px; border-radius: 50%; margin: 0 auto 6px; background: var(--vyb-grad); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 21px; }
+.imsg-title { font-size: 14px; font-weight: 600; }
+.imsg-sub { font-size: 10.5px; color: rgba(28,28,30,.5); margin-top: 1px; }
+.imsg-body { flex: 1; padding: 12px 12px 16px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+.imsg-body > * { flex-shrink: 0; }
+.imsg-day { text-align: center; font-size: 10px; color: rgba(28,28,30,.4); font-weight: 600; margin: 2px 0 3px; }
+.bub { max-width: 80%; padding: 8px 12px; border-radius: 18px; font-size: 13px; line-height: 1.32; }
+.bub-in { align-self: flex-start; background: #e9e9eb; color: #1c1c1e; border-bottom-left-radius: 5px; }
+.bub-out { align-self: flex-end; background: #0a84ff; color: #fff; border-bottom-right-radius: 5px; }
+.bub-name { font-size: 9.5px; color: rgba(28,28,30,.45); margin: 3px 0 -4px 12px; font-weight: 600; }
+.prop { align-self: flex-start; width: 92%; background: #fff; border-radius: 16px; overflow: hidden; border: .5px solid rgba(0,0,0,.08); box-shadow: 0 8px 20px -8px rgba(20,16,40,.2); }
+.prop-top { display: flex; align-items: center; gap: 8px; padding: 10px 12px 8px; border-bottom: .5px solid rgba(0,0,0,.06); }
+.prop-mark { width: 21px; height: 21px; border-radius: 6px; background: var(--vyb-grad); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 11px; flex-shrink: 0; }
+.prop-kicker { font-size: 8px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: rgba(28,28,30,.45); }
+.prop-h { font-size: 13px; font-weight: 650; margin-top: 1px; }
+.prop-rows { padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; }
+.prop-row { display: flex; justify-content: space-between; font-size: 11px; }
+.prop-row span { color: rgba(28,28,30,.5); }
+.prop-row b { font-weight: 600; }
+.prop-cta { display: flex; gap: 6px; padding: 0 12px 12px; }
+.prop-confirm { flex: 1; height: 32px; border-radius: 9px; background: #34c759; color: #fff; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }
+.prop-later { width: 66px; height: 32px; border-radius: 9px; background: #f0f0f2; color: rgba(28,28,30,.6); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.imsg-input { margin: 0 10px 12px; height: 34px; border-radius: 999px; border: .5px solid rgba(0,0,0,.12); display: flex; align-items: center; padding: 0 14px; color: rgba(28,28,30,.4); font-size: 12px; background: #fff; }
+
+/* floating overlay card (hero) */
+.float-card {
+  position: absolute; z-index: 4; width: 220px; right: -22px; bottom: 64px;
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: 16px; padding: 14px 16px; backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: var(--shadow-screenshot); font-family: var(--system);
+}
+.float-card .fc-kicker { font-size: 9px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.float-card .fc-h { font-size: 14px; font-weight: 650; color: var(--text-primary); margin: 5px 0 8px; line-height: 1.25; }
+.float-card .fc-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-secondary); padding: 3px 0; border-top: .5px solid var(--surface-border); }
+.float-card .fc-row b { color: var(--text-primary); font-weight: 600; }
+@media (max-width: 460px) { .float-card { display: none; } }
+
+/* ── SEE IT IN ACTION (typed demo) ─────────────────────── */
+.demo-window {
+  margin-top: 28px; max-width: 760px;
+  border: 1px solid var(--surface-border); border-radius: 14px; overflow: hidden;
+  background: var(--card-bg); backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-screenshot);
+}
+.demo-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--surface-border); }
+.demo-bar i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.demo-bar .r { background: #ff5f57; } .demo-bar .y { background: #febc2e; } .demo-bar .g { background: #28c840; }
+.demo-bar span { margin-left: 8px; font-size: 11px; color: var(--text-tertiary); letter-spacing: .02em; }
+.demo-body { padding: 24px 24px 28px; font-size: 17px; line-height: 1.75; min-height: 210px; }
+.demo-ctx { color: var(--text-tertiary); }
+.demo-trigger-line { margin-top: 6px; }
+.demo-prompt { color: var(--accent); }
+.demo-trigger { color: var(--text-primary); }
+.demo-cursor { display: inline-block; width: 8px; height: 1.05em; background: var(--accent); vertical-align: text-bottom; margin-left: 1px; animation: blink 1s step-start infinite; }
+.demo-out { margin-top: 14px; padding-left: 14px; border-left: 2px solid var(--accent); color: var(--text-primary); white-space: pre-wrap; }
+.demo-tag { display: inline-block; font-size: 10px; font-weight: 600; font-family: var(--system); color: #fff; background: var(--accent); padding: 1px 7px; border-radius: 20px; margin-bottom: 8px; letter-spacing: .02em; }
+
+/* ── GROUP CHAT DEMO ───────────────────────────────────── */
+.chat-stage { margin-top: 32px; display: flex; justify-content: flex-start; }
+.chat-stage .phone { width: 320px; height: 668px; }
+
+/* ── FEATURES GRID ─────────────────────────────────────── */
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); column-gap: 48px; margin-top: 36px; }
+.feature-card { border-top: 1px solid var(--surface-border); padding: 26px 0; }
+.feature-icon { display: block; font-size: 21px; color: var(--feature-icon); margin-bottom: 12px; line-height: 1; }
+.feature-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 9px; }
+.feature-body { font-size: 17px; color: var(--text-secondary); line-height: 1.6; }
+.feature-body b { color: var(--text-primary); font-weight: 600; }
+
+/* ── SYNC / CARD SHOWCASE ──────────────────────────────── */
+.showcase { margin-top: 44px; display: flex; }
+.vcard {
+  position: relative; width: 420px; max-width: 100%; aspect-ratio: 1.586;
+  border-radius: 22px; padding: 26px; color: #fff; overflow: hidden;
+  background: linear-gradient(135deg, #0a1230 0%, #1f2350 48%, #2f2a6a 100%);
+  box-shadow: var(--shadow-screenshot); font-family: var(--system);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.vcard::after { content:""; position:absolute; inset:0; background: radial-gradient(120% 90% at 88% -10%, rgba(41,151,255,.5), transparent 60%); }
+.vcard-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }
+.vcard-wm { font-weight: 700; font-size: 22px; letter-spacing: -0.02em; }
+.vcard-chip { width: 38px; height: 28px; border-radius: 6px; background: linear-gradient(135deg,#e8c977,#b98d3e); opacity: .9; }
+.vcard-num { font-variant-numeric: tabular-nums; font-size: 15px; letter-spacing: .12em; position: relative; z-index: 2; }
+.vcard-bottom { display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 2; }
+.vcard-bottom .lbl { font-size: 8px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; opacity: .6; }
+.vcard-bottom .val { font-size: 12px; font-weight: 600; margin-top: 3px; }
+
+/* ── HOW IT WORKS ──────────────────────────────────────── */
+.steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; margin-top: 44px; }
+.steps.steps-5 { grid-template-columns: repeat(5,1fr); gap: 26px; }
+.steps.steps-6 { grid-template-columns: repeat(3,1fr); gap: 32px 26px; }
+@media (max-width: 980px) { .steps.steps-5 { grid-template-columns: repeat(3,1fr); } }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr; gap: 26px; } .steps.steps-5, .steps.steps-6 { grid-template-columns: 1fr; } }
+.step-number { font-size: 15px; font-weight: 700; color: var(--accent); letter-spacing: .5px; margin-bottom: 12px; font-variant-numeric: tabular-nums; }
+.step-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 9px; }
+.step-body { font-size: 17px; color: var(--text-secondary); line-height: 1.6; }
+.step-code { display: inline-block; font-family: var(--mono); font-size: 15px; background: var(--pill-bg); color: var(--pill-text); padding: 2px 8px; border-radius: 6px; margin-top: 8px; }
+
+/* ── VYB FOR ENTERPRISE ────────────────────────────────── */
+.ent-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; margin-top: 40px; border-top: 1px solid var(--surface-border); }
+@media (max-width: 760px) { .ent-grid { grid-template-columns: 1fr; } }
+.ent-card { padding: 30px 28px 30px 0; border-bottom: 1px solid var(--surface-border); }
+.ent-card + .ent-card { padding-left: 28px; border-left: 1px solid var(--surface-border); }
+@media (max-width: 760px) { .ent-card + .ent-card { padding-left: 0; border-left: none; } }
+.ent-stat { font-size: 40px; font-weight: 600; line-height: 1; letter-spacing: -0.02em; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.ent-stat .unit { font-size: 22px; color: var(--accent); margin-left: 2px; }
+.ent-label { font-size: 13px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--accent); margin: 16px 0 9px; }
+.ent-body { font-size: 16px; color: var(--text-secondary); line-height: 1.65; }
+.ent-body b { color: var(--text-primary); font-weight: 600; }
+.ent-foot { margin-top: 30px; font-size: 16px; color: var(--text-secondary); line-height: 1.7; max-width: 70ch; }
+.ent-foot b { color: var(--text-primary); font-weight: 600; }
+
+/* A-to-Z finance flow */
+.ent-flow-head { margin-top: 44px; font-size: 13px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--accent); }
+.ent-flow-title { margin-top: 9px; font-size: 18px; font-weight: 400; line-height: 1.6; color: var(--hero-text); }
+.ent-flow { margin-top: 24px; display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--surface-border); border: 1px solid var(--surface-border); border-radius: 12px; overflow: hidden; }
+@media (max-width: 760px) { .ent-flow { grid-template-columns: 1fr; } }
+.flow-item { background: var(--bg); padding: 20px 22px; display: flex; gap: 14px; align-items: flex-start; transition: background .25s; }
+.flow-item:hover { background: var(--pill-bg); }
+.flow-step { font-size: 13px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; flex-shrink: 0; padding-top: 2px; min-width: 22px; }
+.flow-name { font-size: 16px; font-weight: 600; color: var(--text-primary); line-height: 1.35; }
+.flow-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-top: 3px; }
+
+/* ── A-to-Z ORBITAL DIAGRAM ────────────────────────────── */
+.flow-diagram { position: relative; width: 100%; max-width: 680px; margin: 28px auto 8px; aspect-ratio: 1 / 1; }
+.flow-diagram svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.fd-ring { fill: none; stroke: var(--surface-border); stroke-width: 1.5; }
+.fd-track { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 60 1636; opacity: .9; animation: fdOrbit 9s linear infinite; }
+@keyframes fdOrbit { to { stroke-dashoffset: -1696; } }
+.fd-spoke { stroke: var(--surface-border); stroke-width: 1.5; stroke-dasharray: 3 5; }
+.fd-pulse { fill: var(--accent); }
+
+.fd-node {
+  position: absolute; transform: translate(-50%, -50%);
+  width: 156px; display: flex; flex-direction: column; align-items: center; gap: 7px;
+  text-align: center;
+}
+.fd-badge {
+  width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg); border: 1.5px solid var(--accent); color: var(--accent);
+  font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 5px var(--bg); position: relative; z-index: 2;
+  transition: transform .25s, background .25s, color .25s;
+}
+.fd-node:hover .fd-badge { background: var(--accent); color: #fff; transform: scale(1.08); }
+.fd-name { font-size: 13px; font-weight: 600; color: var(--text-primary); line-height: 1.3; letter-spacing: -0.01em; }
+.fd-sub { font-size: 11px; color: var(--text-secondary); line-height: 1.35; }
+
+.fd-hub {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 132px; height: 132px; border-radius: 50%; z-index: 3;
+  background: var(--vyb-grad); color: #fff;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  box-shadow: 0 18px 50px -16px rgba(0,113,227,.6), inset 0 0 0 1px rgba(255,255,255,.2), 0 0 0 8px var(--bg);
+}
+.fd-hub .hub-mark { font-family: var(--system); font-size: 34px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+.fd-hub .hub-sub { font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+
+@media (max-width: 600px) {
+  .flow-diagram { max-width: 440px; }
+  .fd-node { width: 104px; }
+  .fd-name { font-size: 11px; }
+  .fd-sub { display: none; }
+  .fd-badge { width: 34px; height: 34px; font-size: 13px; }
+  .fd-hub { width: 96px; height: 96px; }
+  .fd-hub .hub-mark { font-size: 26px; }
+}
+@media (prefers-reduced-motion: reduce) { .fd-track { animation: none; } .fd-pulse { display: none; } }
+
+/* ── FOOTER ────────────────────────────────────────────── */
+footer { border-top: 1px solid var(--nav-border); padding: 48px 32px; transition: background .4s, border-color .4s; }
+.footer-inner { max-width: 1080px; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
+.footer-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-primary); }
+.footer-brand .app-icon { width: 34px; height: 34px; border-radius: 8px; font-size: 19px; }
+.footer-meta { font-size: 14px; color: var(--text-tertiary); margin-top: 10px; }
+.footer-links { display: flex; gap: 24px; align-items: center; }
+.footer-links a { font-size: 14px; color: var(--text-tertiary); transition: color .2s; }
+.footer-links a:hover { color: var(--accent); }
+@media (max-width: 760px) { .footer-inner { flex-direction: column; align-items: flex-start; } }
+
+/* ── ANIMATIONS ────────────────────────────────────────── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.fade-up { opacity: 0; animation: fadeUp .7s cubic-bezier(.22,1,.36,1) forwards; }
+.fade-up-1 { animation-delay: .05s; }
+.fade-up-2 { animation-delay: .15s; }
+.fade-up-3 { animation-delay: .28s; }
+.fade-up-4 { animation-delay: .42s; }
+.fade-up-5 { animation-delay: .56s; }
+[data-io] { opacity: 0; transform: translateY(28px); transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+[data-io].in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, [data-io] { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .hero-cursor, .demo-cursor { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+
+/* VYB Payfac stack — The Engine */
+#engine .pf-stack { max-width: 760px; margin-top: 44px; }
+#engine .pf-band { border: 1px solid var(--card-border); background: var(--card-bg); border-radius: 16px; padding: 18px 20px; }
+#engine .pf-label { display: block; font: 600 12px/1.3 var(--mono); text-transform: uppercase; letter-spacing: .8px; color: var(--text-tertiary); margin-bottom: 12px; }
+#engine .pf-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+#engine .pf-chip { font: 600 14px/1.2 var(--mono); color: var(--pill-text); background: var(--pill-bg); border-radius: 999px; padding: 9px 14px; }
+#engine .pf-chip-muted { color: var(--text-secondary); background: var(--toggle-bg); }
+#engine .pf-arrow { color: var(--text-tertiary); font-size: 20px; line-height: 1; text-align: center; margin: 10px 0; }
+#engine .pf-core { border-color: var(--accent); }
+#engine .pf-label-on { color: var(--accent); font-size: 13px; margin-bottom: 6px; }
+#engine .pf-core-sub { font-size: 16px; font-weight: 500; color: var(--text-primary); margin-bottom: 16px; }
+#engine .pf-trio { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+#engine .pf-k { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 5px; }
+#engine .pf-d { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+#engine .pf-bar-s { font-size: 16px; color: var(--text-secondary); line-height: 1.55; }
+@media (max-width: 760px) { #engine .pf-trio { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   /pulse — VYB Pulse
+   Secondary layout: full-bleed dark hero + sticky section rail.
+   Deliberately distinct from the index page's stacked sections.
+   ============================================================ */
+
+.pl-page { --pl-measure: 68ch; }
+
+/* nav sits transparent over the dark hero, then solidifies on scroll */
+body.nav-over nav {
+  background: transparent; border-bottom-color: transparent; backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+body.nav-over .nav-logo { color: #f5f5f7; }
+body.nav-over .nav-link { color: rgba(255,255,255,0.70); }
+body.nav-over .nav-link:hover { color: #f5f5f7; }
+body.nav-over .theme-toggle { background: rgba(255,255,255,0.20); }
+nav, .nav-logo, .nav-link, .theme-toggle { transition: background .25s, color .25s, border-color .25s; }
+
+/* ---------- full-bleed dark hero ---------- */
+.pl-hero {
+  background: #000;
+  color: #f5f5f7;
+  padding: 132px 32px 72px;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+.pl-hero-inner { max-width: 1140px; margin: 0 auto; }
+.pl-kicker {
+  font-size: 13px; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 26px;
+}
+.pl-hero h1 {
+  font-size: 58px; font-weight: 600; line-height: 1.14; letter-spacing: -.025em;
+  color: #f5f5f7; max-width: 22ch; margin-bottom: 28px;
+}
+.pl-hero .pl-sub {
+  font-size: 20px; line-height: 1.65; color: #a1a1a6; max-width: 62ch;
+}
+.pl-hero-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 38px; }
+.pl-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--accent); color: #fff;
+  font-size: 16px; font-weight: 600;
+  padding: 15px 26px; border-radius: 980px;
+  transition: background .2s, transform .2s;
+}
+.pl-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.pl-btn-ghost {
+  display: inline-flex; align-items: center;
+  font-size: 16px; font-weight: 500; color: #a1a1a6;
+  padding: 15px 4px; transition: color .2s;
+}
+.pl-btn-ghost:hover { color: #f5f5f7; }
+
+/* hero stat strip */
+.pl-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  margin-top: 64px; border-top: 1px solid rgba(255,255,255,0.14);
+}
+.pl-strip div { padding: 26px 24px 0 0; }
+.pl-strip .n { font-size: 34px; font-weight: 600; letter-spacing: -.02em; color: #f5f5f7; line-height: 1.05; white-space: nowrap; }
+.pl-strip .u { display: block; font-size: 13px; font-weight: 400; letter-spacing: .4px; text-transform: uppercase; color: #6e6e73; margin-top: 9px; white-space: normal; }
+.pl-strip .l { font-size: 14px; line-height: 1.55; color: #8e8e93; margin-top: 12px; max-width: 26ch; }
+
+/* ---------- two-column shell with sticky rail ---------- */
+.pl-shell {
+  display: grid; grid-template-columns: 208px minmax(0, 1fr);
+  gap: 72px; max-width: 1140px; margin: 0 auto; padding: 0 32px 40px;
+}
+.pl-rail { position: sticky; top: 92px; align-self: start; padding-top: 60px; }
+.pl-rail-h {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase;
+  color: var(--text-tertiary); margin-bottom: 18px;
+}
+.pl-rail a {
+  display: flex; gap: 12px; align-items: baseline;
+  font-size: 14px; line-height: 1.4; color: var(--text-secondary);
+  padding: 8px 0; border-left: 2px solid transparent; padding-left: 14px;
+  margin-left: -16px; transition: color .2s, border-color .2s;
+}
+.pl-rail a .i { font-size: 11px; color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+.pl-rail a:hover { color: var(--text-primary); }
+.pl-rail a.on { color: var(--accent); border-left-color: var(--accent); }
+.pl-rail a.on .i { color: var(--accent); }
+
+/* ---------- sections inside the main column ---------- */
+.pl-main { padding-top: 0; }
+section.pl-sec { padding: 60px 0; border-top: 1px solid var(--surface-border); scroll-margin-top: 88px; }
+section.pl-sec:first-child { border-top: none; }
+.pl-sec-num {
+  font-size: 12px; font-weight: 700; letter-spacing: 1.8px;
+  color: var(--accent); margin-bottom: 16px; font-variant-numeric: tabular-nums;
+}
+.pl-h {
+  font-size: 32px; font-weight: 600; line-height: 1.24; letter-spacing: -.02em;
+  color: var(--hero-text); margin-bottom: 16px; max-width: 32ch;
+}
+.pl-lede { font-size: 18px; line-height: 1.7; color: var(--text-secondary); max-width: var(--pl-measure); }
+.pl-lede b { color: var(--hero-text); font-weight: 600; }
+.pl-note { font-size: 13px; line-height: 1.7; color: var(--text-tertiary); margin-top: 26px; max-width: var(--pl-measure); }
+
+/* ---------- numbered list rows (the model, the journey) ---------- */
+.pl-rows { margin-top: 34px; border-top: 1px solid var(--surface-border); }
+.pl-row {
+  display: grid; grid-template-columns: 44px minmax(0,210px) minmax(0,1fr);
+  gap: 24px; align-items: start;
+  padding: 22px 0; border-bottom: 1px solid var(--surface-border);
+}
+.pl-row .r-i { font-size: 13px; font-weight: 700; color: var(--accent); padding-top: 4px; font-variant-numeric: tabular-nums; }
+.pl-row .r-t { font-size: 17px; font-weight: 600; color: var(--hero-text); line-height: 1.4; }
+.pl-row .r-d { font-size: 15px; line-height: 1.65; color: var(--text-secondary); }
+.pl-row .r-d b { color: var(--hero-text); font-weight: 600; }
+
+/* ---------- grant panel ---------- */
+.pl-grant {
+  display: grid; grid-template-columns: minmax(0,300px) minmax(0,1fr);
+  gap: 36px; margin-top: 34px; align-items: start;
+}
+.pl-grant-box {
+  border: 1px solid var(--card-border); border-radius: 18px; padding: 26px;
+  background: var(--card-bg);
+}
+.pl-grant-box .amt { font-size: 36px; font-weight: 600; letter-spacing: -.025em; color: var(--hero-text); line-height: 1.05; }
+.pl-grant-box .amt-sub { font-size: 14px; line-height: 1.65; color: var(--text-secondary); margin-top: 12px; }
+.pl-sub-h { font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 14px; }
+
+.pl-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.pl-chip {
+  font-size: 14px; line-height: 1.2; color: var(--text-secondary);
+  background: var(--pill-bg); border: 1px solid var(--card-border);
+  border-radius: 999px; padding: 9px 14px;
+}
+
+/* ---------- terms: three stacked statements ---------- */
+.pl-terms { margin-top: 34px; }
+.pl-term {
+  display: grid; grid-template-columns: minmax(0,190px) minmax(0,1fr);
+  gap: 32px; padding: 26px 0; border-top: 1px solid var(--surface-border); align-items: start;
+}
+.pl-term .t-n { font-size: 32px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); line-height: 1.05; }
+.pl-term .t-n span { display: block; font-size: 13px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--accent); margin-top: 8px; }
+.pl-term .t-b { font-size: 16px; line-height: 1.7; color: var(--text-secondary); }
+.pl-term .t-b b { color: var(--hero-text); font-weight: 600; }
+.pl-term .t-b .t-h { display: block; font-size: 16px; font-weight: 600; color: var(--hero-text); margin-bottom: 8px; }
+
+/* ---------- passport ---------- */
+.pl-pass { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 16px; margin-top: 34px; }
+.pl-pass-col { border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; background: var(--card-bg); }
+.pl-pass-col h3 { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.pl-pass-col ul { list-style: none; }
+.pl-pass-col li { font-size: 14px; line-height: 1.5; color: var(--text-secondary); padding: 7px 0; border-top: 1px solid var(--surface-border); }
+.pl-pass-col li:first-child { border-top: none; padding-top: 0; }
+
+.pl-quotes { margin-top: 22px; border-left: 2px solid var(--accent); padding: 4px 0 4px 24px; }
+.pl-quotes q { display: block; font-size: 17px; line-height: 1.6; color: var(--hero-text); font-style: normal; padding: 9px 0; }
+.pl-quotes q + q { border-top: 1px solid var(--surface-border); }
+
+/* ---------- tiers ---------- */
+.pl-tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr)); gap: 16px; margin-top: 34px; }
+.pl-tier { border: 1px solid var(--card-border); border-radius: 16px; padding: 22px; background: var(--card-bg); }
+.pl-tier .t { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.pl-tier .c { font-size: 24px; font-weight: 600; color: var(--hero-text); letter-spacing: -.02em; }
+.pl-tier .g { font-size: 14px; color: var(--text-secondary); margin-top: 7px; }
+.pl-tier .d { font-size: 14px; color: var(--text-tertiary); margin-top: 14px; line-height: 1.6; }
+
+/* ---------- partners / cta ---------- */
+.pl-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 30px; margin-top: 34px; }
+.pl-col h3 { font-size: 16px; font-weight: 600; color: var(--hero-text); margin-bottom: 10px; }
+.pl-col p { font-size: 15px; line-height: 1.65; color: var(--text-secondary); }
+
+.pl-cta { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 16px; margin-top: 34px; }
+.pl-cta-card { border: 1px solid var(--card-border); border-radius: 16px; padding: 22px; background: var(--card-bg); display: flex; flex-direction: column; }
+.pl-cta-card h3 { font-size: 16px; font-weight: 600; color: var(--hero-text); margin-bottom: 8px; }
+.pl-cta-card p { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 18px; flex: 1; }
+.pl-cta-card a { font-size: 15px; font-weight: 600; color: var(--accent); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1000px) {
+  .pl-shell { grid-template-columns: 1fr; gap: 0; }
+  .pl-rail { display: none; }
+  .pl-hero h1 { font-size: 44px; }
+  .pl-strip { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  .pl-hero { padding: 108px 24px 56px; }
+  .pl-hero h1 { font-size: 34px; max-width: none; }
+  .pl-hero .pl-sub { font-size: 18px; }
+  .pl-shell { padding: 0 24px 32px; }
+  .pl-h { font-size: 25px; }
+  .pl-row { grid-template-columns: 30px minmax(0,1fr); gap: 14px; }
+  .pl-row .r-d { grid-column: 2; }
+  .pl-grant { grid-template-columns: 1fr; gap: 24px; }
+  .pl-term { grid-template-columns: 1fr; gap: 12px; }
+}
+@media (max-width: 480px) {
+  .pl-strip { grid-template-columns: 1fr; }
+}
+
+
+
+/* ---------- hypothetical / non-affiliation flag ---------- */
+.cs-flag {
+  border: 1px solid rgba(255,159,10,0.42);
+  background: rgba(255,159,10,0.10);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin-bottom: 34px;
+  max-width: 78ch;
+}
+.cs-flag .h {
+  font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase;
+  color: #b26a00; margin-bottom: 9px;
+}
+:root:not([data-theme="light"]) .cs-flag .h { color: #ffb340; }
+[data-theme="dark"] .cs-flag .h { color: #ffb340; }
+.cs-flag p { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+.cs-flag p + p { margin-top: 9px; }
+.cs-flag b { color: var(--hero-text); font-weight: 600; }
+
+/* flag on the dark hero */
+.pl-hero .cs-flag { border-color: rgba(255,159,10,0.40); background: rgba(255,159,10,0.10); }
+.pl-hero .cs-flag .h { color: #ffb340; }
+.pl-hero .cs-flag p { color: #a1a1a6; }
+.pl-hero .cs-flag b { color: #f5f5f7; }
+
+/* ---------- tables ---------- */
+.cs-tw { overflow-x: auto; margin-top: 30px; }
+.cs-table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 560px; }
+.cs-table th {
+  text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--text-tertiary);
+  padding: 0 18px 12px 0; border-bottom: 1px solid var(--surface-border); white-space: nowrap;
+}
+.cs-table th.r, .cs-table td.r { text-align: right; padding-right: 0; }
+.cs-table td {
+  padding: 15px 18px 15px 0; border-bottom: 1px solid var(--surface-border);
+  color: var(--text-secondary); vertical-align: top; line-height: 1.5;
+}
+.cs-table td.name { color: var(--hero-text); font-weight: 600; white-space: nowrap; }
+.cs-table td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cs-table tr.total td {
+  border-bottom: none; border-top: 2px solid var(--card-border);
+  color: var(--hero-text); font-weight: 600; padding-top: 16px;
+}
+.cs-table tr.base td { background: var(--pill-bg); }
+.cs-table td.tag {
+  font-size: 12px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
+  color: var(--accent); white-space: nowrap;
+}
+.cs-cap { font-size: 13px; line-height: 1.7; color: var(--text-tertiary); margin-top: 14px; max-width: 78ch; }
+
+/* ---------- phase list ---------- */
+.cs-phases { margin-top: 32px; border-top: 1px solid var(--surface-border); }
+.cs-phase {
+  display: grid; grid-template-columns: 96px minmax(0,200px) minmax(0,1fr);
+  gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--surface-border); align-items: start;
+}
+.cs-phase .p-i {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--accent); padding-top: 4px;
+}
+.cs-phase .p-t { font-size: 17px; font-weight: 600; color: var(--hero-text); line-height: 1.4; }
+.cs-phase .p-d { font-size: 15px; line-height: 1.65; color: var(--text-secondary); }
+
+/* ---------- the chain ---------- */
+.cs-chain {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+  margin-top: 28px; padding: 22px; border: 1px solid var(--card-border);
+  border-radius: 16px; background: var(--card-bg);
+}
+.cs-chain span {
+  font-size: 14px; font-weight: 600; color: var(--hero-text);
+  background: var(--pill-bg); border: 1px solid var(--card-border);
+  border-radius: 999px; padding: 8px 14px; white-space: nowrap;
+}
+.cs-chain i { font-style: normal; color: var(--text-tertiary); font-size: 15px; }
+
+/* ---------- summary card ---------- */
+.cs-summary {
+  margin-top: 32px; border: 1px solid var(--card-border); border-radius: 18px;
+  padding: 26px 28px; background: var(--card-bg);
+}
+.cs-summary dl { display: grid; grid-template-columns: minmax(0,240px) minmax(0,1fr); gap: 0; }
+.cs-summary dt {
+  font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--text-tertiary); padding: 12px 18px 12px 0; border-top: 1px solid var(--surface-border);
+}
+.cs-summary dd {
+  font-size: 15px; color: var(--hero-text); padding: 12px 0;
+  border-top: 1px solid var(--surface-border); font-variant-numeric: tabular-nums;
+}
+.cs-summary dt:first-of-type, .cs-summary dl > dt:first-child + dd { border-top: none; }
+.cs-summary .cls {
+  margin-top: 20px; padding-top: 18px; border-top: 2px solid var(--card-border);
+  font-size: 17px; font-weight: 600; color: var(--accent);
+}
+
+@media (max-width: 760px) {
+  .cs-phase { grid-template-columns: 1fr; gap: 8px; }
+  .cs-summary dl { grid-template-columns: 1fr; }
+  .cs-summary dd { padding-top: 0; border-top: none; }
+  .cs-summary dt { padding-bottom: 4px; }
+}
+
+/* ============================================================
+   Charts — validated palette (see dataviz validator output)
+   light: #0071e3 / #eb6834   dark: #2997ff / #d95926
+   ============================================================ */
+.viz {
+  --surface-1: #ffffff;
+  --series-1: #0071e3;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #4a3aa7;
+  --series-5: #e34948;
+  --viz-ink: #1d1d1f;
+  --viz-ink-2: #6e6e73;
+  --viz-grid: rgba(0,0,0,0.10);
+  --heat-1:#cde2fb; --heat-2:#9ec5f4; --heat-3:#6da7ec;
+  --heat-4:#3987e5; --heat-5:#256abf; --heat-6:#184f95;
+  --heat-ink-1:#1d1d1f; --heat-ink-2:#1d1d1f; --heat-ink-3:#1d1d1f;
+  --heat-ink-4:#1d1d1f; --heat-ink-5:#ffffff; --heat-ink-6:#ffffff;
+  margin-top: 30px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) .viz {
+    --surface-1: #111112; --series-1: #2997ff; --series-2: #d95926;
+    --series-3: #199e70; --series-4: #9085e9; --series-5: #e66767;
+    --viz-ink: #f5f5f7; --viz-ink-2: #a1a1a6; --viz-grid: rgba(255,255,255,0.12);
+    --heat-1:#123a63; --heat-2:#17518f; --heat-3:#1f6cbd;
+    --heat-4:#3987e5; --heat-5:#6da7ec; --heat-6:#9ec5f4;
+    --heat-ink-1:#f5f5f7; --heat-ink-2:#f5f5f7; --heat-ink-3:#f5f5f7;
+    --heat-ink-4:#0d1b2a; --heat-ink-5:#0d1b2a; --heat-ink-6:#0d1b2a;
+  }
+}
+:root[data-theme="dark"] .viz {
+  --surface-1: #111112; --series-1: #2997ff; --series-2: #d95926;
+  --series-3: #199e70; --series-4: #9085e9; --series-5: #e66767;
+  --viz-ink: #f5f5f7; --viz-ink-2: #a1a1a6; --viz-grid: rgba(255,255,255,0.12);
+  --heat-1:#123a63; --heat-2:#17518f; --heat-3:#1f6cbd;
+  --heat-4:#3987e5; --heat-5:#6da7ec; --heat-6:#9ec5f4;
+  --heat-ink-1:#f5f5f7; --heat-ink-2:#f5f5f7; --heat-ink-3:#f5f5f7;
+  --heat-ink-4:#0d1b2a; --heat-ink-5:#0d1b2a; --heat-ink-6:#0d1b2a;
+}
+
+.viz-title { font-size: 15px; font-weight: 600; color: var(--hero-text); margin-bottom: 4px; }
+.viz-sub { font-size: 13px; color: var(--text-tertiary); margin-bottom: 16px; }
+.viz svg { width: 100%; height: auto; display: block; overflow: visible; }
+.viz-legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 14px; }
+.viz-legend span { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); }
+.viz-legend i { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+.viz-note { font-size: 12px; line-height: 1.65; color: var(--text-tertiary); margin-top: 14px; max-width: 76ch; }
+
+/* ============================================================
+   Print / PDF
+   ============================================================ */
+@page { size: A4; margin: 14mm 12mm; }
+
+@media print {
+  /* never let animation state hide content on paper */
+  [data-io], .fade-up { opacity: 1 !important; transform: none !important; animation: none !important; }
+
+  /* keep backgrounds (dark cover, shaded rows, chart fills) */
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+  nav, .pl-rail, .theme-toggle { display: none !important; }
+
+  html, body { background: #fff !important; }
+
+  /* single column, no sticky shell */
+  .pl-shell { display: block !important; max-width: none !important; padding: 0 !important; gap: 0 !important; }
+  .pl-main { padding: 0 !important; }
+
+  /* cover page — must fit exactly one page */
+  .pl-hero { padding: 12mm 10mm 12mm !important; break-after: page; page-break-after: always; }
+  .pl-hero h1 { font-size: 23pt !important; max-width: none !important; margin-bottom: 5mm !important; }
+  .pl-hero .pl-sub { font-size: 10pt !important; max-width: none !important; }
+  .pl-hero .pl-kicker { margin-bottom: 4mm !important; }
+  .pl-hero .cs-flag { margin-top: 7mm !important; margin-bottom: 0 !important; padding: 5mm 6mm !important; max-width: none !important; }
+  .pl-hero .cs-flag p { font-size: 8.5pt !important; line-height: 1.5 !important; }
+  .pl-hero-actions { display: none !important; }
+  .pl-strip { grid-template-columns: repeat(4, 1fr) !important; margin-top: 8mm !important; }
+  .pl-strip div { padding: 5mm 4mm 0 0 !important; }
+  .pl-strip .n { font-size: 13pt !important; }
+  .pl-strip .u { font-size: 7pt !important; margin-top: 2mm !important; }
+  .pl-strip .l { font-size: 8pt !important; margin-top: 3mm !important; }
+
+  /* sections */
+  section.pl-sec { padding: 9mm 0 !important; break-inside: auto; }
+  .pl-sec-num { break-after: avoid; page-break-after: avoid; }
+  .pl-h { font-size: 16pt !important; break-after: avoid; page-break-after: avoid; max-width: none !important; }
+  .pl-lede { font-size: 10.5pt !important; max-width: none !important; }
+
+  /* don't split atomic blocks across pages */
+  .cs-flag, .cs-summary, .cs-chain, .viz, .pl-row, .cs-phase, .pl-tier, .pl-cta-card,
+  .pl-pass-col, tr { break-inside: avoid; page-break-inside: avoid; }
+  table { break-inside: auto; }
+  thead { display: table-header-group; }
+
+  .cs-tw { overflow: visible !important; }
+  .cs-table { min-width: 0 !important; font-size: 9.5pt !important; }
+  .cs-table td { padding: 8px 12px 8px 0 !important; }
+
+  .viz { break-inside: avoid; page-break-inside: avoid; }
+  .viz svg { max-width: 165mm; }
+
+  a { text-decoration: none; color: inherit; }
+  footer { break-before: avoid; }
+}
+
+/* ============================================================
+   Chart hover layer — styled tooltip, hover lift, focus ring
+   ============================================================ */
+.viz [data-tip], .viz [data-xk] { cursor: default; }
+.viz [data-tip]:hover, .viz [data-tip]:focus-visible { filter: brightness(1.10) saturate(1.05); }
+.viz [data-tip]:focus-visible, .viz svg[data-crosshair]:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+.viz svg[data-crosshair] { cursor: crosshair; }
+.viz-xhair { pointer-events: none; }
+.viz-dot-on { r: 6; }
+
+.viz-tip {
+  position: fixed; z-index: 200; pointer-events: none;
+  min-width: 132px; max-width: 300px;
+  padding: 10px 12px; border-radius: 10px;
+  background: var(--nav-bg, rgba(255,255,255,.96));
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 12px 32px rgba(0,0,0,.16), 0 2px 8px rgba(0,0,0,.08);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  font-family: var(--mono); font-size: 12px; line-height: 1.45;
+  color: var(--text-primary);
+}
+.viz-tip[hidden] { display: none; }
+.viz-tip-head { font-size: 11px; font-weight: 600; color: var(--text-secondary);
+  margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid var(--surface-border); }
+.viz-tip-row { display: flex; align-items: baseline; gap: 7px; padding: 2px 0; text-align: left; }
+.viz-tip-row + .viz-tip-row { margin-top: 1px; }
+.viz-tip-key { width: 12px; height: 2px; border-radius: 1px; flex-shrink: 0;
+  align-self: center; display: inline-block; }
+.viz-tip-val { font-weight: 700; color: var(--text-primary);
+  font-variant-numeric: tabular-nums; white-space: nowrap; }
+.viz-tip-lab { color: var(--text-secondary); flex: 1 1 auto; min-width: 0; text-align: left; }
+
+/* ── models page ────────────────────────────────────────── */
+.m-wrap { max-width: 940px; margin: 0 auto; padding: 92px 32px 72px; }
+.m-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--accent); font-weight: 600; margin-bottom: 14px; }
+.m-h1 { font-family: var(--mono); font-size: 34px; line-height: 1.25; font-weight: 600;
+  color: var(--text-primary); margin: 0 0 20px; letter-spacing: -.5px; }
+.m-lede { font-family: var(--mono); font-size: 14px; line-height: 1.75; color: var(--text-secondary);
+  max-width: 74ch; margin: 0 0 14px; }
+.m-flag { font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--text-tertiary);
+  border: 1px solid var(--surface-border); border-radius: 10px; padding: 14px 16px;
+  margin: 22px 0 8px; max-width: 76ch; }
+.m-card { border: 1px solid var(--surface-border); border-radius: 14px; padding: 24px 26px 22px;
+  margin: 26px 0; }
+.m-card .viz { margin-top: 4px; }
+.m-foot { font-family: var(--mono); font-size: 12px; color: var(--text-tertiary);
+  border-top: 1px solid var(--surface-border); margin-top: 44px; padding-top: 22px; }
+.m-foot a { color: var(--accent); }
+@media (max-width: 700px) { .m-wrap { padding: 78px 20px 56px; } .m-h1 { font-size: 26px; } }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/"><span class="app-icon">v</span>vyb</a>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <span class="tt-icon tt-sun">☀️</span><span class="tt-icon tt-moon">🌙</span>
+    </button>
+  </div>
+</nav>
+<main class="m-wrap">
+  <div class="m-kicker">Illustrative · anonymized</div>
+  <h1 class="m-h1">What a live-music operator looks like as a payment business.</h1>
+      <p class="m-lede">Six outside-in models of what live-music operators and festivals of
+      different shapes could represent as payment businesses. Every figure is an estimate built
+      from published capacities, attendance and typical event spending — not from any operator's
+      books.</p>
+      <p class="m-lede">The subjects are <b>anonymized on purpose</b>. <i>Operator</i> is a
+      multi-venue operator running four rooms; <i>Festival&nbsp;A</i> is a city-scale festival week,
+      <i>Festival&nbsp;B</i> a festival and cultural network, and <i>Festivals&nbsp;C–E</i> are a
+      greenfield launch, a two-city festival and a festival with permanent venues. Room&nbsp;1–4 are
+      the four venues in the operator's portfolio.</p>
+      <p class="m-lede">The final chart shows how VYB would allocate a seed round against
+      this opportunity.</p>
+      <div class="m-flag">Illustrative models only. No company is named, none has been contacted,
+      reviewed or endorsed this, and nothing here states any real business's actual finances.
+      Figures are hypothetical and would have to be validated against real books.</div>
+      <div class="m-card">
+<div class="viz">
+        <div class="viz-title">Estimated annual payment ecosystem, by target</div>
+        <div class="viz-sub">Bars span the low–high estimate band. Right column is base-case VYB revenue at a 0.75% net take.</div>
+        <svg viewBox="0 0 720 266" role="img" aria-label="Estimated annual payment ecosystem for each of the six targets. Operator 50 to 75 million dollars, Festival A 30 to 55 million, Festival B 12 to 25 million; Festival C, Festival D and Festival E do not publish enough to model.">
+<line x1="108.0" y1="20" x2="108.0" y2="226" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="108.0" y="242" text-anchor="middle" font-size="12" fill="var(--viz-ink-2)">$0M</text>
+<line x1="219.0" y1="20" x2="219.0" y2="226" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="219.0" y="242" text-anchor="middle" font-size="12" fill="var(--viz-ink-2)">$20M</text>
+<line x1="330.0" y1="20" x2="330.0" y2="226" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="330.0" y="242" text-anchor="middle" font-size="12" fill="var(--viz-ink-2)">$40M</text>
+<line x1="441.0" y1="20" x2="441.0" y2="226" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="441.0" y="242" text-anchor="middle" font-size="12" fill="var(--viz-ink-2)">$60M</text>
+<line x1="552.0" y1="20" x2="552.0" y2="226" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="552.0" y="242" text-anchor="middle" font-size="12" fill="var(--viz-ink-2)">$80M</text>
+<text x="0" y="44" font-size="13" font-weight="600" fill="var(--viz-ink)">Operator</text>
+<path d="M389.5,28 H520.2 A4,4 0 0 1 524.2,32 V46 A4,4 0 0 1 520.2,50 H389.5 A4,4 0 0 1 385.5,46 V32 A4,4 0 0 1 389.5,28 Z" fill="var(--series-1)" data-tip='{"h":"Operator","r":[{"l":"est. payment ecosystem","v":"$50M–$75M+"},{"l":"base-case VYB revenue @ 0.75%","v":"~$375K–$560K"}]}'><title>Operator &#183; est. payment ecosystem $50M&#8211;$75M+ &#183; base-case VYB revenue ~$375K&#8211;$560K</title></path>
+<text x="532.2" y="44" font-size="12" font-weight="600" fill="var(--viz-ink)">$50M&#8211;$75M+</text>
+<text x="720" y="44" text-anchor="end" font-size="12" fill="var(--viz-ink-2)">~$375K&#8211;$560K</text>
+<text x="0" y="78" font-size="13" font-weight="600" fill="var(--viz-ink)">Festival A</text>
+<path d="M278.5,62 H409.2 A4,4 0 0 1 413.2,66 V80 A4,4 0 0 1 409.2,84 H278.5 A4,4 0 0 1 274.5,80 V66 A4,4 0 0 1 278.5,62 Z" fill="var(--series-1)" data-tip='{"h":"Festival A","r":[{"l":"est. payment ecosystem","v":"$30M–$55M+"},{"l":"base-case VYB revenue @ 0.75%","v":"~$300K–$415K"}]}'><title>Festival A &#183; est. payment ecosystem $30M&#8211;$55M+ &#183; base-case VYB revenue ~$300K&#8211;$415K</title></path>
+<text x="421.2" y="78" font-size="12" font-weight="600" fill="var(--viz-ink)">$30M&#8211;$55M+</text>
+<text x="720" y="78" text-anchor="end" font-size="12" fill="var(--viz-ink-2)">~$300K&#8211;$415K</text>
+<text x="0" y="112" font-size="13" font-weight="600" fill="var(--viz-ink)">Festival B</text>
+<path d="M178.6,96 H242.8 A4,4 0 0 1 246.8,100 V114 A4,4 0 0 1 242.8,118 H178.6 A4,4 0 0 1 174.6,114 V100 A4,4 0 0 1 178.6,96 Z" fill="var(--series-1)" data-tip='{"h":"Festival B","r":[{"l":"est. payment ecosystem","v":"$12M–$25M+"},{"l":"base-case VYB revenue @ 0.75%","v":"~$125K–$190K"}]}'><title>Festival B &#183; est. payment ecosystem $12M&#8211;$25M+ &#183; base-case VYB revenue ~$125K&#8211;$190K</title></path>
+<text x="254.8" y="112" font-size="12" font-weight="600" fill="var(--viz-ink)">$12M&#8211;$25M+</text>
+<text x="720" y="112" text-anchor="end" font-size="12" fill="var(--viz-ink-2)">~$125K&#8211;$190K</text>
+<text x="0" y="146" font-size="13" font-weight="600" fill="var(--viz-ink)">Festival C</text>
+<text x="110.0" y="146" font-size="12" font-style="italic" fill="var(--viz-ink-2)">not published — carried on strategic grounds</text>
+<text x="720" y="146" text-anchor="end" font-size="12" fill="var(--viz-ink-2)">not modeled</text>
+<text x="0" y="180" font-size="13" font-weight="600" fill="var(--viz-ink)">Festival D</text>
+<text x="110.0" y="180" font-size="12" font-style="italic" fill="var(--viz-ink-2)">not published — carried on strategic grounds</text>
+<text x="720" y="180" text-anchor="end" font-size="12" fill="var(--viz-ink-2)">not modeled</text>
+<text x="0" y="214" font-size="13" font-weight="600" fill="var(--viz-ink)">Festival E</text>
+<text x="110.0" y="214" font-size="12" font-style="italic" fill="var(--viz-ink-2)">not published — carried on strategic grounds</text>
+<text x="720" y="214" text-anchor="end" font-size="12" fill="var(--viz-ink-2)">not modeled</text>
+</svg>
+        <div class="viz-note">Three targets publish enough to model; three do not and are carried on strategic grounds rather than assigned invented numbers. Every figure is an outside-in estimate.</div>
+      </div>      </div>
+      <div class="m-card">
+<div class="viz">
+        <div class="viz-title">Four properties, by room size and annual footfall</div>
+        <div class="viz-sub">Two measures, two panels — capacity is a fixed room size, attendance an estimate band.</div>
+        <svg viewBox="0 0 720 212" role="img" aria-label="Operator venue portfolio: room capacity and estimated annual attendance for Room 1, Room 2, Room 3 and Room 4.">
+<text x="152" y="16" font-size="12" font-weight="600" fill="var(--viz-ink)">Approx. capacity</text>
+<text x="458" y="16" font-size="12" font-weight="600" fill="var(--viz-ink)">Est. annual attendance</text>
+<line x1="152.0" y1="32" x2="152.0" y2="172" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="152.0" y="188" text-anchor="middle" font-size="11" fill="var(--viz-ink-2)">0</text>
+<line x1="227.2" y1="32" x2="227.2" y2="172" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="227.2" y="188" text-anchor="middle" font-size="11" fill="var(--viz-ink-2)">1,000</text>
+<line x1="302.4" y1="32" x2="302.4" y2="172" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="302.4" y="188" text-anchor="middle" font-size="11" fill="var(--viz-ink-2)">2,000</text>
+<line x1="458.0" y1="32" x2="458.0" y2="172" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="458.0" y="188" text-anchor="middle" font-size="11" fill="var(--viz-ink-2)">0K</text>
+<line x1="546.1" y1="32" x2="546.1" y2="172" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="546.1" y="188" text-anchor="middle" font-size="11" fill="var(--viz-ink-2)">150K</text>
+<line x1="634.2" y1="32" x2="634.2" y2="172" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="634.2" y="188" text-anchor="middle" font-size="11" fill="var(--viz-ink-2)">300K</text>
+<text x="0" y="58" font-size="12" font-weight="600" fill="var(--viz-ink)">Room 1</text>
+<path d="M152.0,42 H321.0 A4,4 0 0 1 325.0,46 V60 A4,4 0 0 1 321.0,64 H152.0 Z" fill="var(--series-1)" data-tip='{"h":"Room 1","r":[{"l":"approx. capacity","v":"2,300"}]}'><title>Room 1 &#183; approx. capacity 2,300</title></path>
+<text x="333.0" y="58" font-size="12" font-weight="600" fill="var(--viz-ink)">2,300</text>
+<path d="M608.9,42 H630.2 A4,4 0 0 1 634.2,46 V60 A4,4 0 0 1 630.2,64 H608.9 A4,4 0 0 1 604.9,60 V46 A4,4 0 0 1 608.9,42 Z" fill="var(--series-1)" data-tip='{"h":"Room 1","r":[{"l":"est. annual attendance","v":"250,000–300,000"}]}'><title>Room 1 &#183; est. annual attendance 250,000–300,000</title></path>
+<text x="642.2" y="58" font-size="12" font-weight="600" fill="var(--viz-ink)">250–300K</text>
+<text x="0" y="92" font-size="12" font-weight="600" fill="var(--viz-ink)">Room 2</text>
+<path d="M152.0,76 H230.7 A4,4 0 0 1 234.7,80 V94 A4,4 0 0 1 230.7,98 H152.0 Z" fill="var(--series-1)" data-tip='{"h":"Room 2","r":[{"l":"approx. capacity","v":"1,100"}]}'><title>Room 2 &#183; approx. capacity 1,100</title></path>
+<text x="242.7" y="92" font-size="12" font-weight="600" fill="var(--viz-ink)">1,100</text>
+<path d="M532.5,76 H548.0 A4,4 0 0 1 552.0,80 V94 A4,4 0 0 1 548.0,98 H532.5 A4,4 0 0 1 528.5,94 V80 A4,4 0 0 1 532.5,76 Z" fill="var(--series-1)" data-tip='{"h":"Room 2","r":[{"l":"est. annual attendance","v":"120,000–160,000"}]}'><title>Room 2 &#183; est. annual attendance 120,000–160,000</title></path>
+<text x="560.0" y="92" font-size="12" font-weight="600" fill="var(--viz-ink)">120–160K</text>
+<text x="0" y="126" font-size="12" font-weight="600" fill="var(--viz-ink)">Room 3</text>
+<path d="M152.0,110 H195.0 A4,4 0 0 1 199.0,114 V128 A4,4 0 0 1 195.0,132 H152.0 Z" fill="var(--series-1)" data-tip='{"h":"Room 3","r":[{"l":"approx. capacity","v":"625"}]}'><title>Room 3 &#183; approx. capacity 625</title></path>
+<text x="207.0" y="126" font-size="12" font-weight="600" fill="var(--viz-ink)">625</text>
+<path d="M506.1,110 H512.8 A4,4 0 0 1 516.8,114 V128 A4,4 0 0 1 512.8,132 H506.1 A4,4 0 0 1 502.1,128 V114 A4,4 0 0 1 506.1,110 Z" fill="var(--series-1)" data-tip='{"h":"Room 3","r":[{"l":"est. annual attendance","v":"75,000–100,000"}]}'><title>Room 3 &#183; est. annual attendance 75,000–100,000</title></path>
+<text x="524.8" y="126" font-size="12" font-weight="600" fill="var(--viz-ink)">75–100K</text>
+<text x="0" y="160" font-size="12" font-weight="600" fill="var(--viz-ink)">Room 4</text>
+<path d="M152.0,144 H174.3 A4,4 0 0 1 178.3,148 V162 A4,4 0 0 1 174.3,166 H152.0 Z" fill="var(--series-1)" data-tip='{"h":"Room 4","r":[{"l":"approx. capacity","v":"300–400"}]}'><title>Room 4 &#183; approx. capacity 300&#8211;400</title></path>
+<text x="186.3" y="160" font-size="12" font-weight="600" fill="var(--viz-ink)">300&#8211;400</text>
+<path d="M485.5,144 H489.2 A4,4 0 0 1 493.2,148 V162 A4,4 0 0 1 489.2,166 H485.5 A4,4 0 0 1 481.5,162 V148 A4,4 0 0 1 485.5,144 Z" fill="var(--series-1)" data-tip='{"h":"Room 4","r":[{"l":"est. annual attendance","v":"40,000–60,000"}]}'><title>Room 4 &#183; est. annual attendance 40,000–60,000</title></path>
+<text x="501.2" y="160" font-size="12" font-weight="600" fill="var(--viz-ink)">40–60K</text>
+</svg>
+        <div class="viz-note">Capacity for Room 4 is a 300–400 range; the bar plots the midpoint. Attendance bars span the low–high estimate. Plotted on separate scales because the two measures share no unit.</div>
+      </div>      </div>
+      <div class="m-card">
+<div class="viz">
+        <div class="viz-title">Festival B — revenue across penetration and take rate</div>
+        <div class="viz-sub">Nine outcomes. Darker is more annual revenue; the scale is shared with the other sensitivity grid.</div>
+        <svg viewBox="0 0 720 242" role="img" aria-label="Festival B revenue sensitivity grid across three penetration cases and three take rates, from 50 thousand to 250 thousand dollars a year.">
+<text x="214.0" y="32" text-anchor="middle" font-size="12" font-weight="600" fill="var(--viz-ink)">@ 0.50%</text>
+<text x="344.0" y="32" text-anchor="middle" font-size="12" font-weight="600" fill="var(--viz-ink)">@ 0.75%</text>
+<text x="474.0" y="32" text-anchor="middle" font-size="12" font-weight="600" fill="var(--viz-ink)">@ 1.00%</text>
+<text x="0" y="32" font-size="12" font-weight="600" fill="var(--viz-ink-2)">Effective net take →</text>
+<text x="0" y="67" font-size="13" font-weight="600" fill="var(--viz-ink)">Conservative</text>
+<text x="0" y="83" font-size="11" fill="var(--viz-ink-2)">$10M volume</text>
+<rect x="150" y="46" width="128" height="46" rx="4" fill="var(--heat-1)" data-tip='{"h":"Festival B · Conservative case @ 0.50%","r":[{"l":"a year, VYB revenue","v":"$50,000"},{"l":"annual payment volume","v":"$10M"}]}'><title>Festival B &#183; Conservative case ($10M volume) at 0.50% &#183; $50,000 annual revenue</title></rect>
+<text x="214" y="74" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-1)">$50K</text>
+<rect x="280" y="46" width="128" height="46" rx="4" fill="var(--heat-2)" data-tip='{"h":"Festival B · Conservative case @ 0.75%","r":[{"l":"a year, VYB revenue","v":"$75,000"},{"l":"annual payment volume","v":"$10M"}]}'><title>Festival B &#183; Conservative case ($10M volume) at 0.75% &#183; $75,000 annual revenue</title></rect>
+<text x="344" y="74" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-2)">$75K</text>
+<rect x="410" y="46" width="128" height="46" rx="4" fill="var(--heat-2)" data-tip='{"h":"Festival B · Conservative case @ 1.00%","r":[{"l":"a year, VYB revenue","v":"$100,000"},{"l":"annual payment volume","v":"$10M"}]}'><title>Festival B &#183; Conservative case ($10M volume) at 1.00% &#183; $100,000 annual revenue</title></rect>
+<text x="474" y="74" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-2)">$100K</text>
+<text x="0" y="115" font-size="13" font-weight="600" fill="var(--viz-ink)">Base</text>
+<text x="0" y="131" font-size="11" fill="var(--viz-ink-2)">$17.5M volume</text>
+<rect x="150" y="94" width="128" height="46" rx="4" fill="var(--heat-2)" data-tip='{"h":"Festival B · Base case @ 0.50%","r":[{"l":"a year, VYB revenue","v":"$87,500"},{"l":"annual payment volume","v":"$17.5M"}]}'><title>Festival B &#183; Base case ($17.5M volume) at 0.50% &#183; $87,500 annual revenue</title></rect>
+<text x="214" y="122" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-2)">$88K</text>
+<rect x="280" y="94" width="128" height="46" rx="4" fill="var(--heat-2)" data-tip='{"h":"Festival B · Base case @ 0.75%","r":[{"l":"a year, VYB revenue","v":"$131,250"},{"l":"annual payment volume","v":"$17.5M"}]}'><title>Festival B &#183; Base case ($17.5M volume) at 0.75% &#183; $131,250 annual revenue</title></rect>
+<text x="344" y="122" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-2)">$131K</text>
+<rect x="410" y="94" width="128" height="46" rx="4" fill="var(--heat-3)" data-tip='{"h":"Festival B · Base case @ 1.00%","r":[{"l":"a year, VYB revenue","v":"$175,000"},{"l":"annual payment volume","v":"$17.5M"}]}'><title>Festival B &#183; Base case ($17.5M volume) at 1.00% &#183; $175,000 annual revenue</title></rect>
+<text x="474" y="122" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-3)">$175K</text>
+<text x="0" y="163" font-size="13" font-weight="600" fill="var(--viz-ink)">Expansion</text>
+<text x="0" y="179" font-size="11" fill="var(--viz-ink-2)">$25M volume</text>
+<rect x="150" y="142" width="128" height="46" rx="4" fill="var(--heat-2)" data-tip='{"h":"Festival B · Expansion case @ 0.50%","r":[{"l":"a year, VYB revenue","v":"$125,000"},{"l":"annual payment volume","v":"$25M"}]}'><title>Festival B &#183; Expansion case ($25M volume) at 0.50% &#183; $125,000 annual revenue</title></rect>
+<text x="214" y="170" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-2)">$125K</text>
+<rect x="280" y="142" width="128" height="46" rx="4" fill="var(--heat-3)" data-tip='{"h":"Festival B · Expansion case @ 0.75%","r":[{"l":"a year, VYB revenue","v":"$187,500"},{"l":"annual payment volume","v":"$25M"}]}'><title>Festival B &#183; Expansion case ($25M volume) at 0.75% &#183; $187,500 annual revenue</title></rect>
+<text x="344" y="170" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-3)">$188K</text>
+<rect x="410" y="142" width="128" height="46" rx="4" fill="var(--heat-4)" data-tip='{"h":"Festival B · Expansion case @ 1.00%","r":[{"l":"a year, VYB revenue","v":"$250,000"},{"l":"annual payment volume","v":"$25M"}]}'><title>Festival B &#183; Expansion case ($25M volume) at 1.00% &#183; $250,000 annual revenue</title></rect>
+<text x="474" y="170" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-4)">$250K</text>
+<text x="0" y="223" font-size="11" fill="var(--viz-ink-2)">Annual VYB revenue</text>
+<rect x="150" y="212" width="32" height="14" rx="3" fill="var(--heat-1)"/>
+<rect x="184" y="212" width="32" height="14" rx="3" fill="var(--heat-2)"/>
+<rect x="218" y="212" width="32" height="14" rx="3" fill="var(--heat-3)"/>
+<rect x="252" y="212" width="32" height="14" rx="3" fill="var(--heat-4)"/>
+<rect x="286" y="212" width="32" height="14" rx="3" fill="var(--heat-5)"/>
+<rect x="320" y="212" width="32" height="14" rx="3" fill="var(--heat-6)"/>
+<text x="150" y="239" font-size="11" fill="var(--viz-ink-2)">$0</text>
+<text x="352" y="239" text-anchor="end" font-size="11" fill="var(--viz-ink-2)">$550K</text>
+</svg>
+        <div class="viz-note">Both sensitivity grids use one shared 0–$550K color scale, so the two targets are directly comparable. Every cell is labeled, so the color is a reading aid and never the only carrier of the value.</div>
+      </div>      </div>
+      <div class="m-card">
+<div class="viz">
+        <div class="viz-title">Festival A — revenue across penetration and take rate</div>
+        <div class="viz-sub">Nine outcomes. Darker is more annual revenue; the scale is shared with the other sensitivity grid.</div>
+        <svg viewBox="0 0 720 242" role="img" aria-label="Festival A revenue sensitivity grid across three penetration cases and three take rates, from 100 thousand to 550 thousand dollars a year.">
+<text x="214.0" y="32" text-anchor="middle" font-size="12" font-weight="600" fill="var(--viz-ink)">@ 0.50%</text>
+<text x="344.0" y="32" text-anchor="middle" font-size="12" font-weight="600" fill="var(--viz-ink)">@ 0.75%</text>
+<text x="474.0" y="32" text-anchor="middle" font-size="12" font-weight="600" fill="var(--viz-ink)">@ 1.00%</text>
+<text x="0" y="32" font-size="12" font-weight="600" fill="var(--viz-ink-2)">Effective net take →</text>
+<text x="0" y="67" font-size="13" font-weight="600" fill="var(--viz-ink)">Conservative</text>
+<text x="0" y="83" font-size="11" fill="var(--viz-ink-2)">$20M volume</text>
+<rect x="150" y="46" width="128" height="46" rx="4" fill="var(--heat-2)" data-tip='{"h":"Festival A · Conservative case @ 0.50%","r":[{"l":"a year, VYB revenue","v":"$100,000"},{"l":"annual payment volume","v":"$20M"}]}'><title>Festival A &#183; Conservative case ($20M volume) at 0.50% &#183; $100,000 annual revenue</title></rect>
+<text x="214" y="74" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-2)">$100K</text>
+<rect x="280" y="46" width="128" height="46" rx="4" fill="var(--heat-3)" data-tip='{"h":"Festival A · Conservative case @ 0.75%","r":[{"l":"a year, VYB revenue","v":"$150,000"},{"l":"annual payment volume","v":"$20M"}]}'><title>Festival A &#183; Conservative case ($20M volume) at 0.75% &#183; $150,000 annual revenue</title></rect>
+<text x="344" y="74" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-3)">$150K</text>
+<rect x="410" y="46" width="128" height="46" rx="4" fill="var(--heat-3)" data-tip='{"h":"Festival A · Conservative case @ 1.00%","r":[{"l":"a year, VYB revenue","v":"$200,000"},{"l":"annual payment volume","v":"$20M"}]}'><title>Festival A &#183; Conservative case ($20M volume) at 1.00% &#183; $200,000 annual revenue</title></rect>
+<text x="474" y="74" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-3)">$200K</text>
+<text x="0" y="115" font-size="13" font-weight="600" fill="var(--viz-ink)">Base</text>
+<text x="0" y="131" font-size="11" fill="var(--viz-ink-2)">$40M volume</text>
+<rect x="150" y="94" width="128" height="46" rx="4" fill="var(--heat-3)" data-tip='{"h":"Festival A · Base case @ 0.50%","r":[{"l":"a year, VYB revenue","v":"$200,000"},{"l":"annual payment volume","v":"$40M"}]}'><title>Festival A &#183; Base case ($40M volume) at 0.50% &#183; $200,000 annual revenue</title></rect>
+<text x="214" y="122" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-3)">$200K</text>
+<rect x="280" y="94" width="128" height="46" rx="4" fill="var(--heat-4)" data-tip='{"h":"Festival A · Base case @ 0.75%","r":[{"l":"a year, VYB revenue","v":"$300,000"},{"l":"annual payment volume","v":"$40M"}]}'><title>Festival A &#183; Base case ($40M volume) at 0.75% &#183; $300,000 annual revenue</title></rect>
+<text x="344" y="122" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-4)">$300K</text>
+<rect x="410" y="94" width="128" height="46" rx="4" fill="var(--heat-5)" data-tip='{"h":"Festival A · Base case @ 1.00%","r":[{"l":"a year, VYB revenue","v":"$400,000"},{"l":"annual payment volume","v":"$40M"}]}'><title>Festival A &#183; Base case ($40M volume) at 1.00% &#183; $400,000 annual revenue</title></rect>
+<text x="474" y="122" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-5)">$400K</text>
+<text x="0" y="163" font-size="13" font-weight="600" fill="var(--viz-ink)">Expansion</text>
+<text x="0" y="179" font-size="11" fill="var(--viz-ink-2)">$55M volume</text>
+<rect x="150" y="142" width="128" height="46" rx="4" fill="var(--heat-4)" data-tip='{"h":"Festival A · Expansion case @ 0.50%","r":[{"l":"a year, VYB revenue","v":"$275,000"},{"l":"annual payment volume","v":"$55M"}]}'><title>Festival A &#183; Expansion case ($55M volume) at 0.50% &#183; $275,000 annual revenue</title></rect>
+<text x="214" y="170" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-4)">$275K</text>
+<rect x="280" y="142" width="128" height="46" rx="4" fill="var(--heat-5)" data-tip='{"h":"Festival A · Expansion case @ 0.75%","r":[{"l":"a year, VYB revenue","v":"$412,500"},{"l":"annual payment volume","v":"$55M"}]}'><title>Festival A &#183; Expansion case ($55M volume) at 0.75% &#183; $412,500 annual revenue</title></rect>
+<text x="344" y="170" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-5)">$412K</text>
+<rect x="410" y="142" width="128" height="46" rx="4" fill="var(--heat-6)" data-tip='{"h":"Festival A · Expansion case @ 1.00%","r":[{"l":"a year, VYB revenue","v":"$550,000"},{"l":"annual payment volume","v":"$55M"}]}'><title>Festival A &#183; Expansion case ($55M volume) at 1.00% &#183; $550,000 annual revenue</title></rect>
+<text x="474" y="170" text-anchor="middle" font-size="13" font-weight="600" fill="var(--heat-ink-6)">$550K</text>
+<text x="0" y="223" font-size="11" fill="var(--viz-ink-2)">Annual VYB revenue</text>
+<rect x="150" y="212" width="32" height="14" rx="3" fill="var(--heat-1)"/>
+<rect x="184" y="212" width="32" height="14" rx="3" fill="var(--heat-2)"/>
+<rect x="218" y="212" width="32" height="14" rx="3" fill="var(--heat-3)"/>
+<rect x="252" y="212" width="32" height="14" rx="3" fill="var(--heat-4)"/>
+<rect x="286" y="212" width="32" height="14" rx="3" fill="var(--heat-5)"/>
+<rect x="320" y="212" width="32" height="14" rx="3" fill="var(--heat-6)"/>
+<text x="150" y="239" font-size="11" fill="var(--viz-ink-2)">$0</text>
+<text x="352" y="239" text-anchor="end" font-size="11" fill="var(--viz-ink-2)">$550K</text>
+</svg>
+        <div class="viz-note">Both sensitivity grids use one shared 0–$550K color scale, so the two targets are directly comparable. Every cell is labeled, so the color is a reading aid and never the only carrier of the value.</div>
+      </div>      </div>
+      <div class="m-card">
+<div class="viz">
+        <div class="viz-title">Combined annual VYB revenue</div>
+        <div class="viz-sub">Base-case bands, all three modeled accounts fully penetrated</div>
+        <svg viewBox="0 0 720 224" role="img" aria-label="Combined annual VYB revenue contribution by target across low, mid and high cases">
+<text x="0" y="55" font-size="14" font-weight="600" fill="var(--viz-ink)">Low</text>
+<path d="M104.0,36 H264.9442060085837 A0,0 0 0 1 264.9442060085837,36 V64 A0,0 0 0 1 264.9442060085837,64 H104.0 Z" fill="var(--series-1)"><title>Low &#183; Operator $375K</title></path>
+<path d="M266.9442060085837,36 H320.5922746781116 A0,0 0 0 1 320.5922746781116,36 V64 A0,0 0 0 1 320.5922746781116,64 H266.9442060085837 Z" fill="var(--series-2)"><title>Low &#183; Festival B $125K</title></path>
+<text x="293.76824034334766" y="55" text-anchor="middle" font-size="12" font-weight="600" fill="#fff">$125K</text>
+<path d="M322.5922746781116,36 H447.3476394849786 A4,4 0 0 1 451.3476394849786,40 V60 A4,4 0 0 1 447.3476394849786,64 H322.5922746781116 Z" fill="var(--series-3)"><title>Low &#183; Festival A $300K</title></path>
+<text x="184.47210300429185" y="55" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">$375K</text>
+<text x="386.9699570815451" y="55" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">$300K</text>
+<text x="463.3476394849786" y="55" font-size="14" font-weight="700" fill="var(--viz-ink)">$800K</text>
+<text x="0" y="107" font-size="14" font-weight="600" fill="var(--viz-ink)">Mid</text>
+<path d="M104.0,88 H304.42918454935625 A0,0 0 0 1 304.42918454935625,88 V116 A0,0 0 0 1 304.42918454935625,116 H104.0 Z" fill="var(--series-1)"><title>Mid &#183; Operator $467K</title></path>
+<path d="M306.42918454935625,88 H374.2403433476395 A0,0 0 0 1 374.2403433476395,88 V116 A0,0 0 0 1 374.2403433476395,116 H306.42918454935625 Z" fill="var(--series-2)"><title>Mid &#183; Festival B $158K</title></path>
+<path d="M376.2403433476395,88 H525.4592274678112 A4,4 0 0 1 529.4592274678112,92 V112 A4,4 0 0 1 525.4592274678112,116 H376.2403433476395 Z" fill="var(--series-3)"><title>Mid &#183; Festival A $357K</title></path>
+<text x="204.21459227467813" y="107" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">$467K</text>
+<text x="340.3347639484979" y="107" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">$158K</text>
+<text x="452.84978540772534" y="107" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">$357K</text>
+<text x="541.4592274678112" y="107" font-size="14" font-weight="700" fill="var(--viz-ink)">$982K</text>
+<text x="0" y="159" font-size="14" font-weight="600" fill="var(--viz-ink)">High</text>
+<path d="M104.0,140 H344.343347639485 A0,0 0 0 1 344.343347639485,140 V168 A0,0 0 0 1 344.343347639485,168 H104.0 Z" fill="var(--series-1)"><title>High &#183; Operator $560K</title></path>
+<path d="M346.343347639485,140 H427.8884120171674 A0,0 0 0 1 427.8884120171674,140 V168 A0,0 0 0 1 427.8884120171674,168 H346.343347639485 Z" fill="var(--series-2)"><title>High &#183; Festival B $190K</title></path>
+<path d="M429.8884120171674,140 H604.0 A4,4 0 0 1 608.0,144 V164 A4,4 0 0 1 604.0,168 H429.8884120171674 Z" fill="var(--series-3)"><title>High &#183; Festival A $415K</title></path>
+<text x="224.1716738197425" y="159" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">$560K</text>
+<text x="387.1158798283262" y="159" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">$190K</text>
+<text x="518.9442060085837" y="159" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">$415K</text>
+<text x="620.0" y="159" font-size="14" font-weight="700" fill="var(--viz-ink)">$1,165K</text>
+</svg>
+        <div class="viz-legend">
+          <span><i style="background:var(--series-1)"></i> Operator</span>
+          <span><i style="background:var(--series-2)"></i> Festival B</span>
+          <span><i style="background:var(--series-3)"></i> Festival A</span>
+        </div>
+        <p class="viz-note">Low / Mid / High are the ends and midpoint of each account's base-case band ($375&#8211;560K, $125&#8211;190K, $300&#8211;415K). Festival C, Festival D and Festival E are excluded &#8212; none publishes figures to model from.</p>
+      </div>      </div>
+      <div class="m-card">
+<div class="viz">
+        <div class="viz-title">Implied enterprise value as the multiple varies</div>
+        <div class="viz-sub">Band spans the $800K&#8211;$1.17M combined ARR range</div>
+        <svg viewBox="0 0 720 286" role="img" aria-label="Implied enterprise value as the revenue multiple varies from 8 to 20 times, banded by the 800K to 1.17M ARR range">
+<line x1="74.0" y1="236.0" x2="650.0" y2="236.0" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="64.0" y="240.0" text-anchor="end" font-size="12" fill="var(--viz-ink-2)">$0M</text>
+<line x1="74.0" y1="184.0" x2="650.0" y2="184.0" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="64.0" y="188.0" text-anchor="end" font-size="12" fill="var(--viz-ink-2)">$6M</text>
+<line x1="74.0" y1="132.0" x2="650.0" y2="132.0" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="64.0" y="136.0" text-anchor="end" font-size="12" fill="var(--viz-ink-2)">$12M</text>
+<line x1="74.0" y1="80.0" x2="650.0" y2="80.0" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="64.0" y="84.0" text-anchor="end" font-size="12" fill="var(--viz-ink-2)">$18M</text>
+<line x1="74.0" y1="28.0" x2="650.0" y2="28.0" stroke="var(--viz-grid)" stroke-width="1"/>
+<text x="64.0" y="32.0" text-anchor="end" font-size="12" fill="var(--viz-ink-2)">$24M</text>
+<text x="74.0" y="264" text-anchor="middle" font-size="12" fill="var(--viz-ink-2)">8&#215;</text>
+<text x="266.0" y="264" text-anchor="middle" font-size="12" fill="var(--viz-ink-2)">12&#215;</text>
+<text x="458.0" y="264" text-anchor="middle" font-size="12" fill="var(--viz-ink-2)">16&#215;</text>
+<text x="650.0" y="264" text-anchor="middle" font-size="12" fill="var(--viz-ink-2)">20&#215;</text>
+<polygon points="74.0,180.53333333333333 650.0,97.33333333333334 650.0,34.06666666666666 74.0,155.22666666666666" fill="var(--series-1)" fill-opacity="0.20"><title>Implied EV band: $6.4M&#8211;$9.3M at 8&#215;, rising to $16.0M&#8211;$23.3M at 20&#215;</title></polygon>
+<line x1="74.0" y1="180.53333333333333" x2="650.0" y2="97.33333333333334" stroke="var(--series-1)" stroke-width="2"/>
+<line x1="74.0" y1="155.22666666666666" x2="650.0" y2="34.06666666666666" stroke="var(--series-1)" stroke-width="2"/>
+<text x="658.0" y="38.06666666666666" font-size="13" font-weight="700" fill="var(--viz-ink)">$23.3M</text>
+<text x="658.0" y="101.33333333333334" font-size="13" font-weight="700" fill="var(--viz-ink)">$16.0M</text>
+<text x="189.20000000000002" y="108.99466666666666" font-size="12" fill="var(--viz-ink-2)">$1.17M ARR</text>
+<text x="304.40000000000003" y="173.25333333333333" font-size="12" fill="var(--viz-ink-2)">$800K ARR</text>
+<text x="362.0" y="282" text-anchor="middle" font-size="12" fill="var(--viz-ink-2)">Applied revenue multiple</text>
+</svg>
+        <p class="viz-note">Multiples shown are <b>illustrative inputs, not market quotes</b> &#8212; no comparable-company analysis has been performed. Substitute your own and the arithmetic recomputes the same way.</p>
+      </div>      </div>
+      <div class="m-card">
+<div class="viz">
+        <div class="viz-title">Seed allocation</div>
+        <div class="viz-sub">$5.0M total</div>
+        <svg viewBox="0 0 720 262" role="img" aria-label="Use of seed funds across five categories totalling five million dollars">
+<text x="0" y="45" font-size="13.5" fill="var(--viz-ink)">Product &amp; engineering</text>
+<path d="M268.0,28 H594.0 A4,4 0 0 1 598.0,32 V48 A4,4 0 0 1 594.0,52 H268.0 Z" fill="var(--series-1)"><title>Product &amp; engineering: $1.75M (35%)</title></path>
+<text x="610.0" y="45" font-size="13" font-weight="700" fill="var(--viz-ink)">$1.75M</text>
+<text x="672.0" y="45" font-size="12" fill="var(--viz-ink-2)">35%</text>
+<text x="0" y="89" font-size="13.5" fill="var(--viz-ink)">Sales &amp; go-to-market</text>
+<path d="M268.0,72 H499.7142857142857 A4,4 0 0 1 503.7142857142857,76 V92 A4,4 0 0 1 499.7142857142857,96 H268.0 Z" fill="var(--series-1)"><title>Sales &amp; go-to-market: $1.25M (25%)</title></path>
+<text x="515.7142857142858" y="89" font-size="13" font-weight="700" fill="var(--viz-ink)">$1.25M</text>
+<text x="577.7142857142858" y="89" font-size="12" fill="var(--viz-ink-2)">25%</text>
+<text x="0" y="133" font-size="13.5" fill="var(--viz-ink)">Payments, compliance &amp; fin. infra</text>
+<path d="M268.0,116 H405.42857142857144 A4,4 0 0 1 409.42857142857144,120 V136 A4,4 0 0 1 405.42857142857144,140 H268.0 Z" fill="var(--series-1)"><title>Payments, compliance &amp; fin. infra: $0.75M (15%)</title></path>
+<text x="421.42857142857144" y="133" font-size="13" font-weight="700" fill="var(--viz-ink)">$0.75M</text>
+<text x="483.42857142857144" y="133" font-size="12" fill="var(--viz-ink-2)">15%</text>
+<text x="0" y="177" font-size="13.5" fill="var(--viz-ink)">G&amp;A / reserve</text>
+<path d="M268.0,160 H405.42857142857144 A4,4 0 0 1 409.42857142857144,164 V180 A4,4 0 0 1 405.42857142857144,184 H268.0 Z" fill="var(--series-1)"><title>G&amp;A / reserve: $0.75M (15%)</title></path>
+<text x="421.42857142857144" y="177" font-size="13" font-weight="700" fill="var(--viz-ink)">$0.75M</text>
+<text x="483.42857142857144" y="177" font-size="12" fill="var(--viz-ink-2)">15%</text>
+<text x="0" y="221" font-size="13.5" fill="var(--viz-ink)">Artist ecosystem (VYB Pulse)</text>
+<path d="M268.0,204 H358.2857142857143 A4,4 0 0 1 362.2857142857143,208 V224 A4,4 0 0 1 358.2857142857143,228 H268.0 Z" fill="var(--series-1)"><title>Artist ecosystem (VYB Pulse): $0.50M (10%)</title></path>
+<text x="374.2857142857143" y="221" font-size="13" font-weight="700" fill="var(--viz-ink)">$0.50M</text>
+<text x="436.2857142857143" y="221" font-size="12" fill="var(--viz-ink-2)">10%</text>
+</svg>
+        <p class="viz-note">60% of the round goes to product and distribution &#8212; building the thing and putting it in front of operators. The compliance line is what makes Layer 2 legally possible at volume; the artist-ecosystem line funds VYB Pulse.</p>
+      </div>      </div>
+  <div class="m-foot">© 2026 VYB · illustrative models, no company named ·
+    <a href="/">vybapp.io</a></div>
+</main>
+<script>
+
+(function () {
+  'use strict';
+  var html = document.documentElement;
+  var KEY = 'vyb-theme';
+  var toggle = document.getElementById('themeToggle');
+  var meta = document.getElementById('themeColorMeta');
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function apply(dark) {
+    html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    if (meta) meta.setAttribute('content', dark ? '#000000' : '#ffffff');
+  }
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch (e) {}
+  var dark = stored ? stored === 'dark' : mq.matches;
+  apply(dark);
+
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      dark = !dark;
+      apply(dark);
+      try { localStorage.setItem(KEY, dark ? 'dark' : 'light'); } catch (e) {}
+    });
+  }
+  mq.addEventListener('change', function (e) {
+    if (!stored) { dark = e.matches; apply(dark); }
+  });
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var io = document.querySelectorAll('[data-io]');
+  if (reduce || !('IntersectionObserver' in window)) {
+    io.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    io.forEach(function (el) { obs.observe(el); });
+  }
+
+  /* transparent nav while over the dark hero */
+  var hero = document.querySelector('.pl-hero');
+  if (hero) {
+    var syncNav = function () {
+      document.body.classList.toggle('nav-over', window.scrollY < hero.offsetHeight - 56);
+    };
+    syncNav();
+    window.addEventListener('scroll', syncNav, { passive: true });
+    window.addEventListener('resize', syncNav);
+  }
+
+  /* rail scrollspy */
+  var rail = document.getElementById('plRail');
+  if (rail) {
+    var links = [].slice.call(rail.querySelectorAll('a'));
+    var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    if (links.length) { links[0].classList.add('on'); }
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var i = secs.indexOf(e.target);
+        if (i < 0) return;
+        links.forEach(function (l) { l.classList.remove('on'); });
+        links[i].classList.add('on');
+      });
+    }, { rootMargin: '-12% 0px -72% 0px' });
+    secs.forEach(function (s) { if (s) spy.observe(s); });
+  }
+})();
+/* ── chart hover layer ─────────────────────────────────────────────
+   One styled tooltip for every chart on the page. Per-mark on bars and
+   heat cells; a snapping crosshair with an all-series readout on the
+   line chart. Keyboard focus gives the same readout as hover.
+   All label text is inserted with textContent — never innerHTML.
+   ---------------------------------------------------------------- */
+(function () {
+  'use strict';
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  var VALRE = /^(.*?)[\s:\u00b7]*(~?\$[\d.,]+\s*[KMB]?(?:\s*[\u2013\u2014-]\s*~?\$[\d.,]+\s*[KMB]?)?(?:\s*\(\d+%\))?)$/;
+  var tip = null, host = null;
+
+  function el(tag, cls) { var e = document.createElement(tag); if (cls) e.className = cls; return e; }
+
+  function getTip() {
+    if (tip) return tip;
+    tip = el('div', 'viz-tip');
+    tip.setAttribute('role', 'tooltip');
+    tip.hidden = true;
+    document.body.appendChild(tip);
+    return tip;
+  }
+
+  /* rows: [{l:label, v:value, c:color}] — value leads, label follows */
+  function render(head, rows) {
+    var t = getTip();
+    while (t.firstChild) { t.removeChild(t.firstChild); }
+    if (head) { var h = el('div', 'viz-tip-head'); h.textContent = head; t.appendChild(h); }
+    rows.forEach(function (r) {
+      var row = el('div', 'viz-tip-row');
+      if (r.c) { var k = el('i', 'viz-tip-key'); k.style.background = r.c; row.appendChild(k); }
+      if (r.v) { var v = el('b', 'viz-tip-val'); v.textContent = r.v; row.appendChild(v); }
+      var l = el('span', 'viz-tip-lab'); l.textContent = r.l || '';
+      row.appendChild(l);
+      t.appendChild(row);
+    });
+  }
+
+  function show(x, y) {
+    var t = getTip();
+    t.hidden = false;
+    var r = t.getBoundingClientRect(), pad = 14;
+    var left = x + pad, top = y - r.height - pad;
+    if (left + r.width > window.innerWidth - 8) { left = x - r.width - pad; }
+    if (left < 8) { left = 8; }
+    if (top < 8) { top = y + pad; }
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+  }
+
+  function hide() {
+    if (tip) { tip.hidden = true; }
+    if (host) { clearHair(host); host = null; }
+  }
+
+  /* ── per-mark tooltips (bars, heat cells) ───────────────────── */
+  function readTip(node) {
+    var raw = node.getAttribute('data-tip');
+    if (!raw) { return null; }
+    try {
+      var p = JSON.parse(raw);
+      if (Array.isArray(p)) { return { h: '', r: p }; }
+      return { h: p.h || '', r: p.r || [] };
+    } catch (e) { return null; }
+  }
+
+  function bindMark(node) {
+    function at(ev) {
+      var p = readTip(node);
+      if (!p) { return; }
+      render(p.h, p.r);
+      var b = node.getBoundingClientRect();
+      var x = ev && ev.clientX != null ? ev.clientX : b.left + b.width / 2;
+      var y = ev && ev.clientY != null ? ev.clientY : b.top;
+      show(x, y);
+    }
+    node.addEventListener('pointerenter', at);
+    node.addEventListener('pointermove', at);
+    node.addEventListener('pointerleave', hide);
+    node.addEventListener('focus', function () { at(null); });
+    node.addEventListener('blur', hide);
+  }
+
+  /* ── crosshair (line chart) ─────────────────────────────────── */
+  function clearHair(svg) {
+    var h = svg.querySelector('.viz-xhair');
+    if (h) { h.setAttribute('opacity', '0'); }
+    var on = svg.querySelectorAll('.viz-dot-on');
+    for (var i = 0; i < on.length; i++) { on[i].classList.remove('viz-dot-on'); }
+  }
+
+  function initCrosshair(svg) {
+    var plot = (svg.getAttribute('data-plot') || '').split(',').map(Number);
+    var dots = [].slice.call(svg.querySelectorAll('[data-xk]'));
+    if (!dots.length) { return; }
+    var cols = [], seen = {};
+    dots.forEach(function (d) {
+      var k = d.getAttribute('data-xk');
+      if (!seen[k]) { seen[k] = { xk: k, cx: parseFloat(d.getAttribute('data-cx')), items: [] }; cols.push(seen[k]); }
+      seen[k].items.push(d);
+    });
+    cols.sort(function (a, b) { return a.cx - b.cx; });
+
+    var hair = document.createElementNS(SVGNS, 'line');
+    hair.setAttribute('class', 'viz-xhair');
+    hair.setAttribute('y1', plot[1]);
+    hair.setAttribute('y2', plot[1] + plot[3]);
+    hair.setAttribute('stroke', 'var(--viz-ink-2)');
+    hair.setAttribute('stroke-width', '1');
+    hair.setAttribute('opacity', '0');
+    svg.insertBefore(hair, svg.firstChild);
+
+    var idx = -1;
+    function paint(i, cx, cy) {
+      if (i < 0 || i >= cols.length) { return; }
+      clearHair(svg);
+      host = svg;
+      idx = i;
+      var col = cols[i];
+      hair.setAttribute('x1', col.cx);
+      hair.setAttribute('x2', col.cx);
+      hair.setAttribute('opacity', '1');
+      var rows = col.items.map(function (d) {
+        d.classList.add('viz-dot-on');
+        /* resolve the series color to a concrete value: the tooltip lives on
+           document.body, where the .viz-scoped custom properties don't apply */
+        var c = window.getComputedStyle(d).fill || d.getAttribute('data-color');
+        return { l: d.getAttribute('data-series'), v: d.getAttribute('data-value'), c: c };
+      });
+      render(col.items[0].getAttribute('data-sub') || (col.xk + ' anchor accounts'), rows);
+      var b = svg.getBoundingClientRect();
+      var scale = b.width / svg.viewBox.baseVal.width;
+      show(cx != null ? cx : b.left + col.cx * scale,
+           cy != null ? cy : b.top + plot[1] * scale);
+    }
+
+    function fromPointer(ev) {
+      var b = svg.getBoundingClientRect();
+      var ux = (ev.clientX - b.left) * (svg.viewBox.baseVal.width / b.width);
+      var best = 0, bd = Infinity;
+      cols.forEach(function (c, i) {
+        var d = Math.abs(c.cx - ux);
+        if (d < bd) { bd = d; best = i; }
+      });
+      paint(best, ev.clientX, ev.clientY);
+    }
+
+    svg.addEventListener('pointermove', fromPointer);
+    svg.addEventListener('pointerleave', hide);
+    svg.addEventListener('focus', function () { paint(idx < 0 ? 0 : idx, null, null); });
+    svg.addEventListener('blur', hide);
+    svg.addEventListener('keydown', function (ev) {
+      if (ev.key === 'ArrowRight') { paint(Math.min(cols.length - 1, idx + 1), null, null); ev.preventDefault(); }
+      else if (ev.key === 'ArrowLeft') { paint(Math.max(0, idx - 1), null, null); ev.preventDefault(); }
+      else if (ev.key === 'Escape') { hide(); }
+    });
+  }
+
+  /* ── init ───────────────────────────────────────────────────── */
+  function init() {
+    var svgs = document.querySelectorAll('.viz svg');
+    for (var i = 0; i < svgs.length; i++) {
+      var svg = svgs[i];
+
+      /* lift the native <title> into aria-label so the browser's own
+         delayed tooltip doesn't double up with the styled one */
+      var titled = svg.querySelectorAll('title');
+      for (var j = titled.length - 1; j >= 0; j--) {
+        var tEl = titled[j], owner = tEl.parentNode;
+        if (owner === svg) { continue; }              /* chart-level title stays */
+        var txt = tEl.textContent || '';
+        owner.removeChild(tEl);
+        if (!owner.getAttribute('aria-label')) { owner.setAttribute('aria-label', txt); }
+        if (!owner.getAttribute('data-tip') && !owner.hasAttribute('data-xk')) {
+          var m = VALRE.exec(txt);
+          var rows = m ? [{ l: m[1], v: m[2] }] : [{ l: txt, v: '' }];
+          owner.setAttribute('data-tip', JSON.stringify({ r: rows }));
+        }
+      }
+
+      if (svg.getAttribute('data-crosshair')) {
+        initCrosshair(svg);
+      } else {
+        var marks = svg.querySelectorAll('[data-tip]');
+        for (var k = 0; k < marks.length; k++) {
+          marks[k].setAttribute('tabindex', '0');
+          marks[k].setAttribute('role', 'img');
+          bindMark(marks[k]);
+        }
+      }
+    }
+    window.addEventListener('scroll', hide, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+
+</script>
+</body></html>
