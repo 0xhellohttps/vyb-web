@@ -15,3 +15,6 @@ models.html
 
 # Internal PDF export of the acquisition models
 *.pdf
+
+# Agent worktrees — local scratch, never part of the site
+.claude/worktrees/
