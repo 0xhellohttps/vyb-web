@@ -11,8 +11,12 @@ network dependencies). Companion to the iOS demo in `vyb-ios`.
 Open the file directly, or serve it:
 
 ```sh
-python3 -m http.server 8000   # then open http://localhost:8000
+python3 serve.py              # then open http://localhost:8080
 ```
+
+`serve.py` resolves extensionless URLs the way GitHub Pages does (`/pulse` →
+`pulse.html`). Plain `python3 -m http.server` 404s on every internal nav link,
+which makes correct links look broken.
 
 ## Deploy
 
