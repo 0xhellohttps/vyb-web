@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff" id="themeColorMeta">
+<meta name="color-scheme" content="light dark">
+<title>VYB API — one query across settlement, POS, calendar and deal terms</title>
+<meta name="description" content="The VYB API is coming: a read API over the settlement, POS, ticketing, calendar, deal-term, labor and vendor state VYB holds in one place — for booking agents, venue operators, artists and managers. It replaces nothing: keep Toast, keep Stripe. Private beta, waitlist open.">
+<meta property="og:title" content="VYB API — one query across settlement, POS, calendar and deal terms">
+<meta property="og:description" content="A read API over the systems that never talk to each other. Holds and offers, settlement behaviour, show P&amp;L, payout runs — scoped to your seat. Private beta, waitlist open.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vybapp.io/api">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://vybapp.io/api">
+<style>
+/* ============================================================
+   VYB — marketing site, modeled exactly on typexp.app/#features
+   Monospace (SF Mono) · white canvas · Apple-blue accent ·
+   small understated type · left-aligned · bordered sections.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: rgba(255,255,255,0.72);
+  --surface-border: rgba(0,0,0,0.08);
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --text-tertiary: #aeaeb2;
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --hero-text: #1d1d1f;
+  --hero-sub: rgba(29,29,31,0.72);
+  --card-bg: rgba(255,255,255,0.65);
+  --card-border: rgba(0,0,0,0.08);
+  --feature-icon: #aeaeb2;
+  --toggle-bg: rgba(0,0,0,0.08);
+  --toggle-thumb: #ffffff;
+  --nav-bg: rgba(255,255,255,0.85);
+  --nav-border: rgba(0,0,0,0.08);
+  --pill-bg: rgba(0,113,227,0.08);
+  --pill-text: #0071e3;
+  --shadow-screenshot: 0 32px 80px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.10);
+  --vyb-grad: linear-gradient(150deg, #0071e3, #5e5ce6);
+
+  --mono: "SF Mono", ui-monospace, Menlo, Monaco, "Cascadia Code", "Source Code Pro", Consolas, monospace;
+  --system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #000000;
+  --surface: rgba(28,28,30,0.72);
+  --surface-border: rgba(255,255,255,0.08);
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1a6;
+  --text-tertiary: #636366;
+  --accent: #2997ff;
+  --accent-hover: #409cff;
+  --hero-text: #f5f5f7;
+  --hero-sub: rgba(245,245,247,0.72);
+  --card-bg: rgba(28,28,30,0.6);
+  --card-border: rgba(255,255,255,0.08);
+  --feature-icon: #636366;
+  --toggle-bg: rgba(255,255,255,0.12);
+  --toggle-thumb: #ffffff;
+  --nav-bg: rgba(0,0,0,0.72);
+  --nav-border: rgba(255,255,255,0.08);
+  --pill-bg: rgba(41,151,255,0.12);
+  --pill-text: #2997ff;
+  --shadow-screenshot: 0 32px 80px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; background: var(--bg); }
+
+body {
+  font-family: var(--mono);
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background .4s ease, color .4s ease;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── NAV ───────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 52px;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-border);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transition: background .4s, border-color .4s;
+}
+.nav-logo { display: flex; align-items: center; gap: 9px; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-primary); }
+.app-icon {
+  width: 27px; height: 27px; border-radius: 7px; flex-shrink: 0;
+  background: var(--vyb-grad);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-family: var(--system); font-weight: 700; font-size: 16px;
+  box-shadow: inset 0 0 0 .5px rgba(255,255,255,.25);
+}
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-link { font-size: 15px; color: var(--text-secondary); transition: color .2s; }
+.nav-link:hover { color: var(--text-primary); }
+.nav-buy-btn {
+  display: inline-flex; align-items: center; padding: 8px 17px;
+  background: var(--accent); color: #fff; border-radius: 6px;
+  font-size: 13px; font-weight: 600; border: none; cursor: pointer;
+  font-family: inherit; letter-spacing: -0.01em; white-space: nowrap;
+  transition: opacity .2s;
+}
+.nav-buy-btn:hover { opacity: .72; }
+@media (max-width: 767px) { .nav-link { display: none; } }
+
+/* theme toggle (sliding switch) */
+.theme-toggle {
+  position: relative; width: 44px; height: 26px;
+  background: var(--toggle-bg); border-radius: 13px; border: none;
+  cursor: pointer; transition: background .3s; flex-shrink: 0;
+}
+.theme-toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 20px; height: 20px; border-radius: 50%; background: var(--toggle-thumb);
+  box-shadow: 0 1px 4px rgba(0,0,0,.25);
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+[data-theme="dark"] .theme-toggle::after { transform: translateX(18px); }
+.tt-icon { position: absolute; top: 50%; transform: translateY(-50%); font-size: 11px; pointer-events: none; transition: opacity .2s; }
+.tt-sun { left: 6px; opacity: 1; }
+.tt-moon { right: 5px; opacity: .5; }
+[data-theme="dark"] .tt-sun { opacity: .5; }
+[data-theme="dark"] .tt-moon { opacity: 1; }
+
+/* ── SHARED ────────────────────────────────────────────── */
+.section-inner { max-width: 1080px; margin: 0 auto; }
+.section-eyebrow { font-size: 15px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.section-title { font-size: 18px; font-weight: 400; line-height: 1.6; color: var(--hero-text); margin-bottom: 12px; }
+.section-subtitle { font-size: 18px; color: var(--text-secondary); line-height: 1.7; max-width: 60ch; }
+
+section { padding: 40px 32px; border-top: 1px solid var(--surface-border); transition: background .4s; }
+
+.download-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 32px; background: var(--text-primary); color: var(--bg);
+  border-radius: 6px; font-size: 17px; font-weight: 600; cursor: pointer;
+  border: none; font-family: inherit; transition: opacity .2s;
+}
+.download-btn:hover { opacity: .72; }
+.download-btn svg { flex-shrink: 0; }
+
+/* ── FOOTER ────────────────────────────────────────────── */
+footer { border-top: 1px solid var(--nav-border); padding: 48px 32px; transition: background .4s, border-color .4s; }
+.footer-inner { max-width: 1080px; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
+.footer-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-primary); }
+.footer-brand .app-icon { width: 34px; height: 34px; border-radius: 8px; font-size: 19px; }
+.footer-meta { font-size: 14px; color: var(--text-tertiary); margin-top: 10px; }
+.footer-links { display: flex; gap: 24px; align-items: center; }
+.footer-links a { font-size: 14px; color: var(--text-tertiary); transition: color .2s; }
+.footer-links a:hover { color: var(--accent); }
+@media (max-width: 760px) { .footer-inner { flex-direction: column; align-items: flex-start; } }
+
+/* ── ANIMATIONS ────────────────────────────────────────── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.fade-up { opacity: 0; animation: fadeUp .7s cubic-bezier(.22,1,.36,1) forwards; }
+.fade-up-1 { animation-delay: .05s; }
+.fade-up-2 { animation-delay: .15s; }
+.fade-up-3 { animation-delay: .28s; }
+.fade-up-4 { animation-delay: .42s; }
+.fade-up-5 { animation-delay: .56s; }
+[data-io] { opacity: 0; transform: translateY(28px); transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+[data-io].in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, [data-io] { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .hero-cursor, .demo-cursor { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ============================================================
+   /api — VYB API
+   Secondary layout: full-bleed dark hero + sticky section rail,
+   the same shell /pulse uses, with a code panel as the centerpiece.
+   ============================================================ */
+
+.ap-page { --ap-measure: 68ch; }
+
+/* nav sits transparent over the dark hero, then solidifies on scroll */
+body.nav-over nav {
+  background: transparent; border-bottom-color: transparent; backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+body.nav-over .nav-logo { color: #f5f5f7; }
+body.nav-over .nav-link { color: rgba(255,255,255,0.70); }
+body.nav-over .nav-link:hover { color: #f5f5f7; }
+body.nav-over .theme-toggle { background: rgba(255,255,255,0.20); }
+nav, .nav-logo, .nav-link, .theme-toggle { transition: background .25s, color .25s, border-color .25s; }
+
+/* ---------- full-bleed dark hero ---------- */
+.ap-hero {
+  background: #000;
+  color: #f5f5f7;
+  padding: 132px 32px 72px;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+.ap-hero-inner { max-width: 1140px; margin: 0 auto; }
+.ap-hero-grid {
+  display: grid; grid-template-columns: minmax(0,1fr) minmax(0,470px);
+  gap: 56px; align-items: start;
+}
+.ap-kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 26px;
+}
+.ap-kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.ap-hero h1 {
+  font-size: 54px; font-weight: 600; line-height: 1.14; letter-spacing: -.025em;
+  color: #f5f5f7; max-width: 20ch; margin-bottom: 28px;
+}
+.ap-hero .ap-sub { font-size: 20px; line-height: 1.65; color: #a1a1a6; max-width: 60ch; }
+.ap-hero .ap-sub b { color: #f5f5f7; font-weight: 600; }
+.ap-hero-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 38px; }
+.ap-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--accent); color: #fff;
+  font-size: 16px; font-weight: 600;
+  padding: 15px 26px; border-radius: 980px;
+  transition: background .2s, transform .2s;
+}
+.ap-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.ap-btn-ghost {
+  display: inline-flex; align-items: center;
+  font-size: 16px; font-weight: 500; color: #a1a1a6;
+  padding: 15px 4px; transition: color .2s;
+}
+.ap-btn-ghost:hover { color: #f5f5f7; }
+
+/* hero fact strip */
+.ap-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  margin-top: 64px; border-top: 1px solid rgba(255,255,255,0.14);
+}
+.ap-strip div { padding: 26px 24px 0 0; }
+.ap-strip .n { font-size: 22px; font-weight: 600; letter-spacing: -.01em; color: #f5f5f7; line-height: 1.25; min-height: 2.5em; }
+.ap-strip .l { font-size: 14px; line-height: 1.55; color: #8e8e93; margin-top: 11px; max-width: 28ch; }
+
+/* ---------- code panel ---------- */
+.ap-code {
+  border: 1px solid rgba(255,255,255,0.14); border-radius: 14px; overflow: hidden;
+  background: #0b0b0d; min-width: 0;
+}
+.ap-code-bar {
+  display: flex; align-items: center; gap: 7px;
+  padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+.ap-code-bar i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.ap-code-bar .r { background: #ff5f57; } .ap-code-bar .y { background: #febc2e; } .ap-code-bar .g { background: #28c840; }
+.ap-code-bar span { margin-left: 8px; font-size: 11px; color: #6e6e73; letter-spacing: .02em; }
+.ap-code pre {
+  margin: 0; padding: 20px 22px 22px; overflow-x: auto;
+  font-family: var(--mono); font-size: 13px; line-height: 1.72; color: #d8d8dc;
+  -webkit-overflow-scrolling: touch;
+}
+.ap-code .c-m  { color: #ffd479; }             /* method */
+.ap-code .c-p  { color: #f5f5f7; }             /* path */
+.ap-code .c-k  { color: #9fd0ff; }             /* json key */
+.ap-code .c-s  { color: #b3e5a7; }             /* string */
+.ap-code .c-n  { color: #e2b6ff; }             /* number */
+.ap-code .c-cm { color: #6e6e73; }             /* comment */
+.ap-code-note {
+  padding: 12px 22px 16px; border-top: 1px solid rgba(255,255,255,0.10);
+  font-size: 12px; line-height: 1.6; color: #6e6e73;
+}
+
+/* light-theme variant when the panel sits in a body section */
+.ap-code.ap-code-inline { background: #0b0b0d; margin-top: 30px; }
+
+/* ---------- two-column shell with sticky rail ---------- */
+.ap-shell {
+  display: grid; grid-template-columns: 208px minmax(0, 1fr);
+  gap: 72px; max-width: 1140px; margin: 0 auto; padding: 0 32px 40px;
+}
+.ap-rail { position: sticky; top: 92px; align-self: start; padding-top: 60px; }
+.ap-rail-h {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase;
+  color: var(--text-tertiary); margin-bottom: 18px;
+}
+.ap-rail a {
+  display: flex; gap: 12px; align-items: baseline;
+  font-size: 14px; line-height: 1.4; color: var(--text-secondary);
+  padding: 8px 0; border-left: 2px solid transparent; padding-left: 14px;
+  margin-left: -16px; transition: color .2s, border-color .2s;
+}
+.ap-rail a .i { font-size: 11px; color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+.ap-rail a:hover { color: var(--text-primary); }
+.ap-rail a.on { color: var(--accent); border-left-color: var(--accent); }
+.ap-rail a.on .i { color: var(--accent); }
+
+/* ---------- sections ---------- */
+.ap-main { padding-top: 0; min-width: 0; }
+section.ap-sec { padding: 60px 0; border-top: 1px solid var(--surface-border); scroll-margin-top: 88px; }
+section.ap-sec:first-child { border-top: none; }
+.ap-sec-num {
+  font-size: 12px; font-weight: 700; letter-spacing: 1.8px;
+  color: var(--accent); margin-bottom: 16px; font-variant-numeric: tabular-nums;
+}
+.ap-h {
+  font-size: 32px; font-weight: 600; line-height: 1.24; letter-spacing: -.02em;
+  color: var(--hero-text); margin-bottom: 16px; max-width: 32ch;
+}
+.ap-lede { font-size: 18px; line-height: 1.7; color: var(--text-secondary); max-width: var(--ap-measure); }
+.ap-lede + .ap-lede { margin-top: 18px; }
+.ap-lede b { color: var(--hero-text); font-weight: 600; }
+.ap-note { font-size: 13px; line-height: 1.7; color: var(--text-tertiary); margin-top: 26px; max-width: var(--ap-measure); }
+.ap-sub-h { font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--text-tertiary); margin: 34px 0 14px; }
+
+/* ---------- source rows: the systems that never talk ---------- */
+.ap-sources { margin-top: 34px; border-top: 1px solid var(--surface-border); }
+.ap-src {
+  display: grid; grid-template-columns: minmax(0,200px) minmax(0,1fr);
+  gap: 24px; align-items: baseline;
+  padding: 18px 0; border-bottom: 1px solid var(--surface-border);
+}
+.ap-src .s-t { font-size: 16px; font-weight: 600; color: var(--hero-text); }
+.ap-src .s-d { font-size: 15px; line-height: 1.6; color: var(--text-secondary); }
+.ap-src .s-d b { color: var(--hero-text); font-weight: 600; }
+.ap-join {
+  margin-top: 26px; border-left: 2px solid var(--accent); padding: 6px 0 6px 24px;
+  font-size: 17px; line-height: 1.65; color: var(--hero-text); max-width: var(--ap-measure);
+}
+
+/* ---------- audience columns ---------- */
+.ap-aud { display: grid; grid-template-columns: repeat(auto-fit, minmax(228px,1fr)); gap: 16px; margin-top: 34px; }
+.ap-aud-col {
+  border: 1px solid var(--card-border); border-radius: 18px; padding: 24px 22px;
+  background: var(--card-bg); display: flex; flex-direction: column;
+}
+.ap-aud-col h3 { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.ap-aud-col .who { font-size: 17px; font-weight: 600; color: var(--hero-text); line-height: 1.4; margin-bottom: 16px; }
+.ap-aud-col ul { list-style: none; margin: 0 0 18px; }
+.ap-aud-col li {
+  font-size: 15px; line-height: 1.55; color: var(--text-secondary);
+  padding: 11px 0; border-top: 1px solid var(--surface-border);
+}
+.ap-aud-col li:first-child { border-top: none; padding-top: 0; }
+.ap-aud-col li q { font-style: normal; color: var(--hero-text); }
+.ap-eps { margin-top: auto; display: flex; flex-wrap: wrap; gap: 7px; }
+.ap-ep {
+  font-family: var(--mono); font-size: 12px; line-height: 1.2;
+  color: var(--pill-text); background: var(--pill-bg);
+  border: 1px solid var(--card-border); border-radius: 6px; padding: 6px 9px;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- resource table ---------- */
+.ap-res { margin-top: 30px; border-top: 1px solid var(--surface-border); }
+.ap-res-row {
+  display: grid; grid-template-columns: minmax(0,250px) minmax(0,1fr) 84px;
+  gap: 24px; align-items: baseline;
+  padding: 16px 0; border-bottom: 1px solid var(--surface-border);
+}
+.ap-res-row .r-e { font-family: var(--mono); font-size: 14px; color: var(--hero-text); overflow-wrap: anywhere; }
+.ap-res-row .r-d { font-size: 15px; line-height: 1.6; color: var(--text-secondary); }
+.ap-tag {
+  justify-self: start; font-size: 11px; font-weight: 700; letter-spacing: .9px; text-transform: uppercase;
+  border-radius: 999px; padding: 4px 10px; white-space: nowrap;
+  color: var(--pill-text); background: var(--pill-bg); border: 1px solid var(--card-border);
+}
+.ap-tag.planned { color: var(--text-tertiary); background: var(--toggle-bg); }
+
+/* ---------- scope grid ---------- */
+.ap-scope { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 16px; margin-top: 34px; }
+.ap-scope-card { border: 1px solid var(--card-border); border-radius: 16px; padding: 22px; background: var(--card-bg); }
+.ap-scope-card .t { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.ap-scope-card p { font-size: 15px; line-height: 1.65; color: var(--text-secondary); }
+.ap-scope-card p b { color: var(--hero-text); font-weight: 600; }
+
+/* ---------- gate: the money rule, stated plainly ---------- */
+.ap-gate {
+  margin-top: 34px; border: 1px solid var(--accent); border-radius: 18px;
+  padding: 26px; background: var(--pill-bg);
+}
+.ap-gate .g-h { font-size: 18px; font-weight: 600; color: var(--hero-text); margin-bottom: 10px; }
+.ap-gate p { font-size: 16px; line-height: 1.7; color: var(--text-secondary); max-width: 62ch; }
+.ap-gate p b { color: var(--hero-text); font-weight: 600; }
+.ap-gate p + p { margin-top: 12px; }
+
+/* ---------- coverage ---------- */
+.ap-cov { margin-top: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 1px; background: var(--surface-border); border: 1px solid var(--surface-border); border-radius: 12px; overflow: hidden; }
+.ap-cov-cell { background: var(--bg); padding: 18px 20px; }
+.ap-cov-cell .k { font-family: var(--mono); font-size: 13px; color: var(--text-secondary); }
+.ap-cov-cell .v { font-size: 16px; font-weight: 600; margin-top: 7px; letter-spacing: -.01em; }
+.ap-cov-cell .v.ok { color: #2f9e44; }
+.ap-cov-cell .v.part { color: #d9820a; }
+.ap-cov-cell .v.none { color: var(--text-tertiary); }
+.ap-cov-cell .d { font-size: 13px; line-height: 1.55; color: var(--text-tertiary); margin-top: 8px; }
+[data-theme="dark"] .ap-cov-cell .v.ok { color: #30d158; }
+[data-theme="dark"] .ap-cov-cell .v.part { color: #ff9f0a; }
+
+/* ---------- access / cta ---------- */
+.ap-cta { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 16px; margin-top: 34px; }
+.ap-cta-card { border: 1px solid var(--card-border); border-radius: 16px; padding: 22px; background: var(--card-bg); display: flex; flex-direction: column; }
+.ap-cta-card h3 { font-size: 16px; font-weight: 600; color: var(--hero-text); margin-bottom: 8px; }
+.ap-cta-card p { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 18px; flex: 1; }
+.ap-cta-card a { font-size: 15px; font-weight: 600; color: var(--accent); overflow-wrap: anywhere; }
+
+.ap-status { margin-top: 34px; border-top: 1px solid var(--surface-border); }
+.ap-status-row {
+  display: grid; grid-template-columns: 120px minmax(0,1fr);
+  gap: 24px; padding: 16px 0; border-bottom: 1px solid var(--surface-border); align-items: baseline;
+}
+.ap-status-row .s-k { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-tertiary); }
+.ap-status-row .s-v { font-size: 15px; line-height: 1.65; color: var(--text-secondary); }
+.ap-status-row .s-v b { color: var(--hero-text); font-weight: 600; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1060px) {
+  .ap-hero-grid { grid-template-columns: minmax(0,1fr); gap: 40px; }
+  .ap-hero h1 { font-size: 44px; max-width: 24ch; }
+  .ap-hero .ap-sub { max-width: none; }
+  .ap-shell { grid-template-columns: minmax(0,1fr); gap: 0; }
+  .ap-rail { display: none; }
+  .ap-strip { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  .ap-hero { padding: 108px 24px 56px; }
+  .ap-hero h1 { font-size: 33px; max-width: none; }
+  .ap-hero .ap-sub { font-size: 18px; }
+  .ap-shell { padding: 0 24px 32px; }
+  .ap-h { font-size: 25px; }
+  .ap-src { grid-template-columns: 1fr; gap: 6px; }
+  .ap-res-row { grid-template-columns: minmax(0,1fr) 84px; gap: 10px 16px; }
+  .ap-res-row .r-d { grid-column: 1 / -1; }
+  .ap-status-row { grid-template-columns: 1fr; gap: 6px; }
+  .ap-code pre { font-size: 12px; padding: 16px 18px 18px; }
+}
+@media (max-width: 480px) {
+  .ap-strip { grid-template-columns: 1fr; }
+  .ap-strip .n { min-height: 0; }
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">
+    <span class="app-icon">v</span>
+    vyb
+  </a>
+  <div class="nav-right">
+    <a href="/#features" class="nav-link">Features</a>
+    <a href="/#enterprise" class="nav-link">Enterprise</a>
+    <a href="/pulse" class="nav-link">VYB Pulse</a>
+    <a href="/api" class="nav-link" aria-current="page">API</a>
+    <a href="mailto:blake@vybapp.io?subject=VYB%20API%20waitlist" class="nav-buy-btn">Join the waitlist</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <span class="tt-icon tt-sun">☀️</span>
+      <span class="tt-icon tt-moon">🌙</span>
+    </button>
+  </div>
+</nav>
+
+<div class="ap-page">
+
+<!-- ============ HERO ============ -->
+<header class="ap-hero" id="top">
+  <div class="ap-hero-inner">
+    <div class="ap-hero-grid">
+      <div>
+        <p class="ap-kicker"><span class="dot"></span> VYB API · private beta</p>
+        <h1>The questions no single system can answer.</h1>
+        <p class="ap-sub">Your POS knows what the bar sold. Ticketing knows how many people came. The contract knows what the band was promised. None of them knows whether the night made money — because <b>none of them can see the other two</b>. VYB holds all of it as one record. The API is that record, opened up.</p>
+        <div class="ap-hero-actions">
+          <a href="mailto:blake@vybapp.io?subject=VYB%20API%20waitlist" class="ap-btn">Join the waitlist →</a>
+          <a href="#shape" class="ap-btn-ghost">See what's in it</a>
+        </div>
+      </div>
+
+      <div class="ap-code">
+        <div class="ap-code-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span>one call · three systems</span></div>
+<pre><span class="c-m">GET</span> <span class="c-p">/v1/events/evt_4c19b/pnl</span>
+
+{
+  <span class="c-k">"attendance"</span>:    <span class="c-n">743</span>,        <span class="c-cm">// ticketing</span>
+  <span class="c-k">"bar_net"</span>:       <span class="c-n">1874200</span>,    <span class="c-cm">// POS, in cents</span>
+  <span class="c-k">"guarantee"</span>:     <span class="c-n">920000</span>,     <span class="c-cm">// signed deal</span>
+  <span class="c-k">"room_kept"</span>:     <span class="c-n">1518100</span>,
+  <span class="c-k">"spend_per_head"</span>: <span class="c-n">1615</span>,
+  <span class="c-k">"sources"</span>: [<span class="c-s">"pos"</span>, <span class="c-s">"ticketing"</span>, <span class="c-s">"contract"</span>]
+}</pre>
+        <div class="ap-code-note">Illustrative. Endpoint names and response shapes are in design and will change before general availability.</div>
+      </div>
+    </div>
+
+    <div class="ap-strip">
+      <div><div class="n">Read-only</div><div class="l">Nothing in the API moves money. It reads the record money leaves behind.</div></div>
+      <div><div class="n">Scoped per seat</div><div class="l">A token inherits one seat's capabilities — your side of the deal, not the other side's.</div></div>
+      <div><div class="n">Replaces nothing</div><div class="l">Keep Toast. Keep Stripe. VYB reads alongside the systems you already run.</div></div>
+      <div><div class="n">Private beta</div><div class="l">Invite-only, opening with the first rooms and rosters set up on VYB.</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ SHELL: RAIL + MAIN ============ -->
+<div class="ap-shell">
+
+  <aside class="ap-rail">
+    <div class="ap-rail-h">The API</div>
+    <div id="apRail" class="ap-rail-nav">
+      <a href="#why"><span class="i">01</span> Why an API</a>
+      <a href="#alongside"><span class="i">02</span> What it replaces</a>
+      <a href="#ask"><span class="i">03</span> What you can ask</a>
+      <a href="#shape"><span class="i">04</span> Resources &amp; shape</a>
+      <a href="#scope"><span class="i">05</span> Scope &amp; permissions</a>
+      <a href="#money"><span class="i">06</span> The money rule</a>
+      <a href="#coverage"><span class="i">07</span> Honest coverage</a>
+      <a href="#access"><span class="i">08</span> Access</a>
+    </div>
+  </aside>
+
+  <main class="ap-main">
+
+    <!-- 01 WHY -->
+    <section class="ap-sec" id="why">
+      <div class="ap-sec-num">01 — WHY AN API</div>
+      <h2 class="ap-h">Six systems. Each one holds a sixth of the answer.</h2>
+      <p class="ap-lede">Ask a room's point-of-sale whether Friday made money and it will tell you the bar did $18,742. It has never heard of the band. Ask the ticketing platform and it will tell you 743 people came; it has no idea what they were paid to see. Ask the contract and it knows the guarantee and nothing about whether it was honoured on time.</p>
+      <p class="ap-lede">VYB sits at the point where those systems resolve into a number someone has to sign. A show on VYB carries its calendar entry, its deal terms, its POS lines, its crew and vendor state, and the settlement that closes it — <b>as one record, in one place</b>. That is the only reason a question like “did Friday make money, and where did it leak” has an answer at all. The API is a read over that join.</p>
+
+      <div class="ap-sources">
+        <div class="ap-src" data-io=""><div class="s-t">Point of sale</div><div class="s-d">What the room actually sold, service period by service period. Toast, Square, Clover, Lightspeed — and <b>read-only by construction</b>: there is no field in VYB that can write back to your POS.</div></div>
+        <div class="ap-src" data-io=""><div class="s-t">Ticketing &amp; attendance</div><div class="s-d">How many people were in the room. Every per-head figure in the system divides by this number, which is why its absence is reported rather than guessed.</div></div>
+        <div class="ap-src" data-io=""><div class="s-t">Calendar</div><div class="s-d">Which service period belongs to which show. Without it, a night of POS data is just a Friday.</div></div>
+        <div class="ap-src" data-io=""><div class="s-t">Deal terms</div><div class="s-d">The guarantee, the split, the deposit, the settlement clock — the thing every other number is eventually measured against.</div></div>
+        <div class="ap-src" data-io=""><div class="s-t">Labor &amp; crew</div><div class="s-d">Who worked the night, on what basis, at what cost. The half of the P&amp;L that never appears on a sales report.</div></div>
+        <div class="ap-src" data-io=""><div class="s-t">Vendors &amp; payouts</div><div class="s-d">Every party owed money on a night, their onboarding state, and — the part that matters before a run — <b>whether the money can legally move yet</b>.</div></div>
+      </div>
+
+      <p class="ap-join">Settlement is where all six meet, and VYB is the seat that holds both the room's side of that dollar and the act's. Two counterparties, one reconciled record.</p>
+
+      <p class="ap-note">Payments are the rail underneath every one of these numbers, and none of that changes: the settlement record the API reads is the one VYB's own rail produces. The intelligence is what makes the record worth reading — and the record is what makes the rail worth running.</p>
+    </section>
+
+    <!-- 02 WHAT IT REPLACES -->
+    <section class="ap-sec" id="alongside">
+      <div class="ap-sec-num">02 — WHAT IT REPLACES</div>
+      <h2 class="ap-h">Nothing. That is the whole idea.</h2>
+      <p class="ap-lede">VYB does not ask a room to move off its point of sale, its processor, its ticketing platform or its accounting stack. It sits <b>alongside</b> them and reads across all of them. Keep Toast. Keep Stripe. Keep the spreadsheet you actually trust.</p>
+      <p class="ap-lede">And it can coexist for a structural reason rather than a diplomatic one: the API is read-only, and <b>no endpoint in VYB moves money on your behalf</b>. Something that was never given the ability to capture a payment cannot quietly turn into your processor — see <a href="#money" style="color:var(--accent)">the money rule</a>.</p>
+
+      <div class="ap-scope">
+        <div class="ap-scope-card" data-io="">
+          <div class="t">Your POS stays your POS</div>
+          <p>Toast, Square, Clover, Lightspeed. VYB reads service periods and sales lines, and <b>there is no field in VYB that can write back</b>. Nothing about your menu, your pricing or your tabs changes.</p>
+        </div>
+        <div class="ap-scope-card" data-io="">
+          <div class="t">Your processor stays your processor</div>
+          <p>If Stripe settles your card volume today, it still does tomorrow. VYB reads the record those payments leave behind; it does not step in front of them to answer a question about them.</p>
+        </div>
+        <div class="ap-scope-card" data-io="">
+          <div class="t">Nothing to migrate</div>
+          <p>No re-platforming, no export project, no asking a box office to learn a second system. Connecting a feed is a read credential — and disconnecting it leaves your stack exactly as it was.</p>
+        </div>
+        <div class="ap-scope-card" data-io="">
+          <div class="t">Replacing one would defeat the point</div>
+          <p>A tool that replaced your POS would then see only what a POS sees. <b>The edge is the read across systems</b> — which is precisely the thing none of those systems can do for itself.</p>
+        </div>
+      </div>
+
+      <p class="ap-note">Naming these systems is a statement of compatibility, not of partnership. They are what rooms and agencies already run; VYB is built to read alongside them.</p>
+    </section>
+
+    <!-- 03 WHAT YOU CAN ASK -->
+    <section class="ap-sec" id="ask">
+      <div class="ap-sec-num">03 — WHAT YOU CAN ASK</div>
+      <h2 class="ap-h">Three seats, three sets of questions.</h2>
+      <p class="ap-lede">The same underlying graph, read from where you sit. These are the questions the beta is being designed around — if yours isn't here, it's the thing we want to hear in the waitlist email.</p>
+
+      <div class="ap-aud">
+        <div class="ap-aud-col" data-io="">
+          <h3>Booking agents &amp; agencies</h3>
+          <div class="who">Roster, holds, offers, availability.</div>
+          <ul>
+            <li><q>Every hold expiring in the next 72 hours — and the offer each one is blocking.</q></li>
+            <li><q>Which promoters countered below the number they last actually settled at?</q></li>
+            <li><q>Which acts have an open Tuesday inside 200 miles of a confirmed Friday?</q></li>
+          </ul>
+          <div class="ap-eps">
+            <span class="ap-ep">/v1/roster</span>
+            <span class="ap-ep">/v1/holds</span>
+            <span class="ap-ep">/v1/offers</span>
+            <span class="ap-ep">/v1/availability</span>
+            <span class="ap-ep">/v1/routing</span>
+          </div>
+        </div>
+
+        <div class="ap-aud-col" data-io="">
+          <h3>Venue operators &amp; groups</h3>
+          <div class="who">Settlement, POS, event and reconciliation data.</div>
+          <ul>
+            <li><q>Did Friday make money — and which line leaked it?</q></li>
+            <li><q>Which parties in tonight's payout run cannot legally be paid yet?</q></li>
+            <li><q>Which room in the book is dragging the blended settlement record down?</q></li>
+          </ul>
+          <div class="ap-eps">
+            <span class="ap-ep">/v1/events/{id}/pnl</span>
+            <span class="ap-ep">/v1/reconciliation-runs</span>
+            <span class="ap-ep">/v1/payout-runs</span>
+            <span class="ap-ep">/v1/sub-merchants</span>
+            <span class="ap-ep">/v1/venues/{id}</span>
+          </div>
+        </div>
+
+        <div class="ap-aud-col" data-io="">
+          <h3>Artists &amp; managers</h3>
+          <div class="who">Your own guarantees, settlements and statements.</div>
+          <ul>
+            <li><q>What did this room actually pay us against what it agreed to — and how many days late?</q></li>
+            <li><q>Which markets carry themselves once the van, the crew and the rooms are in?</q></li>
+            <li><q>Everything owed to us that still hasn't landed.</q></li>
+          </ul>
+          <div class="ap-eps">
+            <span class="ap-ep">/v1/shows</span>
+            <span class="ap-ep">/v1/guarantees</span>
+            <span class="ap-ep">/v1/settlements</span>
+            <span class="ap-ep">/v1/payouts</span>
+            <span class="ap-ep">/v1/statements</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 SHAPE -->
+    <section class="ap-sec" id="shape">
+      <div class="ap-sec-num">04 — RESOURCES &amp; SHAPE</div>
+      <h2 class="ap-h">What's in it, and what a response looks like.</h2>
+      <p class="ap-lede">JSON over HTTPS. Cursor pagination. Money in <b>integer cents, never a float</b>. Timestamps in UTC with an offset. And the state machines the product runs on are exposed as they are rather than flattened — a hold is one of ten bid states with legal transitions between them, not a boolean called <code>is_held</code>.</p>
+
+      <div class="ap-res">
+        <div class="ap-res-row" data-io=""><div class="r-e">/v1/shows · /v1/events</div><div class="r-d">The date itself: room, calendar position, status through advancing, live and settled.</div><span class="ap-tag">beta</span></div>
+        <div class="ap-res-row" data-io=""><div class="r-e">/v1/holds · /v1/offers</div><div class="r-d">The full bid lifecycle — open, held, countered, accepted, captured, settled, disputed — including the counter chain and the expiry clock.</div><span class="ap-tag">beta</span></div>
+        <div class="ap-res-row" data-io=""><div class="r-e">/v1/venues/{id}</div><div class="r-d">The room: capacity, market, and a settlement-derived score with the evidence it was computed from, weighted by source. Not an opinion poll.</div><span class="ap-tag">beta</span></div>
+        <div class="ap-res-row" data-io=""><div class="r-e">/v1/events/{id}/pnl</div><div class="r-d">A night priced from signed line items: POS × attendance × deal terms, with every total traceable to the row it came from.</div><span class="ap-tag">beta</span></div>
+        <div class="ap-res-row" data-io=""><div class="r-e">/v1/settlements</div><div class="r-d">What was owed, what landed, and the gap in days between the two.</div><span class="ap-tag">beta</span></div>
+        <div class="ap-res-row" data-io=""><div class="r-e">/v1/reconciliation-runs</div><div class="r-d">The close of a night, leg by leg — acceptance, splits, vendor payouts, fees, and anything that didn't tie out.</div><span class="ap-tag">beta</span></div>
+        <div class="ap-res-row" data-io=""><div class="r-e">/v1/sub-merchants · /v1/payout-runs</div><div class="r-d">Every party owed money, with KYB/KYC and payout state — including who <b>cannot</b> be paid tonight and the reason why.</div><span class="ap-tag">beta</span></div>
+        <div class="ap-res-row" data-io=""><div class="r-e">/v1/audit</div><div class="r-d">The append-only trail: who confirmed what, when, under which capability. Rows cannot be updated or deleted, by design.</div><span class="ap-tag">beta</span></div>
+        <div class="ap-res-row" data-io=""><div class="r-e">/v1/royalties</div><div class="r-d">Distribution and royalty statements ingested and reconciled against the touring record. Real work, and not in the first beta — we would rather ship it late than ship a stub.</div><span class="ap-tag planned">planned</span></div>
+        <div class="ap-res-row" data-io=""><div class="r-e">/v1/proposals</div><div class="r-d">The only planned write path, and it does not execute anything. See <a href="#money" style="color:var(--accent)">the money rule</a>.</div><span class="ap-tag planned">planned</span></div>
+      </div>
+
+      <div class="ap-sub-h">A response, in full</div>
+      <div class="ap-code ap-code-inline" data-io="">
+        <div class="ap-code-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span>how does this room settle?</span></div>
+<pre><span class="c-m">GET</span> <span class="c-p">/v1/venues/ven_8ac31/settlement?window=12m</span>
+
+{
+  <span class="c-k">"venue_id"</span>: <span class="c-s">"ven_8ac31"</span>,
+  <span class="c-k">"capacity"</span>: <span class="c-n">1200</span>,
+  <span class="c-k">"window"</span>: <span class="c-s">"12m"</span>,
+  <span class="c-k">"settled_events"</span>: <span class="c-n">47</span>,
+
+  <span class="c-k">"payout"</span>: {
+    <span class="c-k">"median_days"</span>: <span class="c-n">26</span>,
+    <span class="c-k">"p90_days"</span>: <span class="c-n">41</span>,
+    <span class="c-k">"on_time_rate"</span>: <span class="c-n">0.72</span>
+  },
+  <span class="c-k">"advance_accuracy"</span>: {
+    <span class="c-k">"settled_vs_offered_pct"</span>: <span class="c-n">-3.1</span>
+  },
+  <span class="c-k">"disputes"</span>: {
+    <span class="c-k">"rate"</span>: <span class="c-n">0.04</span>,
+    <span class="c-k">"resolved_median_days"</span>: <span class="c-n">9</span>
+  },
+
+  <span class="c-cm">// every figure above is derived from settled</span>
+  <span class="c-cm">// transactions, weighted by how directly</span>
+  <span class="c-cm">// VYB observed them.</span>
+  <span class="c-k">"evidence"</span>: [<span class="c-s">"settled"</span>, <span class="c-s">"settled"</span>, <span class="c-s">"community"</span>],
+
+  <span class="c-cm">// and what this answer could not see:</span>
+  <span class="c-k">"coverage"</span>: {
+    <span class="c-k">"settlement"</span>: <span class="c-s">"complete"</span>,
+    <span class="c-k">"pos"</span>:        <span class="c-s">"partial"</span>,
+    <span class="c-k">"ticketing"</span>:  <span class="c-s">"absent"</span>,
+    <span class="c-k">"undetectable"</span>: [
+      <span class="c-s">"spend_per_head"</span>,
+      <span class="c-s">"attendance_normalised_leakage"</span>
+    ]
+  }
+}</pre>
+        <div class="ap-code-note">Illustrative shape and figures — not a live response. Fields will change before general availability.</div>
+      </div>
+    </section>
+
+    <!-- 05 SCOPE -->
+    <section class="ap-sec" id="scope">
+      <div class="ap-sec-num">05 — SCOPE &amp; PERMISSIONS</div>
+      <h2 class="ap-h">A token is a seat, not a firehose.</h2>
+      <p class="ap-lede">The permission model isn't being invented for the API. It's the one the product already runs on, enforced in the database rather than in the client: a membership carries a persona, a persona carries an allow-listed set of capabilities, and a row is visible only to a caller with a live membership on it. <b>API tokens inherit exactly that and can only narrow it.</b></p>
+
+      <div class="ap-scope">
+        <div class="ap-scope-card" data-io="">
+          <div class="t">Narrow by default</div>
+          <p>A token is issued against a seat and a capability set. When a scope is ambiguous it resolves to <b>less</b> access, not more — including for the token issuer.</p>
+        </div>
+        <div class="ap-scope-card" data-io="">
+          <div class="t">Your side of the dollar</div>
+          <p>The operator reads the room's economics. The act reads its own settlement against that room. Same night, two records, <b>neither one leaking the other's</b>.</p>
+        </div>
+        <div class="ap-scope-card" data-io="">
+          <div class="t">Some things stay closed</div>
+          <p>Individual venue reviews are never attributed to their author, and a room's private operating score is not readable by the acts it books. Not everything VYB holds is something VYB will sell back.</p>
+        </div>
+        <div class="ap-scope-card" data-io="">
+          <div class="t">Consequential reads are logged</div>
+          <p>Exports and money-resource reads write an append-only audit row on the account they belong to. If a token pulled your settlement history, that is on your trail, not ours.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 MONEY -->
+    <section class="ap-sec" id="money">
+      <div class="ap-sec-num">06 — THE MONEY RULE</div>
+      <h2 class="ap-h">Reads now. Nothing in the API executes money.</h2>
+
+      <div class="ap-gate" data-io="">
+        <div class="g-h">v1 is read-only, and that is a rule rather than a phase.</div>
+        <p>There is no endpoint that captures a deposit, releases a payout or accepts an offer on your behalf. <b>If it moves money, it is not in the API.</b></p>
+        <p>When writes arrive, they will create <b>proposals</b> — the same object the Concierge creates in a group chat. A proposal is a card a human taps to confirm inside the app, and the confirm tap is the record of record. Software can propose; a person executes. That rule predates the API, and the API does not get an exception to it.</p>
+      </div>
+
+      <p class="ap-lede" style="margin-top:30px;">None of which is a step back from payments. VYB is the payment facilitator underneath these events: it onboards the parties, accepts the tap, splits the funds and settles each side. That rail is where the economics of the company end up, and it is also <b>where this data comes from</b> — reconciled settlement is a byproduct of running the money, not a survey about it.</p>
+      <p class="ap-lede">The order is just deliberate. The intelligence is what a room says yes to first; the rail is what it moves to once the intelligence has proved it sees the room better than anything else does.</p>
+    </section>
+
+    <!-- 07 COVERAGE -->
+    <section class="ap-sec" id="coverage">
+      <div class="ap-sec-num">07 — HONEST COVERAGE</div>
+      <h2 class="ap-h">Every response tells you what it couldn't see.</h2>
+      <p class="ap-lede">A dashboard that scores a room on partial data without saying so is worse than no dashboard, because you will act on it. So every VYB response carries a <b>coverage block</b>: which feeds are connected for that entity, which are partial, which are missing — and which conclusions are therefore <b>undetectable</b> rather than merely absent.</p>
+
+      <div class="ap-cov" data-io="">
+        <div class="ap-cov-cell"><div class="k">settlement</div><div class="v ok">complete</div><div class="d">Every date closed through VYB.</div></div>
+        <div class="ap-cov-cell"><div class="k">contracts</div><div class="v ok">complete</div><div class="d">Deal terms signed in-app.</div></div>
+        <div class="ap-cov-cell"><div class="k">pos</div><div class="v part">partial</div><div class="d">Connected mid-window; earlier nights have no sales lines.</div></div>
+        <div class="ap-cov-cell"><div class="k">ticketing</div><div class="v none">absent</div><div class="d">No attendance feed, so no per-head figure exists to report.</div></div>
+      </div>
+
+      <p class="ap-lede" style="margin-top:30px;">With no ticketing feed, a per-head figure is returned as unavailable — not as zero, and not as an estimate dressed up as a measurement. The upside of saying so plainly is that you always know exactly which feed to connect to unlock the next answer.</p>
+      <p class="ap-note">Coverage is scoped like everything else: it reports the completeness of <em>your</em> data on <em>your</em> entities. It is not a way to enumerate what VYB holds about anyone else.</p>
+    </section>
+
+    <!-- 08 ACCESS -->
+    <section class="ap-sec" id="access">
+      <div class="ap-sec-num">08 — ACCESS</div>
+      <h2 class="ap-h">Private beta. The waitlist is the whole signup.</h2>
+      <p class="ap-lede">Plainly: there is no public endpoint today. This page describes an API in design, not one you can call this afternoon — and we would rather say so than publish a sandbox that returns fixtures.</p>
+
+      <div class="ap-status">
+        <div class="ap-status-row" data-io=""><div class="s-k">Status</div><div class="s-v"><b>In design.</b> No public endpoint, no keys being issued, no sandbox. This page is the announcement, not the docs.</div></div>
+        <div class="ap-status-row" data-io=""><div class="s-k">Who first</div><div class="s-v">Venue groups and booking agencies first, then artist teams. Access is granted per organisation, not per developer.</div></div>
+        <div class="ap-status-row" data-io=""><div class="s-k">Shape</div><div class="s-v">REST + JSON, bearer tokens scoped per seat, cursor pagination, and webhooks that fire when a state machine advances.</div></div>
+        <div class="ap-status-row" data-io=""><div class="s-k">Pricing</div><div class="s-v">Not set. When it is, it will be on this page rather than in a sales call.</div></div>
+        <div class="ap-status-row" data-io=""><div class="s-k">Timeline</div><div class="s-v">No public date. The waitlist hears before the site does.</div></div>
+      </div>
+
+      <div class="ap-cta">
+        <div class="ap-cta-card" data-io="">
+          <h3>Join the waitlist</h3>
+          <p>Send one email. Tell us the seat you sit in and the first question you'd ask the API — that's what the beta gets designed around.</p>
+          <a href="mailto:blake@vybapp.io?subject=VYB%20API%20waitlist&amp;body=Seat%20(agency%20%2F%20venue%20%2F%20artist%20team)%3A%0AThe%20first%20question%20I%27d%20ask%3A%0A">blake@vybapp.io →</a>
+        </div>
+        <div class="ap-cta-card" data-io="">
+          <h3>Integrating from the other side</h3>
+          <p>If you run a system on the far end of these numbers — ticketing, POS, an accounting stack — tell us what you'd want to read, or hand us.</p>
+          <a href="mailto:blake@vybapp.io?subject=VYB%20API%20—%20integration">blake@vybapp.io →</a>
+        </div>
+        <div class="ap-cta-card" data-io="">
+          <h3>Already on VYB</h3>
+          <p>Rooms and rosters already set up on VYB go first, and API access carries no additional charge for the duration of the beta.</p>
+          <a href="mailto:blake@vybapp.io?subject=VYB%20API%20—%20existing%20account">blake@vybapp.io →</a>
+        </div>
+      </div>
+
+      <p class="ap-note">Everything on this page describes software that is not yet generally available. Endpoint names, field names, response shapes and every figure shown are illustrative and will change.</p>
+    </section>
+
+  </main>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand"><span class="app-icon">v</span> vyb</div>
+      <div class="footer-meta">© 2026 VYB · THIS IS A HTTPS PRODUCT</div>
+    </div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/#enterprise">Enterprise</a>
+      <a href="/pulse">VYB Pulse</a>
+      <a href="mailto:blake@vybapp.io?subject=VYB%20API">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var html = document.documentElement;
+  var KEY = 'vyb-theme';
+  var toggle = document.getElementById('themeToggle');
+  var meta = document.getElementById('themeColorMeta');
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function apply(dark) {
+    html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    if (meta) meta.setAttribute('content', dark ? '#000000' : '#ffffff');
+  }
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch (e) {}
+  var dark = stored ? stored === 'dark' : mq.matches;
+  apply(dark);
+
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      dark = !dark;
+      apply(dark);
+      try { localStorage.setItem(KEY, dark ? 'dark' : 'light'); } catch (e) {}
+    });
+  }
+  mq.addEventListener('change', function (e) {
+    if (!stored) { dark = e.matches; apply(dark); }
+  });
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var io = document.querySelectorAll('[data-io]');
+  if (reduce || !('IntersectionObserver' in window)) {
+    io.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    io.forEach(function (el) { obs.observe(el); });
+  }
+
+  /* transparent nav while over the dark hero */
+  var hero = document.querySelector('.ap-hero');
+  if (hero) {
+    var syncNav = function () {
+      var over = window.scrollY < hero.offsetHeight - 56;
+      document.body.classList.toggle('nav-over', over);
+    };
+    syncNav();
+    window.addEventListener('scroll', syncNav, { passive: true });
+    window.addEventListener('resize', syncNav);
+  }
+
+  /* rail scrollspy */
+  var rail = document.getElementById('apRail');
+  if (rail) {
+    var links = [].slice.call(rail.querySelectorAll('a'));
+    var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    if (links.length) { links[0].classList.add('on'); }
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var i = secs.indexOf(e.target);
+        if (i < 0) return;
+        links.forEach(function (l) { l.classList.remove('on'); });
+        links[i].classList.add('on');
+      });
+    }, { rootMargin: '-12% 0px -72% 0px' });
+    secs.forEach(function (s) { if (s) spy.observe(s); });
+  }
+})();
+</script>
+</body></html>
