@@ -1,19 +1,14 @@
 .DS_Store
-notes/
 .claude/settings.local.json
 
-# Internal-only, never public. vyb-web is a PUBLIC repo — committing these
-# would expose them in the repo file listing and permanently in git history.
-case-study.html
-models.html
-.claude/case_body.html
-.claude/case_extra.css
-.claude/build_case_study.py
-.claude/gen_case_charts.py
-# maps real names -> the anonymized labels on models.html: a de-anonymization key
-.claude/build_models.py
+# ── marketing/ · NEVER COMMIT ─────────────────────────────────────────────
+# Proposals, investor collateral, and PDF build tooling live here locally.
+# vyb-web is served by GitHub Pages: everything committed to this branch is
+# PUBLISHED at vybapp.io — even if the repo is later made private, Pages
+# still serves every committed file. Confidential material stays untracked.
+marketing/
 
-# Internal PDF export of the acquisition models
+# Stray PDF exports (the tracked site PDFs, e.g. VYB-sitemap.pdf, override this)
 *.pdf
 
 # Agent worktrees — local scratch, never part of the site
