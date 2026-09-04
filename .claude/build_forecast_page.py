@@ -199,7 +199,6 @@ body = f"""<nav>
   <div class="nav-right">
     <a href="/#features" class="nav-link">Features</a>
     <a href="/#enterprise" class="nav-link">Enterprise</a>
-    <a href="/pulse" class="nav-link">VYB Pulse</a>
     <a href="/sitemap" class="nav-link">Sitemap</a>
     <a href="mailto:blake@vybapp.io?subject=VYB%20forecast" class="nav-buy-btn">Talk to us</a>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="tt-icon tt-sun">☀️</span><span class="tt-icon tt-moon">🌙</span></button>

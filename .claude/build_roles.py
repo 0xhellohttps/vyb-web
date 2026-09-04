@@ -93,8 +93,6 @@ body = f"""<nav>
   <div class="nav-right">
     <a href="/#features" class="nav-link">Features</a>
     <a href="/#enterprise" class="nav-link">Enterprise</a>
-    <a href="/forecast" class="nav-link">Forecast</a>
-    <a href="/roles" class="nav-link" aria-current="page">Roles</a>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="tt-icon tt-sun">☀️</span><span class="tt-icon tt-moon">🌙</span></button>
   </div>
 </nav>
