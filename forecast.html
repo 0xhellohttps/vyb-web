@@ -6,9 +6,9 @@
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex">
 <title>VYB — Forecast</title>
-<meta name="description" content="An early revenue forecast for VYB integrated into an independent live-entertainment promoter at three levels — Base, Medium and Full — built from the promoter's real show-by-show economics.">
+<meta name="description" content="The customer economics of VYB: one enterprise promoter's real, anonymized payment volume becomes revenue at three integration depths — and how that revenue expands, compounds and scales.">
 <meta property="og:title" content="VYB — Forecast">
-<meta property="og:description" content="An early revenue forecast for VYB integrated into an independent live-entertainment promoter at three levels — Base, Medium and Full — built from the promoter's real show-by-show economics.">
+<meta property="og:description" content="The customer economics of VYB: one enterprise promoter's real, anonymized payment volume becomes revenue at three integration depths — and how that revenue expands, compounds and scales.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://vybapp.io/forecast">
 <link rel="canonical" href="https://vybapp.io/forecast">
@@ -691,24 +691,113 @@ section.pl-sec:first-child { border-top: none; }
 .fc-flow .tag { font-size: 11px; font-weight: 700; letter-spacing: 1px; fill: #fff; }
 .fc-flow .fa { fill: none; stroke: var(--text-tertiary); stroke-width: 1.5; }
 .fc-flow .fah { fill: var(--text-tertiary); }
+
+/* ---------- institutional layer: KPIs, expansion, stack, scale, flywheel, heatmap, donut ---------- */
+.pl-page { --s4: #eda100; --s5: #e87ba4; }
+[data-theme="dark"] .pl-page { --s4: #c98500; --s5: #d55181; }
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 30px; }
+.kpis-hero { margin-top: 56px; border-top: 1px solid rgba(255,255,255,0.14); padding-top: 8px; }
+.kpi { border-top: 2px solid var(--accent); padding: 16px 16px 0 0; }
+.kpi .n { font-size: 30px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); line-height: 1.05; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.kpi .u { font-size: 11.5px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: var(--text-tertiary); margin-top: 9px; }
+.kpi .l { font-size: 13px; line-height: 1.5; color: var(--text-secondary); margin-top: 8px; }
+.pl-hero .kpi .n { color: #f5f5f7; } .pl-hero .kpi .u { color: #6e6e73; } .pl-hero .kpi .l { color: #8e8e93; }
+.pl-hero h1 { max-width: 26ch; }
+
+.fc-expand { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; }
+.fc-expand .ex { border: 1px solid var(--card-border); border-radius: 18px; padding: 22px; background: var(--card-bg); }
+.fc-expand .ex.hi { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.fc-expand .t { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+.fc-expand .n { font-size: 40px; font-weight: 600; letter-spacing: -.03em; color: var(--hero-text); line-height: 1; margin-top: 12px; font-variant-numeric: tabular-nums; }
+.fc-expand .m { font-size: 15px; font-weight: 600; color: var(--text-secondary); margin-top: 8px; }
+.fc-expand .bar { height: 8px; border-radius: 4px; background: var(--surface-border); margin-top: 14px; overflow: hidden; }
+.fc-expand .bar i { display: block; height: 100%; border-radius: 4px; }
+.fc-expand .d { font-size: 13.5px; line-height: 1.6; color: var(--text-secondary); margin-top: 14px; }
+
+.fc-chain { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 30px; }
+.fc-chain .cn { border: 1px solid var(--card-border); border-radius: 14px; padding: 14px 22px; background: var(--card-bg); min-width: 300px; text-align: center; }
+.fc-chain .cn.wide { width: 100%; text-align: left; }
+.fc-chain .cn.hi { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.fc-chain .k { font-size: 11.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-tertiary); }
+.fc-chain .v { font-size: 26px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); margin-top: 4px; font-variant-numeric: tabular-nums; }
+.fc-chain .ar { font-size: 18px; color: var(--text-tertiary); line-height: 1; }
+.fc-chain .layers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 14px; }
+.fc-chain .layers > div { display: grid; grid-template-columns: 10px 1fr; grid-template-rows: auto auto auto; column-gap: 10px; align-items: center; }
+.fc-chain .layers i { width: 10px; height: 10px; border-radius: 50%; grid-row: 1 / 4; align-self: start; margin-top: 6px; }
+.fc-chain .layers b { font-size: 14px; color: var(--hero-text); }
+.fc-chain .layers span { font-size: 22px; font-weight: 600; color: var(--hero-text); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.fc-chain .layers small { font-size: 12.5px; line-height: 1.45; color: var(--text-secondary); }
+.fc-stack { width: 100%; height: auto; display: block; font-family: var(--system); }
+.fc-stack .tick { font-size: 11.5px; fill: var(--text-secondary); }
+
+.fc-list { list-style: none; }
+.fc-list li { font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); padding: 10px 0; border-top: 1px solid var(--surface-border); }
+.fc-list li:first-child { border-top: none; padding-top: 0; }
+.fc-list li b { color: var(--hero-text); font-weight: 600; }
+
+.fc-scale { margin-top: 30px; border: 1px solid var(--card-border); border-radius: 18px; padding: 22px 24px; background: var(--card-bg); }
+.fc-scale label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-tertiary); }
+.fc-scale label b { color: var(--accent); font-size: 18px; letter-spacing: 0; }
+.fc-scale input[type=range] { width: 100%; margin: 14px 0 4px; accent-color: var(--accent); }
+.fc-scale .kpis { margin-top: 10px; }
+
+.fc-fly-wrap { margin-top: 30px; display: flex; justify-content: center; }
+.fc-fly { position: relative; width: min(100%, 640px); aspect-ratio: 1; font-family: var(--system); }
+.fc-fly svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.fw-c { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 42%; text-align: center; }
+.fw-c .t { font-size: 20px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); }
+.fw-c .s { font-size: 13px; line-height: 1.45; color: var(--text-secondary); margin-top: 6px; }
+.fw-n { position: absolute; transform: translate(-50%,-50%); width: 26%; text-align: center; }
+.fw-n .b { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; margin: 0 auto 6px; box-shadow: 0 0 0 6px var(--bg); }
+.fw-n .l { font-size: 12.5px; font-weight: 600; line-height: 1.3; color: var(--hero-text); background: var(--bg); border-radius: 8px; padding: 2px 4px; }
+
+.fc-heat { display: grid; grid-template-columns: 110px repeat(3, 1fr); gap: 6px; margin-top: 30px; }
+.fc-heat .hd { font-size: 11.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-tertiary); padding: 0 0 6px 10px; align-self: end; }
+.fc-heat .hl { font-size: 14px; font-weight: 600; color: var(--hero-text); display: flex; align-items: center; }
+.fc-heat .hc { border-radius: 12px; padding: 18px 14px; background: color-mix(in srgb, var(--s1) calc(var(--a) * 100%), var(--bg)); }
+.fc-heat .hc b { display: block; font-size: 22px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); font-variant-numeric: tabular-nums; }
+.fc-heat .hc span { font-size: 12px; color: var(--text-secondary); }
+
+.fc-donut-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.fc-donut { width: min(100%, 260px); height: auto; font-family: var(--system); }
+.fc-donut .dn-n { font-size: 22px; font-weight: 600; fill: var(--hero-text); }
+.fc-donut .dn-s { font-size: 11px; fill: var(--text-secondary); }
+.fc-quality { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 26px; }
+.fc-quality .q { border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; background: var(--card-bg); }
+.fc-quality .t { font-size: 11.5px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent); }
+.fc-quality .n { font-size: 28px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); margin-top: 10px; font-variant-numeric: tabular-nums; }
+.fc-quality .d { font-size: 13.5px; line-height: 1.55; color: var(--text-secondary); margin-top: 10px; }
+
+.fc-level-block { margin-top: 34px; padding-top: 26px; border-top: 1px solid var(--surface-border); }
+.fc-level-block .lh { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 14px; }
+.fc-level-block .fc-two { margin-top: 0; }
+
+@media (max-width: 1000px) {
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .fc-expand, .fc-quality { grid-template-columns: 1fr; }
+  .fc-chain .layers { grid-template-columns: repeat(2, 1fr); }
+  .fc-heat { grid-template-columns: 80px repeat(3, 1fr); }
+  .fw-n .l { font-size: 11px; }
+}
+@media (max-width: 600px) {
+  .fc-heat { grid-template-columns: 1fr; }
+  .fc-heat .hd:first-child { display: none; }
+  .fc-chain .layers { grid-template-columns: 1fr; }
+  .fc-fly { width: 100%; }
+  .fw-n { width: 30%; } .fw-c { width: 46%; } .fw-c .t { font-size: 15px; } .fw-c .s { display: none; }
+}
 </style>
 </head>
 <body>
 <nav>
-  <a href="/" class="nav-logo">
-    <span class="app-icon">v</span>
-    vyb
-  </a>
+  <a href="/" class="nav-logo"><span class="app-icon">v</span> vyb</a>
   <div class="nav-right">
     <a href="/#features" class="nav-link">Features</a>
     <a href="/#enterprise" class="nav-link">Enterprise</a>
     <a href="/pulse" class="nav-link">VYB Pulse</a>
     <a href="/sitemap" class="nav-link">Sitemap</a>
     <a href="mailto:blake@vybapp.io?subject=VYB%20forecast" class="nav-buy-btn">Talk to us</a>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-      <span class="tt-icon tt-sun">☀️</span>
-      <span class="tt-icon tt-moon">🌙</span>
-    </button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="tt-icon tt-sun">☀️</span><span class="tt-icon tt-moon">🌙</span></button>
   </div>
 </nav>
 
@@ -716,47 +805,55 @@ section.pl-sec:first-child { border-top: none; }
 
 <header class="pl-hero" id="top">
   <div class="pl-hero-inner">
-    <p class="pl-kicker">Forecast · illustrative</p>
-    <h1>Three levels of integration. One promoter's real numbers.</h1>
-    <p class="pl-sub">An early revenue forecast for VYB inside an independent live-entertainment promoter's business, built from that promoter's actual show-by-show economics. Three levels — <em>Base</em>, <em>Medium</em>, <em>Full</em> — each modeled on the same twelve months of activity. Every figure on this page is derived from the baseline below and the assumptions at the end; none is a commitment.</p>
+    <p class="pl-kicker">Forecast · the customer economics · modeled, illustrative</p>
+    <h1>One enterprise customer. $142.1M of annual payment volume. Up to $963K of revenue.</h1>
+    <p class="pl-sub">VYB is building the financial operating layer for live commerce. This page takes one high-volume promoter's real, anonymized economics and shows how the money that flows through its business becomes VYB revenue at three depths of integration — <em>Base</em>, <em>Medium</em>, <em>Full</em> — and how that revenue expands, compounds, and scales across customers. Every figure is computed from the baseline and the assumptions at the end. None is a commitment.</p>
     <div class="pl-hero-actions">
-      <a href="#levels" class="pl-btn">See the three levels →</a>
-      <a href="#assumptions" class="pl-btn-ghost">Read the assumptions</a>
+      <a href="#expansion" class="pl-btn">Revenue expansion →</a>
+      <a href="#scale" class="pl-btn-ghost">Platform scale</a>
+      <a href="#assumptions" class="pl-btn-ghost">Assumptions &amp; risks</a>
     </div>
-    <div class="pl-strip">
-      <div><div class="n">$142.1M<span class="u">paid out per year · modeled</span></div><div class="l">What the promoter pays artists, venues, vendors and crews in the modeled year.</div></div>
-      <div><div class="n">$55K<span class="u">Base · year one</span></div><div class="l">The event financial control center. Reads everything, moves nothing.</div></div>
-      <div><div class="n">$333K<span class="u">Medium · year one</span></div><div class="l">Payment orchestration on the promoter's existing rails.</div></div>
-      <div><div class="n">$963K<span class="u">Full · year one</span></div><div class="l">The intelligent operator, with capital against contracted receivables.</div></div>
+    <div class="kpis kpis-hero">
+      <div class="kpi"><div class="n">$142.1M</div><div class="u">annual TPV · one customer</div><div class=l>Total payment volume: what the customer pays artists, venues, vendors and crews in the modeled year.</div></div>
+      <div class="kpi"><div class="n">$55K</div><div class="u">Base · year one</div><div class=l>3.9 bps · software only</div></div>
+      <div class="kpi"><div class="n">$333K</div><div class="u">Medium · year one</div><div class=l>23.5 bps · software + payments + cards</div></div>
+      <div class="kpi"><div class="n">$963K</div><div class="u">Full · year one</div><div class=l>67.8 bps · + financing</div></div>
+      <div class="kpi"><div class="n">4–68 bps</div><div class="u">effective take rate</div><div class=l>Revenue ÷ TPV, by integration depth.</div></div>
+      <div class="kpi"><div class="n">$6.8K</div><div class="u">revenue per $1M of TPV</div><div class=l>At Full. Medium: $2.3K.</div></div>
+      <div class="kpi"><div class="n">$17.5M</div><div class="u">financing facilitated · year one</div><div class=l>5 dates × $3.5M; $35.0M at ten dates a year.</div></div>
+      <div class="kpi"><div class="n">$447K</div><div class="u">financing revenue · year one</div><div class=l>Origination fee plus interest participation. VYB balance sheet deployed: $0.</div></div>
     </div>
   </div>
 </header>
 
 <div class="pl-shell">
   <aside class="pl-rail">
-    <div class="pl-rail-h">The forecast</div>
+    <div class="pl-rail-h">The case</div>
     <div id="plRail" class="pl-rail-nav">
-      <a href="#baseline"><span class="i">01</span> The baseline</a>
-      <a href="#year"><span class="i">02</span> The modeled year</a>
-      <a href="#levels"><span class="i">03</span> Three levels</a>
-      <a href="#flow"><span class="i">04</span> How the money moves</a>
-      <a href="#base"><span class="i">05</span> Base</a>
-      <a href="#medium"><span class="i">06</span> Medium</a>
-      <a href="#full"><span class="i">07</span> Full</a>
-      <a href="#chart"><span class="i">08</span> Year one by quarter</a>
-      <a href="#three"><span class="i">09</span> Three-year view</a>
-      <a href="#sensitivity"><span class="i">10</span> Sensitivity</a>
-      <a href="#promoter"><span class="i">11</span> The promoter's side</a>
-      <a href="#assumptions"><span class="i">12</span> Assumptions</a>
+      <a href="#customer"><span class="i">01</span> Customer economics</a>
+      <a href="#expansion"><span class="i">02</span> Revenue expansion</a>
+      <a href="#stack"><span class="i">03</span> Revenue stack</a>
+      <a href="#unit"><span class="i">04</span> Unit economics</a>
+      <a href="#scale"><span class="i">05</span> Platform scale</a>
+      <a href="#flywheel"><span class="i">06</span> Capital flywheel</a>
+      <a href="#capital"><span class="i">07</span> Capital efficiency</a>
+      <a href="#mix"><span class="i">08</span> Revenue mix &amp; quality</a>
+      <a href="#sensitivity"><span class="i">09</span> Sensitivity</a>
+      <a href="#ramp"><span class="i">10</span> Ramp &amp; three years</a>
+      <a href="#levels"><span class="i">11</span> The three levels</a>
+      <a href="#date"><span class="i">12</span> One date, line by line</a>
+      <a href="#customerside"><span class="i">13</span> The customer's side</a>
+      <a href="#retention"><span class="i">14</span> Retention &amp; concentration</a>
+      <a href="#assumptions"><span class="i">15</span> Assumptions &amp; risks</a>
     </div>
   </aside>
 
   <main class="pl-main">
 
-    <section class="pl-sec" id="baseline">
-      <div class="pl-sec-num">01 — THE BASELINE</div>
-      <h2 class="pl-h">A promoter that quadrupled in a year.</h2>
-      <p class="pl-lede">The subject is an independent promoter and producer headquartered in Las Vegas, operating nightclubs, theaters, arenas, festivals, residencies and a stadium run across a dozen North American markets. The trailing eight months, show by show:</p>
+    <section class="pl-sec" id="customer">
+      <div class="pl-sec-num">01 — CUSTOMER ECONOMICS</div>
+      <h2 class="pl-h">One enterprise customer → $142.1M annual TPV → up to $963K revenue.</h2>
+      <p class="pl-lede">The customer is an independent live-entertainment promoter and producer headquartered in Las Vegas, operating nightclubs, theaters, arenas, festivals, residencies and a stadium run across a dozen North American markets. Its trailing eight months, show by show:</p>
       <div class="fc-stats" data-io="">
         <div><div class="n">64</div><div class="u">shows · Jan–Aug</div></div>
         <div><div class="n">$85.1M</div><div class="u">gross revenue</div></div>
@@ -764,152 +861,192 @@ section.pl-sec:first-child { border-top: none; }
         <div><div class="n">$26.8M</div><div class="u">net profit · 31% margin</div></div>
         <div><div class="n">554K</div><div class="u">attendance</div></div>
       </div>
-      <div class="fc-table-wrap" data-io="">
-        <table class="fc-table">
-          <thead><tr><th>Tier</th><th>Shows</th><th>Avg gross</th><th>Avg paid out</th><th>Avg attendance</th><th>Margin</th></tr></thead>
-          <tbody><tr><td>Stadium</td><td>5</td><td>$13.8M</td><td>$9.2M</td><td>67,279</td><td>33%</td></tr><tr><td>Arena / large room</td><td>11</td><td>$861K</td><td>$680K</td><td>7,686</td><td>21%</td></tr><tr><td>Theater / club</td><td>30</td><td>$203K</td><td>$147K</td><td>3,888</td><td>28%</td></tr><tr><td>Small room / activation</td><td>18</td><td>$24K</td><td>$14K</td><td>891</td><td>41%</td></tr></tbody>
-        </table>
+      <div class="fc-table-wrap" data-io=""><table class="fc-table"><thead><tr><th>Tier</th><th>Shows</th><th>Avg gross</th><th>Avg paid out</th><th>Avg attendance</th><th>Margin</th></tr></thead><tbody><tr><td>Stadium</td><td>5</td><td>$13.8M</td><td>$9.2M</td><td>67,279</td><td>33%</td></tr><tr><td>Arena / large room</td><td>11</td><td>$861K</td><td>$680K</td><td>7,686</td><td>21%</td></tr><tr><td>Theater / club</td><td>30</td><td>$203K</td><td>$147K</td><td>3,888</td><td>28%</td></tr><tr><td>Small room / activation</td><td>18</td><td>$24K</td><td>$14K</td><td>891</td><td>41%</td></tr></tbody></table></div>
+      <div class="fc-two" style="margin-top:26px;" data-io="">
+        <div>
+          <div class="pl-sub-h">The modeled year · TPV</div>
+          <table class="fc-table"><thead><tr><th>Case</th><th>Shows</th><th>Stadium dates</th><th>TPV</th><th>Gross</th></tr></thead><tbody>
+            <tr><td>Low</td><td>90</td><td>2</td><td>$36.7M</td><td>$53.5M</td></tr>
+            <tr class="hi"><td>Base</td><td>98</td><td>10</td><td>$142.1M</td><td>$207.1M</td></tr>
+            <tr><td>High</td><td>155</td><td>14</td><td>$202.5M</td><td>$295.2M</td></tr>
+          </tbody></table>
+        </div>
+        <div>
+          <div class="pl-sub-h">Why TPV is the driver</div>
+          <p class="pl-lede" style="font-size:15px;">VYB monetizes the money that moves, not seats or logins. TPV here is paid-out volume — the customer's payments to artists, venues, vendors and crews — because that is what VYB orchestrates and settles. Base is the current year's shape: the operating rhythm of 88 theater, club and arena shows plus 10 stadium dates at the confirmed $12.38M per-date budget. Seven of those dates are confirmed for the back half of this year, financed show-by-show at a 12% fixed return.</p>
+        </div>
       </div>
-      <p class="pl-lede" style="margin-top:26px;">Five stadium dates produced 81% of the revenue. The other 59 shows are the operating rhythm — a theater or club night every four days, each with its own vendors, crew and settlement. The prior full year grossed $21.9M with $7.0M of profit; the current year passed that by spring.</p>
-      <div class="fc-callout" data-io="">
-        <div class="fc-callout-h">The stadium run, per date</div>
-        <p>Seven further stadium dates are confirmed for the back half of the year, each budgeted at <b>$12.38M</b>: a flat $6.5M artist guarantee (52%), $2.14M production, $1.28M venue, $856K marketing, $749K personnel and travel, $535K contingency, $321K insurance. Each date is financed show-by-show at a <b>12% fixed return</b> repaid from box-office proceeds within months — $1.49M of cost per date, $10.4M across the run.</p>
-      </div>
-      <p class="pl-note">Figures are the promoter's own, lightly rounded. Company and artists are deliberately unnamed. Beyond the confirmed dates sit 26 shows on sale and 100+ pending projects, including residencies and national tours, which the High case below draws on.</p>
+      <p class="pl-note">Figures are the customer's own, lightly rounded; company and artists deliberately unnamed. The prior full year grossed $21.9M with $7.0M of profit; the current year passed that by spring. 26 further shows are on sale and 100+ are pending.</p>
     </section>
 
-    <section class="pl-sec" id="year">
-      <div class="pl-sec-num">02 — THE MODELED YEAR</div>
-      <h2 class="pl-h">Twelve months on VYB, in three volume cases.</h2>
-      <p class="pl-lede">The forecast runs on <b>paid-out volume</b> — the money the promoter sends to counterparties — because that is what VYB orchestrates and settles. Gross follows at the trailing 69% paid-out-to-gross ratio.</p>
-      <div class="fc-table-wrap" data-io="">
-        <table class="fc-table">
-          <thead><tr><th>Case</th><th>Shows</th><th>Stadium dates</th><th>Paid out</th><th>Gross</th><th>Basis</th></tr></thead>
-          <tbody>
-            <tr><td>Low</td><td>90</td><td>2</td><td>$36.7M</td><td>$53.5M</td><td>The theater, club and arena business annualized, plus two stadium dates.</td></tr>
-            <tr class="hi"><td>Base</td><td>98</td><td>10</td><td>$142.1M</td><td>$207.1M</td><td>The current year's shape: the same operating rhythm plus ten stadium dates at the confirmed per-date budget.</td></tr>
-            <tr><td>High</td><td>155</td><td>14</td><td>$202.5M</td><td>$295.2M</td><td>Base plus a slice of the pending pipeline: a residency, a national tour, more stadium dates.</td></tr>
-          </tbody>
-        </table>
+    <section class="pl-sec" id="expansion">
+      <div class="pl-sec-num">02 — REVENUE EXPANSION</div>
+      <h2 class="pl-h">Revenue expands as VYB moves deeper into the customer's business.</h2>
+      <p class="pl-lede">Same customer, same twelve months, same TPV. What changes is how much of the customer's financial flow runs through VYB — and each layer VYB takes on carries its own economics.</p>
+      <div class="fc-expand" data-io="">
+        <div class="ex"><div class="t" style="color:var(--s1)">Base</div><div class="n">$55K</div><div class="m">1×</div><div class="bar"><i style="width:5.7%;background:var(--s1)"></i></div><div class="d">Event financial control center. Reads ticketing, bank, accounting and contracts into one ledger. Moves nothing.</div></div>
+        <div class="ex"><div class="t" style="color:var(--s2)">Medium</div><div class="n">$333K</div><div class="m">6.1×</div><div class="bar"><i style="width:34.6%;background:var(--s2)"></i></div><div class="d">Payment orchestration on the customer's own rails and virtual cards, under its approval policy. 60% of TPV routed by Q4.</div></div>
+        <div class="ex hi"><div class="t" style="color:var(--s3)">Full</div><div class="n">$963K</div><div class="m">17.5×</div><div class="bar"><i style="width:100%;background:var(--s3)"></i></div><div class="d">Agents execute inside the policy; VYB originates working capital against contracted receivables. 85% routed by Q4; 2.9× Medium.</div></div>
       </div>
-      <p class="pl-note">Every level below is shown at Base volume. Section 10 re-runs each level at Low and High.</p>
+      <div class="fc-callout" data-io=""><div class="fc-callout-h">The investor takeaway</div><p>VYB can expand revenue <b>17.5×</b> inside an existing enterprise relationship without acquiring another customer — by moving from software into payments, cards and financing. Revenue per customer, not customer count, is the first growth lever.</p></div>
     </section>
 
-    <section class="pl-sec" id="levels">
-      <div class="pl-sec-num">03 — THREE LEVELS</div>
-      <h2 class="pl-h">The same twelve months, three depths of integration.</h2>
-      <p class="pl-lede">Each level contains the one before it. The promoter can stop at any of them; the forecast shows what each is worth to VYB and to the promoter.</p>
-      <div class="fc-levels" data-io="">
-        <div class="fc-level"><div class="t">Base</div><div class="c">$55K</div><div class="g">VYB revenue · year one</div><div class="d">Event financial control center. Every event a financial object: counterparties, obligations, invoices, approvals, settlement status, live margin. Reads the promoter's ticketing, bank and accounting; moves nothing.</div><div class="s">Promoter value · $106K</div></div>
-        <div class="fc-level hi"><div class="t">Medium</div><div class="c">$333K</div><div class="g">VYB revenue · year one</div><div class="d">Payment orchestration. Vendor, crew, production, marketing and artist payments execute through VYB on the promoter's existing bank rails and virtual cards, under the promoter's approval policy. Reconciled at execution.</div><div class="s">Promoter value · $331K</div></div>
-        <div class="fc-level"><div class="t">Full</div><div class="c">$963K</div><div class="g">VYB revenue · year one</div><div class="d">Intelligent event operator. Agents run approvals and settlement within policy, and VYB arranges working capital against contracted receivables — replacing part of the show-by-show financing at a fraction of its cost.</div><div class="s">Promoter value · $1.6M</div></div>
+    <section class="pl-sec" id="stack">
+      <div class="pl-sec-num">03 — REVENUE STACK</div>
+      <h2 class="pl-h">Software → payments → cards → financing. Four layers on one customer.</h2>
+      <p class="pl-lede">At Full integration, year one, the same $142.1M of TPV is monetized four ways. VYB is not dependent on a single stream — and the streams that grow fastest are the transactional and financial ones.</p>
+      <div class="fc-chain" data-io="">
+        <div class="cn"><div class="k">Enterprise customer</div><div class="v">the promoter</div></div><div class="ar">↓</div>
+        <div class="cn"><div class="k">Annual TPV</div><div class="v">$142.1M</div></div><div class="ar">↓</div>
+        <div class="cn wide">
+          <div class="k">Monetization layers · Full · year one</div>
+          <div class="layers">
+            <div><i style="background:var(--s1)"></i><b>Software</b><span>$85K</span><small>platform $60K + implementation $25K</small></div>
+            <div><i style="background:var(--s2)"></i><b>Payments</b><span>$362K</span><small>0.40% on $90.6M routed</small></div>
+            <div><i style="background:var(--s5)"></i><b>Cards</b><span>$69K</span><small>interchange share on virtual-card spend</small></div>
+            <div><i style="background:var(--s3)"></i><b>Financing</b><span>$447K</span><small>origination + interest participation on $17.5M facilitated</small></div>
+          </div>
+        </div><div class="ar">↓</div>
+        <div class="cn hi"><div class="k">Full integration · VYB revenue</div><div class="v">$963K</div></div>
       </div>
-    </section>
-
-
-    <section class="pl-sec" id="flow">
-      <div class="pl-sec-num">04 — HOW THE MONEY MOVES</div>
-      <h2 class="pl-h">One ledger. Three depths.</h2>
-      <p class="pl-lede">The promoter's systems stay where they are. At Base, VYB reads them into one event ledger. At Medium, an approval policy and the payment router move money on the promoter's own rails. At Full, agents execute inside the policy and a capital partner advances against contracted receivables, repaid from settlement.</p>
-      <div class="fc-flow-wrap" data-io=""><svg class="fc-flow" viewBox="0 0 900 560" role="img" aria-labelledby="fl-t">
-<title id="fl-t">How money and data move at each integration level</title>
-<defs><marker id="fc-arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" class="fah"/></marker></defs>
-<rect x="40" y="24" width="150" height="48" rx="12" class="fb"/><text x="115.0" y="42.0" class="ft" text-anchor="middle">Ticketing</text><text x="115.0" y="61.0" class="fs" text-anchor="middle">the promoter’s existing system</text>
-<path d="M115 72 L115 108" class="fa" marker-end="url(#fc-arr)"/>
-<rect x="210" y="24" width="150" height="48" rx="12" class="fb"/><text x="285.0" y="42.0" class="ft" text-anchor="middle">Bank</text><text x="285.0" y="61.0" class="fs" text-anchor="middle">the promoter’s existing system</text>
-<path d="M285 72 L285 108" class="fa" marker-end="url(#fc-arr)"/>
-<rect x="380" y="24" width="150" height="48" rx="12" class="fb"/><text x="455.0" y="42.0" class="ft" text-anchor="middle">Accounting</text><text x="455.0" y="61.0" class="fs" text-anchor="middle">the promoter’s existing system</text>
-<path d="M455 72 L455 108" class="fa" marker-end="url(#fc-arr)"/>
-<rect x="550" y="24" width="150" height="48" rx="12" class="fb"/><text x="625.0" y="42.0" class="ft" text-anchor="middle">Contracts</text><text x="625.0" y="61.0" class="fs" text-anchor="middle">the promoter’s existing system</text>
-<path d="M625 72 L625 108" class="fa" marker-end="url(#fc-arr)"/>
-<text x="740" y="52" class="fs">reads only →</text>
-<rect x="40" y="110" width="660" height="62" rx="12" class="fb"/><text x="370.0" y="135.0" class="ft" text-anchor="middle">VYB event ledger</text><text x="370.0" y="154.0" class="fs" text-anchor="middle">every event a financial object · counterparties · obligations · invoices · approvals · live margin</text>
-<rect x="720" y="130" width="47" height="22" rx="11" fill="var(--s1)"/><text x="729" y="145" class="tag">BASE</text>
-<text x="720" y="172" class="fs">reads everything,</text><text x="720" y="188" class="fs">moves nothing</text>
-<path d="M370 172 L370 214" class="fa" marker-end="url(#fc-arr)"/>
-<rect x="40" y="216" width="300" height="62" rx="12" class="fb"/><text x="190.0" y="241.0" class="ft" text-anchor="middle">Approval policy</text><text x="190.0" y="260.0" class="fs" text-anchor="middle">thresholds · signers · caps · set by the promoter</text>
-<rect x="400" y="216" width="300" height="62" rx="12" class="fb"/><text x="550.0" y="241.0" class="ft" text-anchor="middle">Payment router</text><text x="550.0" y="260.0" class="fs" text-anchor="middle">picks the rail · writes the ledger entry</text>
-<path d="M340 247 L398 247" class="fa" marker-end="url(#fc-arr)"/>
-<rect x="720" y="236" width="61" height="22" rx="11" fill="var(--s2)"/><text x="729" y="251" class="tag">MEDIUM</text>
-<text x="720" y="278" class="fs">money moves on the</text><text x="720" y="294" class="fs">promoter’s own rails</text>
-<path d="M480 278 L480 318" class="fa" marker-end="url(#fc-arr)"/>
-<path d="M620 278 L620 318" class="fa" marker-end="url(#fc-arr)"/>
-<rect x="400" y="320" width="150" height="48" rx="12" class="fb"/><text x="475.0" y="338.0" class="ft" text-anchor="middle">Bank rails</text><text x="475.0" y="357.0" class="fs" text-anchor="middle">ACH · wire</text>
-<rect x="560" y="320" width="140" height="48" rx="12" class="fb"/><text x="630.0" y="338.0" class="ft" text-anchor="middle">Virtual cards</text><text x="630.0" y="357.0" class="fs" text-anchor="middle">per-persona caps</text>
-<path d="M550 344 L558 344" class="fa" marker-end="url(#fc-arr)"/>
-<path d="M550 368 L550 404" class="fa" marker-end="url(#fc-arr)"/>
-<rect x="400" y="406" width="300" height="48" rx="12" class="fb"/><text x="550.0" y="424.0" class="ft" text-anchor="middle">Artists · venues · vendors · crews</text><text x="550.0" y="443.0" class="fs" text-anchor="middle">paid in days, reconciled at execution</text>
-<rect x="40" y="320" width="300" height="62" rx="12" class="fb"/><text x="190.0" y="345.0" class="ft" text-anchor="middle">VYB agents</text><text x="190.0" y="364.0" class="fs" text-anchor="middle">run approvals & settlement inside the policy</text>
-<path d="M190 278 L190 318" class="fa" marker-end="url(#fc-arr)"/>
-<path d="M340 351 L398 351" class="fa" marker-end="url(#fc-arr)"/>
-<rect x="40" y="406" width="300" height="62" rx="12" class="fb"/><text x="190.0" y="431.0" class="ft" text-anchor="middle">Capital partner</text><text x="190.0" y="450.0" class="fs" text-anchor="middle">advance against contracted receivables</text>
-<path d="M190 382 L190 404" class="fa" marker-end="url(#fc-arr)"/>
-<path d="M340 430 L398 430" class="fa" marker-end="url(#fc-arr)"/>
-<rect x="720" y="340" width="47" height="22" rx="11" fill="var(--s3)"/><text x="729" y="355" class="tag">FULL</text>
-<text x="720" y="382" class="fs">agents execute;</text><text x="720" y="398" class="fs">capital repaid from</text><text x="720" y="414" class="fs">the settlement</text>
-<path d="M700 430 C 800 430, 800 500, 560 500 L 190 500 L 190 470" class="fa" marker-end="url(#fc-arr)" stroke-dasharray="4 4"/>
-<text x="450" y="522" class="fs" text-anchor="middle">box-office settlement repays the advance — automatically, before other distributions</text>
+      <div class="fc-chart-wrap" data-io=""><svg class="fc-stack" viewBox="0 0 760 64" role="img" aria-labelledby="st-t"><title id="st-t">Full integration revenue stack, year one</title>
+<rect x="1.0" y="10" width="45.3" height="28" rx="4" fill="var(--s1)"><title>Platform · $60K</title></rect>
+<rect x="48.3" y="10" width="17.7" height="28" rx="4" fill="var(--s4)"><title>Implementation · $25K</title></rect>
+<rect x="68.1" y="10" width="283.8" height="28" rx="4" fill="var(--s2)"><title>Payments · $362K</title></rect>
+<text x="210.0" y="58" class="tick" text-anchor="middle">Payments · $362K</text>
+<rect x="353.8" y="10" width="52.6" height="28" rx="4" fill="var(--s5)"><title>Cards · $69K</title></rect>
+<rect x="408.5" y="10" width="350.5" height="28" rx="4" fill="var(--s3)"><title>Financing · $447K</title></rect>
+<text x="583.7" y="58" class="tick" text-anchor="middle">Financing · $447K</text>
 </svg></div>
     </section>
-    <section class="pl-sec" id="base">
-      <div class="pl-sec-num">05 — BASE</div>
-      <h2 class="pl-h">The control center. Small revenue, the foundation for everything after.</h2>
-      <p class="pl-lede">At Base, VYB is software: an enterprise platform fee and an implementation. The promoter's 98 events become 98 live ledgers, and finance stops rebuilding the settlement in a spreadsheet at load-out.</p>
+
+    <section class="pl-sec" id="unit">
+      <div class="pl-sec-num">04 — UNIT ECONOMICS</div>
+      <h2 class="pl-h">TPV → take rate → revenue → gross profit.</h2>
+      <p class="pl-lede">Modeled gross margins by stream. Payments carry rail and network cost; implementation is services; financing is high-margin to VYB because the capital partner carries the funding cost and VYB earns fees and a share of interest.</p>
+      <div class="kpis" data-io="">
+        <div class="kpi"><div class="n">$142.1M</div><div class="u">TPV</div></div>
+        <div class="kpi"><div class="n">67.8 bps</div><div class="u">effective take rate · Full</div></div>
+        <div class="kpi"><div class="n">$963K</div><div class="u">revenue · Full · year one</div></div>
+        <div class="kpi"><div class="n">$777K</div><div class="u">gross profit · 81% margin</div></div>
+      </div>
+      <div class="fc-table-wrap" data-io=""><table class="fc-table"><thead><tr><th>Stream · Full · year one</th><th>Revenue</th><th>Gross margin</th><th>Gross profit</th><th>Cost basis</th></tr></thead><tbody><tr><td>Platform</td><td>$60K</td><td>85%</td><td>$51K</td><td class="m">hosting, support, success</td></tr><tr><td>Implementation</td><td>$25K</td><td>60%</td><td>$15K</td><td class="m">services delivery</td></tr><tr><td>Payments</td><td>$362K</td><td>70%</td><td>$254K</td><td class="m">rail and network costs, ~0.12% of routed volume</td></tr><tr><td>Cards</td><td>$69K</td><td>80%</td><td>$55K</td><td class="m">network and program costs</td></tr><tr><td>Financing</td><td>$447K</td><td>90%</td><td>$402K</td><td class="m">servicing; funding cost sits with the capital partner</td></tr><tr class="tot"><td>Total</td><td>$963K</td><td>81%</td><td>$777K</td><td></td></tr></tbody></table></div>
+      <div class="fc-table-wrap" data-io=""><table class="fc-table"><thead><tr><th>By level · year one</th><th>Revenue</th><th>Take rate</th><th>Revenue per $1M TPV</th><th>Gross profit</th></tr></thead><tbody>
+        <tr><td>Base</td><td>$55K</td><td>3.9 bps</td><td>$387</td><td>$40K</td></tr><tr><td>Medium</td><td>$333K</td><td>23.5 bps</td><td>$2.3K</td><td>$240K</td></tr><tr class=hi><td>Full</td><td>$963K</td><td>67.8 bps</td><td>$6.8K</td><td>$777K</td></tr>
+      </tbody></table></div>
+      <p class="pl-note">Not yet modeled, to be added as operating data arrives: contribution margin after support and risk reserves, customer acquisition cost, and CAC payback. At these revenue levels a single enterprise sale repays a substantial acquisition cost inside year one.</p>
+    </section>
+
+    <section class="pl-sec" id="scale">
+      <div class="pl-sec-num">05 — PLATFORM SCALE</div>
+      <h2 class="pl-h">A small number of high-volume customers is a large financial platform.</h2>
+      <p class="pl-lede">An illustrative scaling scenario, not a company forecast: additional enterprise customers with economics like this one, each at Base volume. VYB does not need millions of consumers; it needs dozens of operators who move a lot of money.</p>
+      <div class="fc-scale" data-io="">
+        <label for="scaleN">Enterprise customers <b id="scaleNv">1</b></label>
+        <input type="range" id="scaleN" min="1" max="100" value="1" step="1">
+        <div class="kpis">
+          <div class="kpi"><div class="n" id="sTPV">$142.1M</div><div class="u">annual TPV</div></div>
+          <div class="kpi"><div class="n" id="sMed">$333K</div><div class="u">Medium · year one</div></div>
+          <div class="kpi"><div class="n" id="sFull">$963K</div><div class="u">Full · year one</div></div>
+          <div class="kpi"><div class="n" id="sFull3">$1.5M</div><div class="u">Full · year three</div></div>
+        </div>
+      </div>
+      <div class="fc-table-wrap" data-io=""><table class="fc-table"><thead><tr><th>Customers</th><th>Annual TPV</th><th>Medium · year one</th><th>Full · year one</th><th>Full · year three</th></tr></thead><tbody><tr class=hi><td>1</td><td>$142.1M</td><td>$333K</td><td>$963K</td><td>$1.5M</td></tr><tr><td>10</td><td>$1.4B</td><td>$3.3M</td><td>$9.6M</td><td>$14.7M</td></tr><tr><td>25</td><td>$3.6B</td><td>$8.3M</td><td>$24.1M</td><td>$36.7M</td></tr><tr><td>50</td><td>$7.1B</td><td>$16.7M</td><td>$48.2M</td><td>$73.4M</td></tr><tr><td>100</td><td>$14.2B</td><td>$33.3M</td><td>$96.3M</td><td>$146.8M</td></tr></tbody></table></div>
+      <p class="pl-note">100 customers × $142.1M TPV ≈ $14.2B of annual payment volume. Illustrative: assumes each customer resembles this one, and ignores the network revenue that would arise when their counterparties transact with each other on VYB.</p>
+    </section>
+
+    <section class="pl-sec" id="flywheel">
+      <div class="pl-sec-num">06 — CAPITAL FLYWHEEL</div>
+      <h2 class="pl-h">Transactions → data → underwriting → financing → more transactions.</h2>
+      <p class="pl-lede">This is the layer that separates VYB from a payments company. Every settled show adds settlement timing, vendor reliability and real room economics to a record no one else has — and that record underwrites the next advance, which funds the next show, which routes more money through VYB.</p>
+      <div class="fc-fly-wrap" data-io=""><div class="fc-fly"><svg viewBox="0 0 640 640" aria-hidden="true"><defs><marker id="fw-a" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--accent)"/></marker></defs>
+<circle cx="320" cy="320" r="232" fill="none" stroke="var(--surface-border)" stroke-width="1.5"/>
+<path d="M 320 88 A 232 232 0 1 1 250 99" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" marker-end="url(#fw-a)" stroke-dasharray="10 10" opacity="0.85"/></svg>
+<div class="fw-c"><div class="t">The capital flywheel</div><div class="s">Transactions → data → underwriting → financing → more transactions.</div></div>
+<div class="fw-n" style="left:50.0%;top:13.8%;"><div class="b">1</div><div class="l">More events</div></div>
+<div class="fw-n" style="left:73.3%;top:22.2%;"><div class="b">2</div><div class="l">More transaction volume</div></div>
+<div class="fw-n" style="left:85.7%;top:43.7%;"><div class="b">3</div><div class="l">More money routed through VYB</div></div>
+<div class="fw-n" style="left:81.4%;top:68.1%;"><div class="b">4</div><div class="l">Payments, cards, financing</div></div>
+<div class="fw-n" style="left:62.4%;top:84.1%;"><div class="b">5</div><div class="l">More VYB revenue</div></div>
+<div class="fw-n" style="left:37.6%;top:84.1%;"><div class="b">6</div><div class="l">Transaction and data intelligence</div></div>
+<div class="fw-n" style="left:18.6%;top:68.1%;"><div class="b">7</div><div class="l">Better underwriting and products</div></div>
+<div class="fw-n" style="left:14.3%;top:43.7%;"><div class="b">8</div><div class="l">More capital deployed</div></div>
+<div class="fw-n" style="left:26.7%;top:22.2%;"><div class="b">9</div><div class="l">More customer value</div></div>
+</div></div>
+    </section>
+
+    <section class="pl-sec" id="capital">
+      <div class="pl-sec-num">07 — CAPITAL EFFICIENCY</div>
+      <h2 class="pl-h">Capital facilitated, not capital deployed.</h2>
+      <p class="pl-lede">The financing opportunity is not balance-sheet intensive for VYB. A capital partner funds each advance; VYB originates it against contracted box-office receivables, services it through the ledger, and is repaid automatically from settlement before other distributions.</p>
+      <div class="kpis" data-io="">
+        <div class="kpi"><div class="n">$17.5M</div><div class="u">capital facilitated · year one</div><div class=l>5 dates</div></div>
+        <div class="kpi"><div class="n">$35.0M</div><div class="u">capital facilitated · run-rate</div><div class=l>10 dates a year</div></div>
+        <div class="kpi"><div class="n">$0</div><div class="u">VYB balance sheet deployed</div><div class=l>the capital partner funds; VYB originates</div></div>
+        <div class="kpi"><div class="n">$447K</div><div class="u">financing revenue · year one</div><div class=l>$89K per date</div></div>
+      </div>
       <div class="fc-two" data-io="">
-        <div><table class="fc-table"><thead><tr><th>Year one · Base volume</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Year one</th></tr></thead><tbody><tr><td>Platform</td><td>$8K</td><td>$8K</td><td>$8K</td><td>$8K</td><td><b>$30K</b></td></tr><tr><td>Implementation</td><td>$25K</td><td>—</td><td>—</td><td>—</td><td><b>$25K</b></td></tr><tr class="tot"><td>VYB revenue</td><td>$32K</td><td>$8K</td><td>$8K</td><td>$8K</td><td>$55K</td></tr></tbody></table></div>
         <div>
-          <div class="pl-sub-h">What the promoter gets</div>
-          <div class="fc-kv"><div class="fc-kv-row"><div class="k">Finance hours today</div><div class="v">4,402 h / yr across 98 shows</div></div><div class="fc-kv-row"><div class="k">Hours saved at Base</div><div class="v">40% · 1,761 h · $106K</div></div><div class="fc-kv-row"><div class="k">Margin visibility</div><div class="v">Live, per event, before doors — not at month-end close</div></div><div class="fc-kv-row"><div class="k">Year two</div><div class="v">$30K / yr</div></div></div>
+          <div class="pl-sub-h">One date, made explicit</div>
+          <div class="fc-kv"><div class="fc-kv-row"><div class="k">Advance</div><div class="v">$3.5M against contracted receivables</div></div><div class="fc-kv-row"><div class="k">Term</div><div class="v">90 days, repaid from settlement</div></div><div class="fc-kv-row"><div class="k">Rate</div><div class="v">18% APR</div></div><div class="fc-kv-row"><div class="k">Interest for the term</div><div class="v">$3.5M × 18% × 90/365 = $155K</div></div><div class="fc-kv-row"><div class="k">Origination fee</div><div class="v">1% = $35K</div></div><div class="fc-kv-row"><div class="k">VYB keeps</div><div class="v">origination $35K + 35% of interest $54K = $89K</div></div><div class="fc-kv-row"><div class="k">Capital partner keeps</div><div class="v">65% of interest = $101K</div></div><div class="fc-kv-row"><div class="k">Customer cost, VYB</div><div class="v">$190K</div></div><div class="fc-kv-row"><div class="k">Customer cost today</div><div class="v">12% fixed on $3.5M = $420K</div></div><div class="fc-kv-row"><div class="k">Customer saves</div><div class="v">$230K per date</div></div></div>
+        </div>
+        <div>
+          <div class="pl-sub-h">VYB's role</div>
+          <ul class="fc-list">
+            <li><b>Originator.</b> Underwrites against the ledger's settlement history; sizes the advance to production and venue deposits, never the artist guarantee.</li>
+            <li><b>Servicer.</b> Repayment is a ledger event: box-office settlement clears the advance first, automatically.</li>
+            <li><b>Fee and participation.</b> A 1% origination fee and 35% of interest; no funding cost, no principal at risk on VYB's balance sheet.</li>
+            <li><b>Not a lender.</b> The capital partner is the lender of record; VYB does not use its own balance sheet in this model.</li>
+          </ul>
+          <p class="pl-note">The customer's current instrument is a 12% fixed return per date on a $12.38M unit, repaid from proceeds within months. We compare the cost of the two structures for the same $3.5M over the same term rather than annualizing either, since a short-duration fixed return is not a yield.</p>
         </div>
       </div>
     </section>
 
-    <section class="pl-sec" id="medium">
-      <div class="pl-sec-num">06 — MEDIUM</div>
-      <h2 class="pl-h">Money moves through VYB. Revenue follows the volume.</h2>
-      <p class="pl-lede">Routed share ramps from 20% of paid-out volume in the first quarter to 60% by the fourth — vendors and crews first, then production balances, then artist settlements as the policy has run clean. VYB earns a blended 0.40% on orchestrated volume plus a share of interchange on virtual-card spend.</p>
+    <section class="pl-sec" id="mix">
+      <div class="pl-sec-num">08 — REVENUE MIX &amp; QUALITY</div>
+      <h2 class="pl-h">From software revenue to transactional and financial revenue.</h2>
       <div class="fc-two" data-io="">
-        <div><table class="fc-table"><thead><tr><th>Year one · Base volume</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Year one</th></tr></thead><tbody><tr><td>Platform</td><td>$8K</td><td>$8K</td><td>$8K</td><td>$8K</td><td><b>$30K</b></td></tr><tr><td>Implementation</td><td>$25K</td><td>—</td><td>—</td><td>—</td><td><b>$25K</b></td></tr><tr><td>Payments</td><td>$28K</td><td>$50K</td><td>$71K</td><td>$85K</td><td><b>$234K</b></td></tr><tr><td>Cards</td><td>$5K</td><td>$9K</td><td>$13K</td><td>$16K</td><td><b>$44K</b></td></tr><tr class="tot"><td>VYB revenue</td><td>$66K</td><td>$67K</td><td>$92K</td><td>$109K</td><td>$333K</td></tr></tbody></table></div>
+        <div class="fc-donut-wrap"><svg class="fc-donut" viewBox="0 0 220 220" role="img" aria-labelledby="dn-t"><title id="dn-t">Full integration revenue mix, year one</title>
+<circle cx="110" cy="110" r="84" fill="none" stroke="var(--s1)" stroke-width="26" stroke-dasharray="29.87 497.92" stroke-dashoffset="0.00" transform="rotate(-90 110 110)"><title>Platform · $60K · 6%</title></circle>
+<circle cx="110" cy="110" r="84" fill="none" stroke="var(--s4)" stroke-width="26" stroke-dasharray="10.70 517.09" stroke-dashoffset="-32.87" transform="rotate(-90 110 110)"><title>Implementation · $25K · 3%</title></circle>
+<circle cx="110" cy="110" r="84" fill="none" stroke="var(--s2)" stroke-width="26" stroke-dasharray="195.47 332.32" stroke-dashoffset="-46.57" transform="rotate(-90 110 110)"><title>Payments · $362K · 38%</title></circle>
+<circle cx="110" cy="110" r="84" fill="none" stroke="var(--s5)" stroke-width="26" stroke-dasharray="34.94 492.85" stroke-dashoffset="-245.04" transform="rotate(-90 110 110)"><title>Cards · $69K · 7%</title></circle>
+<circle cx="110" cy="110" r="84" fill="none" stroke="var(--s3)" stroke-width="26" stroke-dasharray="241.81 285.98" stroke-dashoffset="-282.98" transform="rotate(-90 110 110)"><title>Financing · $447K · 46%</title></circle>
+<text x="110" y="106" class="dn-n" text-anchor="middle">$963K</text><text x="110" y="126" class="dn-s" text-anchor="middle">Full · year one</text></svg><div class="fc-legend"><span><i style="background:var(--s1)"></i>Platform</span><span><i style="background:var(--s4)"></i>Implementation</span><span><i style="background:var(--s2)"></i>Payments</span><span><i style="background:var(--s5)"></i>Cards</span><span><i style="background:var(--s3)"></i>Financing</span></div></div>
         <div>
-          <div class="pl-sub-h">What the promoter gets</div>
-          <div class="fc-kv"><div class="fc-kv-row"><div class="k">Routed in year one</div><div class="v">$58.6M of $142.1M</div></div><div class="fc-kv-row"><div class="k">Hours saved</div><div class="v">70% · $185K</div></div><div class="fc-kv-row"><div class="k">Leakage caught</div><div class="v">$147K · duplicates, over-budget lines, mis-paid invoices at 0.25% of routed volume</div></div><div class="fc-kv-row"><div class="k">Vendors paid</div><div class="v">Days after the show, not weeks; status visible without a call</div></div><div class="fc-kv-row"><div class="k">Year two</div><div class="v">$463K / yr</div></div></div>
+          <div class="pl-sub-h">Full · year one</div>
+          <table class="fc-table"><thead><tr><th>Stream</th><th>Revenue</th><th>Share</th><th>Character</th></tr></thead><tbody>
+            <tr><td>Platform</td><td>$60K</td><td>6%</td><td class="m">recurring, contractual</td></tr><tr><td>Implementation</td><td>$25K</td><td>3%</td><td class="m">one-time services</td></tr><tr><td>Payments</td><td>$362K</td><td>38%</td><td class="m">usage-based</td></tr><tr><td>Cards</td><td>$69K</td><td>7%</td><td class="m">usage-based</td></tr><tr><td>Financing</td><td>$447K</td><td>46%</td><td class="m">financial</td></tr>
+          </tbody></table>
         </div>
+      </div>
+      <div class="fc-quality" data-io="">
+        <div class="q"><div class="t">Recurring · contractual</div><div class="n">$60K</div><div class="d">Platform fees and enterprise software. Predictable; the floor of the relationship.</div></div>
+        <div class="q"><div class="t">Usage-based</div><div class="n">$432K</div><div class="d">Payment orchestration and card spend. Scales with TPV and with routed share; retained as long as money moves.</div></div>
+        <div class="q"><div class="t">Financial</div><div class="n">$447K</div><div class="d">Origination and interest participation. The upside layer; scales with the stadium calendar and with underwriting confidence.</div></div>
       </div>
     </section>
 
-    <section class="pl-sec" id="full">
-      <div class="pl-sec-num">07 — FULL</div>
-      <h2 class="pl-h">The operator, and the capital. Where the forecast becomes a business.</h2>
-      <p class="pl-lede">Full adds two things. Agents that run approvals and settlement inside the promoter's policy, which lifts routed share to 85%. And <b>embedded finance</b>: today each stadium date is funded at a 12% fixed return repaid within months — roughly 44% annualized. VYB, with a capital partner, advances $3.5M per date against contracted box-office receivables at 18% APR for 90 days, repaid automatically from settlement. VYB keeps a 1% origination fee and 35% of the interest.</p>
-      <div class="fc-two" data-io="">
-        <div><table class="fc-table"><thead><tr><th>Year one · Base volume</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Year one</th></tr></thead><tbody><tr><td>Platform</td><td>$15K</td><td>$15K</td><td>$15K</td><td>$15K</td><td><b>$60K</b></td></tr><tr><td>Implementation</td><td>$25K</td><td>—</td><td>—</td><td>—</td><td><b>$25K</b></td></tr><tr><td>Payments</td><td>$57K</td><td>$78K</td><td>$107K</td><td>$121K</td><td><b>$362K</b></td></tr><tr><td>Cards</td><td>$11K</td><td>$15K</td><td>$20K</td><td>$23K</td><td><b>$69K</b></td></tr><tr><td>Financing</td><td>—</td><td>—</td><td>$179K</td><td>$268K</td><td><b>$447K</b></td></tr><tr class="tot"><td>VYB revenue</td><td>$108K</td><td>$108K</td><td>$321K</td><td>$427K</td><td>$963K</td></tr></tbody></table></div>
-        <div>
-          <div class="pl-sub-h">What the promoter gets</div>
-          <div class="fc-kv"><div class="fc-kv-row"><div class="k">Hours saved</div><div class="v">85% · $225K</div></div><div class="fc-kv-row"><div class="k">Leakage caught</div><div class="v">$226K</div></div><div class="fc-kv-row"><div class="k">Cost of capital saved</div><div class="v">$230K per financed date · $1.1M on 5 dates in year one</div></div><div class="fc-kv-row"><div class="k">At ten dates a year</div><div class="v">$2.3M / yr</div></div><div class="fc-kv-row"><div class="k">Year two</div><div class="v">$1.4M / yr</div></div></div>
-        </div>
-      </div>
-      <p class="pl-note">Financing starts in the third quarter, once the ledger has a settlement history to underwrite against: 20% of the year's stadium dates in Q3 and 30% in Q4. The advance covers production and venue deposits, not the artist guarantee.</p>
+    <section class="pl-sec" id="sensitivity">
+      <div class="pl-sec-num">09 — SENSITIVITY</div>
+      <h2 class="pl-h">Volume × integration depth, year one.</h2>
+      <p class="pl-lede">Base is a software fee and does not move with volume. Medium scales with the money that moves. Full scales with the money and with the stadium calendar, because that is where the financing lives.</p>
+      <div data-io=""><div class="fc-heat"><div class="hd"></div><div class="hd">Low · $36.7M</div><div class="hd">Base · $142.1M</div><div class="hd">High · $202.5M</div><div class="hl">Base</div><div class="hc" style="--a:0.16"><b>$55K</b><span>15 bps</span></div><div class="hc" style="--a:0.16"><b>$55K</b><span>4 bps</span></div><div class="hc" style="--a:0.16"><b>$55K</b><span>3 bps</span></div><div class="hl">Medium</div><div class="hc" style="--a:0.21"><b>$127K</b><span>35 bps</span></div><div class="hc" style="--a:0.32"><b>$333K</b><span>23 bps</span></div><div class="hc" style="--a:0.37"><b>$452K</b><span>22 bps</span></div><div class="hl">Full</div><div class="hc" style="--a:0.30"><b>$286K</b><span>78 bps</span></div><div class="hc" style="--a:0.53"><b>$963K</b><span>68 bps</span></div><div class="hc" style="--a:0.63"><b>$1.3M</b><span>65 bps</span></div></div></div>
+      <p class="pl-note">Cell shading is proportional to revenue; the small figure is the effective take rate on that case's TPV.</p>
     </section>
 
-
-    <section class="pl-sec" id="chart">
-      <div class="pl-sec-num">08 — YEAR ONE, BY QUARTER</div>
+    <section class="pl-sec" id="ramp">
+      <div class="pl-sec-num">10 — RAMP &amp; THREE YEARS</div>
       <h2 class="pl-h">Revenue follows adoption, then the stadium calendar.</h2>
-      <p class="pl-lede">Base is flat after the implementation quarter. Medium climbs with routed share. Full steps up in the third quarter, when financing starts against a settlement history the ledger has by then earned.</p>
-      <div class="fc-chart-wrap" data-io=""><div class="fc-legend"><span><i style="background:var(--s1)"></i>Base</span><span><i style="background:var(--s2)"></i>Medium</span><span><i style="background:var(--s3)"></i>Full</span></div><svg class="fc-chart" viewBox="0 0 760 320" role="img" aria-labelledby="lc-t" data-chart="line">
-<title id="lc-t">VYB revenue by quarter, year one, Base volume</title>
-<line x1="64" x2="610" y1="276.0" y2="276.0" class="grid"/>
-<text x="54" y="280.0" class="tick" text-anchor="end">0</text>
-<line x1="64" x2="610" y1="226.4" y2="226.4" class="grid"/>
-<text x="54" y="230.4" class="tick" text-anchor="end">$100K</text>
-<line x1="64" x2="610" y1="176.8" y2="176.8" class="grid"/>
-<text x="54" y="180.8" class="tick" text-anchor="end">$200K</text>
-<line x1="64" x2="610" y1="127.2" y2="127.2" class="grid"/>
-<text x="54" y="131.2" class="tick" text-anchor="end">$300K</text>
-<line x1="64" x2="610" y1="77.6" y2="77.6" class="grid"/>
-<text x="54" y="81.6" class="tick" text-anchor="end">$400K</text>
-<line x1="64" x2="610" y1="28.0" y2="28.0" class="grid"/>
-<text x="54" y="32.0" class="tick" text-anchor="end">$500K</text>
+      <p class="pl-lede">Year one by quarter at Base volume: Base is flat after the implementation quarter; Medium climbs with routed share; Full steps up in the third quarter, when financing starts against the settlement history the ledger has by then earned.</p>
+      <div class="fc-chart-wrap" data-io=""><div class="fc-legend"><span><i style="background:var(--s1)"></i>Base</span><span><i style="background:var(--s2)"></i>Medium</span><span><i style="background:var(--s3)"></i>Full</span></div><svg class="fc-chart" viewBox="0 0 760 320" role="img" aria-labelledby="lc-t" data-chart="line"><title id="lc-t">VYB revenue by quarter, year one, Base volume</title>
+<line x1="64" x2="610" y1="276.0" y2="276.0" class="grid"/><text x="54" y="280.0" class="tick" text-anchor="end">0</text>
+<line x1="64" x2="610" y1="226.4" y2="226.4" class="grid"/><text x="54" y="230.4" class="tick" text-anchor="end">$100K</text>
+<line x1="64" x2="610" y1="176.8" y2="176.8" class="grid"/><text x="54" y="180.8" class="tick" text-anchor="end">$200K</text>
+<line x1="64" x2="610" y1="127.2" y2="127.2" class="grid"/><text x="54" y="131.2" class="tick" text-anchor="end">$300K</text>
+<line x1="64" x2="610" y1="77.6" y2="77.6" class="grid"/><text x="54" y="81.6" class="tick" text-anchor="end">$400K</text>
+<line x1="64" x2="610" y1="28.0" y2="28.0" class="grid"/><text x="54" y="32.0" class="tick" text-anchor="end">$500K</text>
 <text x="64.0" y="306" class="tick" text-anchor="middle">Q1</text>
 <text x="246.0" y="306" class="tick" text-anchor="middle">Q2</text>
 <text x="428.0" y="306" class="tick" text-anchor="middle">Q3</text>
@@ -919,7 +1056,7 @@ section.pl-sec:first-child { border-top: none; }
 <circle cx="246.0" cy="272.3" r="4" fill="var(--s1)" stroke="var(--bg)" stroke-width="2"/>
 <circle cx="428.0" cy="272.3" r="4" fill="var(--s1)" stroke="var(--bg)" stroke-width="2"/>
 <circle cx="610.0" cy="272.3" r="4" fill="var(--s1)" stroke="var(--bg)" stroke-width="2"/>
-<text x="622.0" y="276.3" class="dl">Base · $8K</text>
+<text x="622.0" y="276.3" class="dl">Base · $7.5K</text>
 <polyline points="64.0,243.1 246.0,243.0 428.0,230.4 610.0,222.1" fill="none" stroke="var(--s2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
 <circle cx="64.0" cy="243.1" r="4" fill="var(--s2)" stroke="var(--bg)" stroke-width="2"/>
 <circle cx="246.0" cy="243.0" r="4" fill="var(--s2)" stroke="var(--bg)" stroke-width="2"/>
@@ -936,105 +1073,120 @@ section.pl-sec:first-child { border-top: none; }
 <rect class="hit" data-i="1" x="155.0" y="28" width="182.0" height="248" fill="transparent"/>
 <rect class="hit" data-i="2" x="337.0" y="28" width="182.0" height="248" fill="transparent"/>
 <rect class="hit" data-i="3" x="519.0" y="28" width="91.0" height="248" fill="transparent"/>
-<line class="xh" x1="0" x2="0" y1="28" y2="276" stroke="var(--text-tertiary)" stroke-dasharray="3 4" visibility="hidden"/>
-</svg><div class="fc-tip" id="fcTip" hidden></div></div>
-      <p class="pl-note">Hover a quarter for the three values. The table in each level's section carries the same numbers.</p>
-    </section>
-
-    <section class="pl-sec" id="three">
-      <div class="pl-sec-num">09 — THREE-YEAR VIEW</div>
-      <h2 class="pl-h">Same promoter, same volume, deeper adoption.</h2>
-      <p class="pl-lede">Volume is held flat at Base to isolate adoption. Routed share settles at 75% (Medium) and 90% (Full); financed stadium dates at 90% of the run.</p>
-      <div class="fc-chart-wrap" data-io=""><div class="fc-legend"><span><i style="background:var(--s1)"></i>Base</span><span><i style="background:var(--s2)"></i>Medium</span><span><i style="background:var(--s3)"></i>Full</span></div><svg class="fc-chart" viewBox="0 0 760 300" role="img" aria-labelledby="bc-t" data-chart="bar">
-<title id="bc-t">VYB revenue by year and level, Base volume</title>
-<line x1="64" x2="736" y1="256.0" y2="256.0" class="grid"/>
-<text x="54" y="260.0" class="tick" text-anchor="end">0</text>
-<line x1="64" x2="736" y1="180.0" y2="180.0" class="grid"/>
-<text x="54" y="184.0" class="tick" text-anchor="end">$500K</text>
-<line x1="64" x2="736" y1="104.0" y2="104.0" class="grid"/>
-<text x="54" y="108.0" class="tick" text-anchor="end">$1.0M</text>
-<line x1="64" x2="736" y1="28.0" y2="28.0" class="grid"/>
-<text x="54" y="32.0" class="tick" text-anchor="end">$1.5M</text>
+<line class="xh" x1="0" x2="0" y1="28" y2="276" stroke="var(--text-tertiary)" stroke-dasharray="3 4" visibility="hidden"/></svg><div class="fc-tip" id="fcTip" hidden></div></div>
+      <p class="pl-lede" style="margin-top:34px;">Three years, volume held flat at Base to isolate adoption. Routed share settles at 75% (Medium) and 90% (Full); financed dates at 90% of the run.</p>
+      <div class="fc-chart-wrap" data-io=""><div class="fc-legend"><span><i style="background:var(--s1)"></i>Base</span><span><i style="background:var(--s2)"></i>Medium</span><span><i style="background:var(--s3)"></i>Full</span></div><svg class="fc-chart" viewBox="0 0 760 300" role="img" aria-labelledby="bc-t" data-chart="bar"><title id="bc-t">VYB revenue by year and level, Base volume</title>
+<line x1="64" x2="736" y1="256.0" y2="256.0" class="grid"/><text x="54" y="260.0" class="tick" text-anchor="end">0</text>
+<line x1="64" x2="736" y1="180.0" y2="180.0" class="grid"/><text x="54" y="184.0" class="tick" text-anchor="end">$500K</text>
+<line x1="64" x2="736" y1="104.0" y2="104.0" class="grid"/><text x="54" y="108.0" class="tick" text-anchor="end">$1.0M</text>
+<line x1="64" x2="736" y1="28.0" y2="28.0" class="grid"/><text x="54" y="32.0" class="tick" text-anchor="end">$1.5M</text>
 <text x="176.0" y="286" class="tick" text-anchor="middle">Year one</text>
-<rect class="bar" data-l="Base" data-y="Year one" data-v="55000" x="123.0" y="247.6" width="34" height="8.4" rx="4" fill="var(--s1)"/>
-<rect x="123.0" y="252.0" width="34" height="4" fill="var(--s1)"/>
-<rect class="bar" data-l="Medium" data-y="Year one" data-v="333355" x="159.0" y="205.3" width="34" height="50.7" rx="4" fill="var(--s2)"/>
-<rect x="159.0" y="252.0" width="34" height="4" fill="var(--s2)"/>
-<rect class="bar" data-l="Full" data-y="Year one" data-v="963366" x="195.0" y="109.6" width="34" height="146.4" rx="4" fill="var(--s3)"/>
-<rect x="195.0" y="252.0" width="34" height="4" fill="var(--s3)"/>
+<rect class="bar" data-l="Base" data-y="Year one" data-v="55000" x="123.0" y="247.6" width="34" height="8.4" rx="4" fill="var(--s1)"/><rect x="123.0" y="252.0" width="34" height="4" fill="var(--s1)"/>
+<rect class="bar" data-l="Medium" data-y="Year one" data-v="333355" x="159.0" y="205.3" width="34" height="50.7" rx="4" fill="var(--s2)"/><rect x="159.0" y="252.0" width="34" height="4" fill="var(--s2)"/>
+<rect class="bar" data-l="Full" data-y="Year one" data-v="963366" x="195.0" y="109.6" width="34" height="146.4" rx="4" fill="var(--s3)"/><rect x="195.0" y="252.0" width="34" height="4" fill="var(--s3)"/>
 <text x="212.0" y="101.6" class="dl" text-anchor="middle">$963K</text>
 <text x="400.0" y="286" class="tick" text-anchor="middle">Year two</text>
-<rect class="bar" data-l="Base" data-y="Year two" data-v="30000" x="347.0" y="251.4" width="34" height="4.6" rx="4" fill="var(--s1)"/>
-<rect x="347.0" y="252.0" width="34" height="4" fill="var(--s1)"/>
-<rect class="bar" data-l="Medium" data-y="Year two" data-v="463292" x="383.0" y="185.6" width="34" height="70.4" rx="4" fill="var(--s2)"/>
-<rect x="383.0" y="252.0" width="34" height="4" fill="var(--s2)"/>
-<rect class="bar" data-l="Full" data-y="Year two" data-v="1350314" x="419.0" y="50.8" width="34" height="205.2" rx="4" fill="var(--s3)"/>
-<rect x="419.0" y="252.0" width="34" height="4" fill="var(--s3)"/>
+<rect class="bar" data-l="Base" data-y="Year two" data-v="30000" x="347.0" y="251.4" width="34" height="4.6" rx="4" fill="var(--s1)"/><rect x="347.0" y="252.0" width="34" height="4" fill="var(--s1)"/>
+<rect class="bar" data-l="Medium" data-y="Year two" data-v="463292" x="383.0" y="185.6" width="34" height="70.4" rx="4" fill="var(--s2)"/><rect x="383.0" y="252.0" width="34" height="4" fill="var(--s2)"/>
+<rect class="bar" data-l="Full" data-y="Year two" data-v="1350314" x="419.0" y="50.8" width="34" height="205.2" rx="4" fill="var(--s3)"/><rect x="419.0" y="252.0" width="34" height="4" fill="var(--s3)"/>
 <text x="436.0" y="42.8" class="dl" text-anchor="middle">$1.4M</text>
 <text x="624.0" y="286" class="tick" text-anchor="middle">Year three</text>
-<rect class="bar" data-l="Base" data-y="Year three" data-v="30000" x="571.0" y="251.4" width="34" height="4.6" rx="4" fill="var(--s1)"/>
-<rect x="571.0" y="252.0" width="34" height="4" fill="var(--s1)"/>
-<rect class="bar" data-l="Medium" data-y="Year three" data-v="520117" x="607.0" y="176.9" width="34" height="79.1" rx="4" fill="var(--s2)"/>
-<rect x="607.0" y="252.0" width="34" height="4" fill="var(--s2)"/>
-<rect class="bar" data-l="Full" data-y="Year three" data-v="1468097" x="643.0" y="32.8" width="34" height="223.2" rx="4" fill="var(--s3)"/>
-<rect x="643.0" y="252.0" width="34" height="4" fill="var(--s3)"/>
+<rect class="bar" data-l="Base" data-y="Year three" data-v="30000" x="571.0" y="251.4" width="34" height="4.6" rx="4" fill="var(--s1)"/><rect x="571.0" y="252.0" width="34" height="4" fill="var(--s1)"/>
+<rect class="bar" data-l="Medium" data-y="Year three" data-v="520117" x="607.0" y="176.9" width="34" height="79.1" rx="4" fill="var(--s2)"/><rect x="607.0" y="252.0" width="34" height="4" fill="var(--s2)"/>
+<rect class="bar" data-l="Full" data-y="Year three" data-v="1468097" x="643.0" y="32.8" width="34" height="223.2" rx="4" fill="var(--s3)"/><rect x="643.0" y="252.0" width="34" height="4" fill="var(--s3)"/>
 <text x="660.0" y="24.8" class="dl" text-anchor="middle">$1.5M</text>
-<line x1="64" x2="736" y1="256" y2="256" class="axis"/>
-</svg></div>
-      <div class="fc-table-wrap" data-io="">
-        <table class="fc-table">
-          <thead><tr><th>VYB revenue</th><th>Year one</th><th>Year two</th><th>Year three</th></tr></thead>
-          <tbody>
-            <tr><td>Base</td><td>$55K</td><td>$30K</td><td>$30K</td></tr><tr><td>Medium</td><td>$333K</td><td>$463K</td><td>$520K</td></tr><tr class=hi><td>Full</td><td>$963K</td><td>$1.4M</td><td>$1.5M</td></tr>
-          </tbody>
-        </table>
-      </div>
+<line x1="64" x2="736" y1="256" y2="256" class="axis"/></svg></div>
+      <div class="fc-table-wrap" data-io=""><table class="fc-table"><thead><tr><th>VYB revenue</th><th>Year one</th><th>Year two</th><th>Year three</th></tr></thead><tbody><tr><td>Base</td><td>$55K</td><td>$30K</td><td>$30K</td></tr><tr><td>Medium</td><td>$333K</td><td>$463K</td><td>$520K</td></tr><tr class=hi><td>Full</td><td>$963K</td><td>$1.4M</td><td>$1.5M</td></tr></tbody></table></div>
     </section>
 
-    <section class="pl-sec" id="sensitivity">
-      <div class="pl-sec-num">10 — SENSITIVITY</div>
-      <h2 class="pl-h">Year-one revenue across the three volume cases.</h2>
-      <div class="fc-table-wrap" data-io="">
-        <table class="fc-table">
-          <thead><tr><th>Year one</th><th>Low · $36.7M paid out</th><th>Base · $142.1M</th><th>High · $202.5M</th></tr></thead>
-          <tbody>
-            <tr><td>Base</td><td>$55K</td><td>$55K</td><td>$55K</td></tr><tr><td>Medium</td><td>$127K</td><td>$333K</td><td>$452K</td></tr><tr><td>Full</td><td>$286K</td><td>$963K</td><td>$1.3M</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="pl-lede" style="margin-top:26px;">Base level is insensitive to volume — it is a software fee. Medium scales with the money that moves. Full scales with the money and with the stadium calendar, because that is where the financing lives.</p>
+    <section class="pl-sec" id="levels">
+      <div class="pl-sec-num">11 — THE THREE LEVELS</div>
+      <h2 class="pl-h">What each level is, and what it earns by quarter.</h2>
+      <p class="pl-lede">Each level contains the one before it. The customer can stop at any of them.</p>
+      <div class="fc-flow-wrap" data-io=""><svg class="fc-flow" viewBox="0 0 900 560" role="img" aria-labelledby="fl-t"><title id="fl-t">How money and data move at each integration level</title><defs><marker id="fc-arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" class="fah"/></marker></defs>
+<rect x="40" y="24" width="150" height="48" rx="12" class="fb"/><text x="115.0" y="42.0" class="ft" text-anchor="middle">Ticketing</text><text x="115.0" y="61.0" class="fs" text-anchor="middle">the customer’s existing system</text>
+<path d="M115 72 L115 108" class="fa" marker-end="url(#fc-arr)"/>
+<rect x="210" y="24" width="150" height="48" rx="12" class="fb"/><text x="285.0" y="42.0" class="ft" text-anchor="middle">Bank</text><text x="285.0" y="61.0" class="fs" text-anchor="middle">the customer’s existing system</text>
+<path d="M285 72 L285 108" class="fa" marker-end="url(#fc-arr)"/>
+<rect x="380" y="24" width="150" height="48" rx="12" class="fb"/><text x="455.0" y="42.0" class="ft" text-anchor="middle">Accounting</text><text x="455.0" y="61.0" class="fs" text-anchor="middle">the customer’s existing system</text>
+<path d="M455 72 L455 108" class="fa" marker-end="url(#fc-arr)"/>
+<rect x="550" y="24" width="150" height="48" rx="12" class="fb"/><text x="625.0" y="42.0" class="ft" text-anchor="middle">Contracts</text><text x="625.0" y="61.0" class="fs" text-anchor="middle">the customer’s existing system</text>
+<path d="M625 72 L625 108" class="fa" marker-end="url(#fc-arr)"/>
+<text x="720" y="52" class="fs">reads only →</text>
+<rect x="40" y="110" width="660" height="62" rx="12" class="fb"/><text x="370.0" y="135.0" class="ft" text-anchor="middle">VYB event ledger</text><text x="370.0" y="154.0" class="fs" text-anchor="middle">every event a financial object · counterparties · obligations · invoices · approvals · live margin</text>
+<rect x="720" y="130" width="47" height="22" rx="11" fill="var(--s1)"/><text x="729" y="145" class="tag">BASE</text>
+<text x="720" y="172" class="fs">reads everything,</text><text x="720" y="188" class="fs">moves nothing</text>
+<path d="M370 172 L370 214" class="fa" marker-end="url(#fc-arr)"/>
+<rect x="40" y="216" width="300" height="62" rx="12" class="fb"/><text x="190.0" y="241.0" class="ft" text-anchor="middle">Approval policy</text><text x="190.0" y="260.0" class="fs" text-anchor="middle">thresholds · signers · caps · set by the customer</text>
+<rect x="400" y="216" width="300" height="62" rx="12" class="fb"/><text x="550.0" y="241.0" class="ft" text-anchor="middle">Payment router</text><text x="550.0" y="260.0" class="fs" text-anchor="middle">picks the rail · writes the ledger entry</text>
+<path d="M340 247 L398 247" class="fa" marker-end="url(#fc-arr)"/>
+<rect x="720" y="236" width="61" height="22" rx="11" fill="var(--s2)"/><text x="729" y="251" class="tag">MEDIUM</text>
+<text x="720" y="278" class="fs">money moves on the</text><text x="720" y="294" class="fs">customer’s own rails</text>
+<path d="M480 278 L480 318" class="fa" marker-end="url(#fc-arr)"/>
+<path d="M620 278 L620 318" class="fa" marker-end="url(#fc-arr)"/>
+<rect x="400" y="320" width="150" height="48" rx="12" class="fb"/><text x="475.0" y="338.0" class="ft" text-anchor="middle">Bank rails</text><text x="475.0" y="357.0" class="fs" text-anchor="middle">ACH · wire</text>
+<rect x="560" y="320" width="140" height="48" rx="12" class="fb"/><text x="630.0" y="338.0" class="ft" text-anchor="middle">Virtual cards</text><text x="630.0" y="357.0" class="fs" text-anchor="middle">per-persona caps</text>
+<path d="M550 344 L558 344" class="fa" marker-end="url(#fc-arr)"/>
+<path d="M550 368 L550 404" class="fa" marker-end="url(#fc-arr)"/>
+<rect x="400" y="406" width="300" height="48" rx="12" class="fb"/><text x="550.0" y="424.0" class="ft" text-anchor="middle">Artists · venues · vendors · crews</text><text x="550.0" y="443.0" class="fs" text-anchor="middle">paid in days, reconciled at execution</text>
+<rect x="40" y="320" width="300" height="62" rx="12" class="fb"/><text x="190.0" y="345.0" class="ft" text-anchor="middle">VYB agents</text><text x="190.0" y="364.0" class="fs" text-anchor="middle">run approvals & settlement inside the policy</text>
+<path d="M190 278 L190 318" class="fa" marker-end="url(#fc-arr)"/>
+<path d="M340 351 L398 351" class="fa" marker-end="url(#fc-arr)"/>
+<rect x="40" y="406" width="300" height="62" rx="12" class="fb"/><text x="190.0" y="431.0" class="ft" text-anchor="middle">Capital partner</text><text x="190.0" y="450.0" class="fs" text-anchor="middle">funds the advance · VYB originates and services</text>
+<path d="M190 382 L190 404" class="fa" marker-end="url(#fc-arr)"/>
+<path d="M340 430 L398 430" class="fa" marker-end="url(#fc-arr)"/>
+<rect x="720" y="340" width="47" height="22" rx="11" fill="var(--s3)"/><text x="729" y="355" class="tag">FULL</text>
+<text x="720" y="382" class="fs">agents execute;</text><text x="720" y="398" class="fs">capital repaid from</text><text x="720" y="414" class="fs">the settlement</text>
+<path d="M700 430 C 800 430, 800 500, 560 500 L 190 500 L 190 470" class="fa" marker-end="url(#fc-arr)" stroke-dasharray="4 4"/><text x="450" y="522" class="fs" text-anchor="middle">box-office settlement repays the advance — automatically, before other distributions</text></svg></div>
+      <div class="fc-level-block" data-io=""><div class="lh" style="color:var(--s1)">Base — event financial control center</div><div class="fc-two"><div><table class="fc-table"><thead><tr><th>Year one · Base volume</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Year one</th></tr></thead><tbody><tr><td>Platform</td><td>$7.5K</td><td>$7.5K</td><td>$7.5K</td><td>$7.5K</td><td><b>$30K</b></td></tr><tr><td>Implementation</td><td>$25K</td><td>—</td><td>—</td><td>—</td><td><b>$25K</b></td></tr><tr class="tot"><td>VYB revenue</td><td>$32K</td><td>$7.5K</td><td>$7.5K</td><td>$7.5K</td><td>$55K</td></tr></tbody></table></div><div><div class="fc-kv"><div class="fc-kv-row"><div class="k">What it is</div><div class="v">Every event a financial object: counterparties, obligations, invoices, approvals, settlement status, live margin. Reads the customer’s systems; moves nothing.</div></div><div class="fc-kv-row"><div class="k">Pricing</div><div class="v">$25K implementation + $2.5K / month</div></div><div class="fc-kv-row"><div class="k">Year two</div><div class="v">$30K</div></div></div></div></div></div>
+      <div class="fc-level-block" data-io=""><div class="lh" style="color:var(--s2)">Medium — payment orchestration</div><div class="fc-two"><div><table class="fc-table"><thead><tr><th>Year one · Base volume</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Year one</th></tr></thead><tbody><tr><td>Platform</td><td>$7.5K</td><td>$7.5K</td><td>$7.5K</td><td>$7.5K</td><td><b>$30K</b></td></tr><tr><td>Implementation</td><td>$25K</td><td>—</td><td>—</td><td>—</td><td><b>$25K</b></td></tr><tr><td>Payments</td><td>$28K</td><td>$50K</td><td>$71K</td><td>$85K</td><td><b>$234K</b></td></tr><tr><td>Cards</td><td>$5.3K</td><td>$9.3K</td><td>$13K</td><td>$16K</td><td><b>$44K</b></td></tr><tr class="tot"><td>VYB revenue</td><td>$66K</td><td>$67K</td><td>$92K</td><td>$109K</td><td>$333K</td></tr></tbody></table></div><div><div class="fc-kv"><div class="fc-kv-row"><div class="k">What it is</div><div class="v">Vendor, crew, production, marketing and artist payments execute through VYB on the customer’s existing bank rails and virtual cards, under its approval policy. Reconciled at execution.</div></div><div class="fc-kv-row"><div class="k">Routed share</div><div class="v">20% → 35% → 50% → 60% by quarter</div></div><div class="fc-kv-row"><div class="k">Take</div><div class="v">0.40% blended + 1% of card spend</div></div><div class="fc-kv-row"><div class="k">Year two</div><div class="v">$463K</div></div></div></div></div></div>
+      <div class="fc-level-block" data-io=""><div class="lh" style="color:var(--s3)">Full — intelligent operator with embedded finance</div><div class="fc-two"><div><table class="fc-table"><thead><tr><th>Year one · Base volume</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Year one</th></tr></thead><tbody><tr><td>Platform</td><td>$15K</td><td>$15K</td><td>$15K</td><td>$15K</td><td><b>$60K</b></td></tr><tr><td>Implementation</td><td>$25K</td><td>—</td><td>—</td><td>—</td><td><b>$25K</b></td></tr><tr><td>Payments</td><td>$57K</td><td>$78K</td><td>$107K</td><td>$121K</td><td><b>$362K</b></td></tr><tr><td>Cards</td><td>$11K</td><td>$15K</td><td>$20K</td><td>$23K</td><td><b>$69K</b></td></tr><tr><td>Financing</td><td>—</td><td>—</td><td>$179K</td><td>$268K</td><td><b>$447K</b></td></tr><tr class="tot"><td>VYB revenue</td><td>$108K</td><td>$108K</td><td>$321K</td><td>$427K</td><td>$963K</td></tr></tbody></table></div><div><div class="fc-kv"><div class="fc-kv-row"><div class="k">What it is</div><div class="v">Agents run approvals and settlement inside the policy; VYB originates advances against contracted receivables with a capital partner.</div></div><div class="fc-kv-row"><div class="k">Routed share</div><div class="v">40% → 55% → 75% → 85% by quarter</div></div><div class="fc-kv-row"><div class="k">Financed dates</div><div class="v">none in H1, 20% of the year’s dates in Q3, 30% in Q4</div></div><div class="fc-kv-row"><div class="k">Year two</div><div class="v">$1.4M</div></div></div></div></div></div>
     </section>
 
-    <section class="pl-sec" id="promoter">
-      <div class="pl-sec-num">11 — THE PROMOTER'S SIDE</div>
-      <h2 class="pl-h">At every level the promoter keeps more than VYB earns.</h2>
-      <div class="fc-table-wrap" data-io="">
-        <table class="fc-table">
-          <thead><tr><th>Year one · Base volume</th><th>Base</th><th>Medium</th><th>Full</th></tr></thead>
-          <tbody>
-            <tr><td>Finance hours saved</td><td>$106K</td><td>$185K</td><td>$225K</td></tr>
-            <tr><td>Leakage caught</td><td>—</td><td>$147K</td><td>$226K</td></tr>
-            <tr><td>Cost of capital saved</td><td>—</td><td>—</td><td>$1.1M</td></tr>
-            <tr class="tot"><td>Promoter value</td><td>$106K</td><td>$331K</td><td>$1.6M</td></tr>
-            <tr><td>VYB revenue</td><td>$55K</td><td>$333K</td><td>$963K</td></tr>
-            <tr><td>Value per VYB dollar</td><td>1.9×</td><td>1.0×</td><td>1.7×</td></tr>
-          </tbody>
-        </table>
+    <section class="pl-sec" id="date">
+      <div class="pl-sec-num">12 — ONE DATE, LINE BY LINE</div>
+      <h2 class="pl-h">The stadium date through each level.</h2>
+      <p class="pl-lede">The confirmed per-date budget of $12.38M. Base makes every line a tracked obligation. Medium moves it on a rail under the customer's policy. Full finances the production and venue slice — $3.42M of the $12.38M — and lets agents execute inside the caps.</p>
+      <div class="fc-table-wrap" data-io=""><table class="fc-table" style="font-size:13.5px;"><thead><tr><th>Line</th><th>Per date</th><th>Base</th><th>Medium</th><th>Full adds</th></tr></thead><tbody><tr><td>Artist guarantee</td><td>$6.50M</td><td>Tracked as one obligation: deposit, balance, due dates, status</td><td>Wire · routed last, from Q4</td><td>Two signatures — finance lead, then principal</td></tr><tr><td>Production</td><td>$2.14M</td><td>Tracked line by line as vendor obligations</td><td>ACH · routed from Q2; change orders flagged before approval</td><td>Inside the financed slice; agents approve within caps</td></tr><tr><td>Venue</td><td>$1.28M</td><td>Tracked: deposit, balance, ancillary share</td><td>Wire · routed from Q2</td><td>Inside the financed slice</td></tr><tr><td>Marketing</td><td>$856K</td><td>Tracked against the campaign budget</td><td>ACH and virtual cards · routed from Q1</td><td>Agents execute under the campaign cap</td></tr><tr><td>Personnel and travel</td><td>$749K</td><td>Tracked per payee</td><td>Virtual cards and ACH · routed from Q1</td><td>Cross-border crew on a stablecoin rail, shown as dollars</td></tr><tr><td>Contingency</td><td>$535K</td><td>Tracked as a reserve</td><td>Held; released on approval</td><td>Agent proposes the release</td></tr><tr><td>Insurance and permits</td><td>$321K</td><td>Tracked</td><td>ACH · routed from Q1</td><td>Unchanged</td></tr></tbody></table></div>
+      <div class="fc-callout" data-io=""><div class="fc-callout-h">The approval policy behind every payment</div><p>Set by the customer on day one and enforced by the system: recurring payees within budget and under <b>$10,000</b> execute and report; <b>$10,000–$100,000</b>, new payees and change orders are prepared for one confirmation by the finance lead; anything over <b>$100,000</b>, and every talent or venue settlement, needs two signatures in order. Out-of-policy items are blocked until resolved. The rails underneath — bank wire and ACH, virtual cards with per-persona caps, a stablecoin rail for the cross-border crew presented as dollars, machine payments for data — are chosen by the router per payment; the customer sees a balance, approvals and settlement, never a network name.</p></div>
+    </section>
+
+    <section class="pl-sec" id="customerside">
+      <div class="pl-sec-num">13 — THE CUSTOMER'S SIDE</div>
+      <h2 class="pl-h">At every level the customer keeps more than VYB earns.</h2>
+      <div class="fc-table-wrap" data-io=""><table class="fc-table"><thead><tr><th>Year one · Base volume</th><th>Base</th><th>Medium</th><th>Full</th></tr></thead><tbody>
+        <tr><td>Finance hours saved</td><td>$106K</td><td>$185K</td><td>$225K</td></tr>
+        <tr><td>Leakage caught</td><td>—</td><td>$147K</td><td>$226K</td></tr>
+        <tr><td>Cost of capital saved</td><td>—</td><td>—</td><td>$1.1M</td></tr>
+        <tr class="tot"><td>Customer value</td><td>$106K</td><td>$331K</td><td>$1.6M</td></tr>
+        <tr><td>VYB revenue</td><td>$55K</td><td>$333K</td><td>$963K</td></tr>
+        <tr><td>Value per VYB dollar</td><td>1.9×</td><td>1.0×</td><td>1.7×</td></tr>
+      </tbody></table></div>
+      <p class="pl-note">Not counted: settlement moving from weeks to the night of the show, vendor inquiries falling to near zero, margin known before doors, one ledger instead of six systems. The value ratio is why the integration deepens: each level pays for itself on the customer's side before VYB's revenue grows.</p>
+    </section>
+
+    <section class="pl-sec" id="retention">
+      <div class="pl-sec-num">14 — RETENTION &amp; CONCENTRATION</div>
+      <h2 class="pl-h">The metrics this page will carry once customers are live.</h2>
+      <p class="pl-lede">For a platform that monetizes volume, <b>TPV retention</b> matters as much as logo retention: a customer's value can multiply while the customer count stays flat. These frames are deliberately empty until there is data to put in them.</p>
+      <div class="fc-two" data-io="">
+        <div><div class="pl-sub-h">Expansion &amp; retention</div><div class="fc-kv"><div class="fc-kv-row"><div class="k">Gross revenue retention</div><div class="v">—</div></div><div class="fc-kv-row"><div class="k">Net revenue retention</div><div class="v">—</div></div><div class="fc-kv-row"><div class="k">Logo retention</div><div class="v">—</div></div><div class="fc-kv-row"><div class="k">TPV retention</div><div class="v">—</div></div><div class="fc-kv-row"><div class="k">Expansion revenue</div><div class="v">—</div></div><div class="fc-kv-row"><div class="k">Revenue per customer</div><div class="v">$963K modeled at Full</div></div><div class="fc-kv-row"><div class="k">Average TPV per customer</div><div class="v">$142.1M modeled</div></div></div></div>
+        <div><div class="pl-sub-h">Concentration</div><div class="fc-kv"><div class="fc-kv-row"><div class="k">Top 1 customer · % of revenue</div><div class="v">100% in this model — one customer</div></div><div class="fc-kv-row"><div class="k">Top 5 customers</div><div class="v">—</div></div><div class="fc-kv-row"><div class="k">Top 10 customers</div><div class="v">—</div></div></div><p class="pl-note">Concentration is the honest risk of an enterprise-led model and is presented as such. The scale scenario in section 05 shows how it dilutes.</p></div>
       </div>
-      <p class="pl-lede" style="margin-top:26px;">Not counted: settlement moving from weeks to the night of the show, vendor inquiries falling to near zero, margin known before doors, and the promoter's finance team reading one ledger instead of six systems.</p>
     </section>
 
     <section class="pl-sec" id="assumptions">
-      <div class="pl-sec-num">12 — ASSUMPTIONS</div>
+      <div class="pl-sec-num">15 — ASSUMPTIONS &amp; RISKS</div>
       <h2 class="pl-h">Every number above traces to one of these.</h2>
       <div class="pl-rows">
-        <div class="pl-row" data-io=""><div class="r-i">01</div><div class="r-t">Pricing</div><div class="r-d">Implementation $25K one-time. Platform $2K / month at Base and Medium, $5K / month at Full for the agent and intelligence layer. Payments 0.40% blended on orchestrated volume. Virtual cards: VYB keeps 1% of spend as its share of interchange, on 4%–6% of paid-out volume moving to cards. All within the ranges on the VYB pitch.</div></div>
-        <div class="pl-row" data-io=""><div class="r-i">02</div><div class="r-t">Adoption</div><div class="r-d">Routed share of paid-out volume by quarter: Medium 20% → 35% → 50% → 60%; Full 40% → 55% → 75% → 85%. Years two and three: Medium 65%, 75%; Full 85%, 90%. Artist guarantees are the last category to move.</div></div>
-        <div class="pl-row" data-io=""><div class="r-i">03</div><div class="r-t">Financing</div><div class="r-d">$3.5M advanced per stadium date against contracted receivables for 90 days at 18% APR; VYB earns a 1% origination fee and 35% of interest, the capital partner the rest. Compared against the promoter's current 12% fixed return per date. Financed dates: none in H1, 20% of the year's dates in Q3, 30% in Q4; 80% and 90% in years two and three.</div></div>
-        <div class="pl-row" data-io=""><div class="r-i">04</div><div class="r-t">Finance workload</div><div class="r-d">Hours of finance and admin per show today — stadium 220, arena 60, theater or club 24, small room 6 — at a $60 loaded hourly cost. Saved: 40% at Base, 70% at Medium, 85% at Full.</div></div>
-        <div class="pl-row" data-io=""><div class="r-i">05</div><div class="r-t">Leakage</div><div class="r-d">0.25% of routed volume caught as duplicate invoices, over-budget lines or mis-paid amounts before payment. Conservative against industry reconciliation experience; counted only on volume that actually routes through VYB.</div></div>
-        <div class="pl-row" data-io=""><div class="r-i">06</div><div class="r-t">Volume</div><div class="r-d">Non-stadium activity annualized from the trailing eight months ($18.2M paid out across 88 shows). Stadium dates at the confirmed $12.38M per-date budget. Gross at the trailing 69% paid-out-to-gross ratio. Volume held flat across the three-year view.</div></div>
-        <div class="pl-row" data-io=""><div class="r-i">07</div><div class="r-t">What this is not</div><div class="r-d">Not an offer, a quote or a commitment by either party. Pricing, adoption and financing terms are a conversation; this page is the shape of one. Figures are the promoter's own trailing results, lightly rounded and unnamed.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">01</div><div class="r-t">Pricing</div><div class="r-d">Implementation $25K one-time. Platform $2.5K / month at Base and Medium, $5.0K / month at Full for the agent and intelligence layer. Payments 0.40% blended on orchestrated volume. Cards: VYB keeps 1% of spend as its interchange share, on 4%–6% of TPV moving to virtual cards. Within the ranges on the VYB pitch.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">02</div><div class="r-t">Adoption</div><div class="r-d">Routed share of TPV by quarter: Medium 20% → 35% → 50% → 60%; Full 40% → 55% → 75% → 85%. Years two and three: Medium 65%, 75%; Full 85%, 90%. Artist guarantees move last.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">03</div><div class="r-t">Financing</div><div class="r-d">$3.5M per stadium date against contracted receivables for 90 days at 18% APR, funded by a capital partner; VYB earns a 1% origination fee and 35% of interest. Financed dates: none in H1, 20% of the year's dates in Q3, 30% in Q4; 80% and 90% in years two and three. Compared against the customer's current 12% fixed return per date over the same term.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">04</div><div class="r-t">Gross margin</div><div class="r-d">Platform 85%, implementation 60%, payments 70% (rail and network costs ≈ 0.12% of routed volume), cards 80%, financing 90% (servicing only; funding cost with the partner). Modeled, not measured.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">05</div><div class="r-t">Customer value</div><div class="r-d">Finance hours per show today — stadium 220, arena 60, theater or club 24, small room 6 — at $60 loaded; 40% / 70% / 85% saved by level. Leakage 0.25% of routed volume.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">06</div><div class="r-t">Volume</div><div class="r-d">Non-stadium activity annualized from the trailing eight months ($18.2M across 88 shows); stadium dates at the confirmed $12.38M per-date budget; gross at the trailing 69% paid-out-to-gross ratio. Held flat across the three-year view and the scale scenario.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">07</div><div class="r-t">Risks</div><div class="r-d"><b>Adoption:</b> routed share depends on the customer moving payment categories onto VYB; artist guarantees may never move. <b>Financing partner:</b> the Full case needs a capital partner on acceptable terms and underwriting that the ledger must earn. <b>Concentration:</b> one customer is 100% of this model. <b>Stadium calendar:</b> financing revenue is tied to a handful of dates a year. <b>Regulatory:</b> routed volume at these levels carries VYB into payment-facilitator registration, with its own timeline and cost. <b>Confidentiality:</b> the baseline is one company's real figures, anonymized.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">08</div><div class="r-t">What this is not</div><div class="r-d">Not an offer, a quote, a company forecast or a guarantee. Pricing, adoption and financing terms are a conversation; this page is the shape of one.</div></div>
       </div>
       <div class="pl-cta" style="margin-top:40px;">
         <div class="pl-cta-card" data-io=""><h3>Run it on your numbers</h3><p>Send a show-by-show P&amp;L and the model comes back with your own three levels.</p><a href="mailto:blake@vybapp.io?subject=VYB%20forecast">blake@vybapp.io →</a></div>
@@ -1048,16 +1200,8 @@ section.pl-sec:first-child { border-top: none; }
 
 <footer>
   <div class="footer-inner">
-    <div>
-      <div class="footer-brand"><span class="app-icon">v</span> vyb</div>
-      <div class="footer-meta">© 2026 VYB · FORECAST · ILLUSTRATIVE</div>
-    </div>
-    <div class="footer-links">
-      <a href="/">Home</a>
-      <a href="/#enterprise">Enterprise</a>
-      <a href="/pulse">VYB Pulse</a>
-      <a href="mailto:blake@vybapp.io?subject=VYB%20forecast">Contact</a>
-    </div>
+    <div><div class="footer-brand"><span class="app-icon">v</span> vyb</div><div class="footer-meta">© 2026 VYB · FORECAST · MODELED, ILLUSTRATIVE</div></div>
+    <div class="footer-links"><a href="/">Home</a><a href="/#enterprise">Enterprise</a><a href="/pulse">VYB Pulse</a><a href="mailto:blake@vybapp.io?subject=VYB%20forecast">Contact</a></div>
   </div>
 </footer>
 
@@ -1133,17 +1277,22 @@ section.pl-sec:first-child { border-top: none; }
     secs.forEach(function (s) { if (s) spy.observe(s); });
   }
 })();
+
 (function(){
-  var tip=document.getElementById('fcTip'), svg=document.querySelector('svg[data-chart=line]'); if(!tip||!svg) return;
-  var D={"q": ["Q1", "Q2", "Q3", "Q4"], "series": {"Base": [32500, 7500, 7500, 7500], "Medium": [66240, 66545, 91850, 108720], "Full": [107689, 108072, 320656, 426948]}, "x": [64.0, 246.0, 428.0, 610.0]}; var xh=svg.querySelector('.xh');
-  function fmt(v){return v>=1e6?'$'+(v/1e6).toFixed(1)+'M':'$'+Math.round(v/1e3)+'K';}
-  svg.querySelectorAll('.hit').forEach(function(r){
-    r.addEventListener('mouseenter',function(){var i=+r.dataset.i; xh.setAttribute('x1',D.x[i]); xh.setAttribute('x2',D.x[i]); xh.setAttribute('visibility','visible');
-      tip.innerHTML='<b>'+D.q[i]+'</b>'+Object.keys(D.series).map(function(k){return '<span>'+k+' <em>'+fmt(D.series[k][i])+'</em></span>';}).join(''); tip.hidden=false;
-      var b=svg.getBoundingClientRect(), w=svg.parentNode.getBoundingClientRect(); var px=(D.x[i]/760)*b.width+(b.left-w.left); tip.style.left=Math.min(px,w.width-190)+'px';});
-    r.addEventListener('mouseleave',function(){tip.hidden=true; xh.setAttribute('visibility','hidden');});
-  });
-  document.querySelectorAll('svg[data-chart=bar] .bar').forEach(function(b){ var t=document.createElementNS('http://www.w3.org/2000/svg','title'); t.textContent=b.dataset.l+' · '+b.dataset.y+' · '+fmt(+b.dataset.v); b.appendChild(t); });
+  function fmt(v){return v>=1e9?'$'+(v/1e9).toFixed(1)+'B':v>=1e6?'$'+(v/1e6).toFixed(1)+'M':'$'+Math.round(v/1e3)+'K';}
+  var tip=document.getElementById('fcTip'), svg=document.querySelector('svg[data-chart=line]');
+  if(tip&&svg){ var D={"q": ["Q1", "Q2", "Q3", "Q4"], "series": {"Base": [32500, 7500, 7500, 7500], "Medium": [66240, 66545, 91850, 108720], "Full": [107689, 108072, 320656, 426948]}, "x": [64.0, 246.0, 428.0, 610.0]}; var xh=svg.querySelector('.xh');
+    svg.querySelectorAll('.hit').forEach(function(r){
+      r.addEventListener('mouseenter',function(){var i=+r.dataset.i; xh.setAttribute('x1',D.x[i]); xh.setAttribute('x2',D.x[i]); xh.setAttribute('visibility','visible');
+        tip.innerHTML='<b>'+D.q[i]+'</b>'+Object.keys(D.series).map(function(k){return '<span>'+k+' <em>'+fmt(D.series[k][i])+'</em></span>';}).join(''); tip.hidden=false;
+        var b=svg.getBoundingClientRect(), w=svg.parentNode.getBoundingClientRect(); var px=(D.x[i]/760)*b.width+(b.left-w.left); tip.style.left=Math.min(px,w.width-190)+'px';});
+      r.addEventListener('mouseleave',function(){tip.hidden=true; xh.setAttribute('visibility','hidden');});
+    }); }
+  document.querySelectorAll('svg[data-chart=bar] .bar').forEach(function(b){ var t=document.createElementNS('http://www.w3.org/2000/svg','title'); t.textContent=b.dataset.l+' \u00b7 '+b.dataset.y+' \u00b7 '+fmt(+b.dataset.v); b.appendChild(t); });
+  var s=document.getElementById('scaleN'); if(s){ var U={tpv:142063000, med:333355, full:963366, full3:1468097};
+    var upd=function(){ var n=+s.value; document.getElementById('scaleNv').textContent=n; document.getElementById('sTPV').textContent=fmt(n*U.tpv); document.getElementById('sMed').textContent=fmt(n*U.med); document.getElementById('sFull').textContent=fmt(n*U.full); document.getElementById('sFull3').textContent=fmt(n*U.full3); };
+    s.addEventListener('input',upd); upd(); }
 })();
+
 </script>
 </body></html>
