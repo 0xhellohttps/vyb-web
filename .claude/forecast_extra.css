@@ -1,0 +1,87 @@
+
+/* ============================================================
+   /forecast — additions on top of the /pulse layout
+   ============================================================ */
+
+.fc-stats {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 34px;
+}
+.fc-stats > div { border-top: 2px solid var(--accent); padding-top: 14px; }
+.fc-stats .n { font-size: 28px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); line-height: 1.05; font-variant-numeric: tabular-nums; }
+.fc-stats .u { font-size: 12.5px; line-height: 1.5; color: var(--text-secondary); margin-top: 8px; }
+
+.fc-table-wrap { margin-top: 30px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.fc-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.fc-table th {
+  text-align: left; font-size: 11.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--text-tertiary); padding: 0 14px 12px 0; border-bottom: 1px solid var(--surface-border); white-space: nowrap;
+}
+.fc-table td { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--surface-border); color: var(--text-secondary); vertical-align: top; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.fc-table td:first-child { color: var(--hero-text); font-weight: 600; white-space: nowrap; }
+.fc-table td b { color: var(--hero-text); font-weight: 600; }
+.fc-table tr.hi td { color: var(--hero-text); }
+.fc-table tr.hi td:first-child { color: var(--accent); }
+.fc-table tr.tot td { color: var(--accent); font-weight: 600; border-bottom: none; border-top: 1px solid var(--surface-border); }
+.fc-table tr.tot td:first-child { color: var(--accent); }
+
+.fc-callout {
+  margin-top: 30px; border: 1px solid var(--card-border); border-left: 3px solid var(--accent);
+  border-radius: 16px; padding: 22px 26px; background: var(--card-bg);
+}
+.fc-callout-h { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.fc-callout p { font-size: 15px; line-height: 1.7; color: var(--text-secondary); }
+.fc-callout p b { color: var(--hero-text); font-weight: 600; }
+
+.fc-levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 34px; }
+.fc-level { border: 1px solid var(--card-border); border-radius: 18px; padding: 24px; background: var(--card-bg); display: flex; flex-direction: column; }
+.fc-level.hi { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.fc-level .t { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.fc-level .c { font-size: 34px; font-weight: 600; letter-spacing: -.025em; color: var(--hero-text); line-height: 1.05; font-variant-numeric: tabular-nums; }
+.fc-level .g { font-size: 13px; color: var(--text-tertiary); margin-top: 6px; }
+.fc-level .d { font-size: 14.5px; line-height: 1.65; color: var(--text-secondary); margin-top: 16px; flex: 1; }
+.fc-level .s { font-size: 13.5px; font-weight: 600; color: var(--hero-text); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--surface-border); }
+
+.fc-two { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 40px; margin-top: 30px; align-items: start; }
+.fc-two .fc-table { font-size: 14px; }
+.fc-kv { border-top: 1px solid var(--surface-border); }
+.fc-kv-row { display: grid; grid-template-columns: minmax(0, 130px) minmax(0, 1fr); gap: 16px; padding: 13px 0; border-bottom: 1px solid var(--surface-border); }
+.fc-kv-row .k { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-tertiary); padding-top: 2px; }
+.fc-kv-row .v { font-size: 14.5px; line-height: 1.55; color: var(--hero-text); }
+
+@media (max-width: 1000px) {
+  .pl-shell { grid-template-columns: minmax(0, 1fr); }
+  .fc-stats { grid-template-columns: repeat(3, 1fr); }
+  .fc-levels { grid-template-columns: 1fr; }
+  .fc-two { grid-template-columns: 1fr; gap: 26px; }
+}
+@media (max-width: 600px) {
+  .fc-stats { grid-template-columns: repeat(2, 1fr); }
+  .fc-table { font-size: 13.5px; }
+}
+
+/* ---------- charts & flowchart ---------- */
+.pl-page { --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; }
+[data-theme="dark"] .pl-page { --s1: #3987e5; --s2: #d95926; --s3: #199e70; }
+.fc-chart-wrap { position: relative; margin-top: 30px; border: 1px solid var(--card-border); border-radius: 18px; padding: 18px 22px 10px; background: var(--card-bg); }
+.fc-chart { width: 100%; height: auto; display: block; font-family: var(--system); }
+.fc-chart .grid { stroke: var(--surface-border); stroke-width: 1; }
+.fc-chart .axis { stroke: var(--text-tertiary); stroke-width: 1; }
+.fc-chart .tick { font-size: 12px; fill: var(--text-tertiary); }
+.fc-chart .dl { font-size: 12.5px; font-weight: 600; fill: var(--text-secondary); }
+.fc-chart .hit { cursor: crosshair; }
+.fc-legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+.fc-legend span { display: inline-flex; align-items: center; gap: 7px; }
+.fc-legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.fc-tip { position: absolute; top: 46px; background: var(--bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 9px 12px; font-size: 13px; color: var(--text-secondary); box-shadow: 0 8px 24px rgba(0,0,0,.12); pointer-events: none; min-width: 150px; z-index: 2; }
+.fc-tip b { display: block; color: var(--hero-text); margin-bottom: 4px; }
+.fc-tip span { display: flex; justify-content: space-between; gap: 14px; padding: 2px 0; }
+.fc-tip em { font-style: normal; color: var(--hero-text); font-variant-numeric: tabular-nums; }
+
+.fc-flow-wrap { margin-top: 30px; border: 1px solid var(--card-border); border-radius: 18px; padding: 18px; background: var(--card-bg); overflow-x: auto; }
+.fc-flow { width: 100%; height: auto; display: block; min-width: 640px; font-family: var(--system); }
+.fc-flow .fb { fill: var(--bg); stroke: var(--card-border); stroke-width: 1; }
+.fc-flow .ft { font-size: 14px; font-weight: 600; fill: var(--hero-text); }
+.fc-flow .fs { font-size: 11px; fill: var(--text-secondary); }
+.fc-flow .tag { font-size: 11px; font-weight: 700; letter-spacing: 1px; fill: #fff; }
+.fc-flow .fa { fill: none; stroke: var(--text-tertiary); stroke-width: 1.5; }
+.fc-flow .fah { fill: var(--text-tertiary); }
