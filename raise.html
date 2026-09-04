@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff" id="themeColorMeta">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex">
+<title>VYB — Raise</title>
+<meta name="description" content="VYB's capital strategy: a $5M seed that funds three strategic commercial deployments and turns a forecast into proof, ahead of a $100M+ institutional Series A.">
+<meta property="og:title" content="VYB — Raise">
+<meta property="og:description" content="VYB's capital strategy: a $5M seed that funds three strategic commercial deployments and turns a forecast into proof, ahead of a $100M+ institutional Series A.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vybapp.io/raise">
+<link rel="canonical" href="https://vybapp.io/raise">
+<style>/* ============================================================
+   VYB — marketing site, modeled exactly on typexp.app/#features
+   Monospace (SF Mono) · white canvas · Apple-blue accent ·
+   small understated type · left-aligned · bordered sections.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: rgba(255,255,255,0.72);
+  --surface-border: rgba(0,0,0,0.08);
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --text-tertiary: #aeaeb2;
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --hero-text: #1d1d1f;
+  --hero-sub: rgba(29,29,31,0.72);
+  --card-bg: rgba(255,255,255,0.65);
+  --card-border: rgba(0,0,0,0.08);
+  --feature-icon: #aeaeb2;
+  --toggle-bg: rgba(0,0,0,0.08);
+  --toggle-thumb: #ffffff;
+  --nav-bg: rgba(255,255,255,0.85);
+  --nav-border: rgba(0,0,0,0.08);
+  --pill-bg: rgba(0,113,227,0.08);
+  --pill-text: #0071e3;
+  --shadow-screenshot: 0 32px 80px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.10);
+  --vyb-grad: linear-gradient(150deg, #0071e3, #5e5ce6);
+
+  --mono: "SF Mono", ui-monospace, Menlo, Monaco, "Cascadia Code", "Source Code Pro", Consolas, monospace;
+  --system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #000000;
+  --surface: rgba(28,28,30,0.72);
+  --surface-border: rgba(255,255,255,0.08);
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1a6;
+  --text-tertiary: #636366;
+  --accent: #2997ff;
+  --accent-hover: #409cff;
+  --hero-text: #f5f5f7;
+  --hero-sub: rgba(245,245,247,0.72);
+  --card-bg: rgba(28,28,30,0.6);
+  --card-border: rgba(255,255,255,0.08);
+  --feature-icon: #636366;
+  --toggle-bg: rgba(255,255,255,0.12);
+  --toggle-thumb: #ffffff;
+  --nav-bg: rgba(0,0,0,0.72);
+  --nav-border: rgba(255,255,255,0.08);
+  --pill-bg: rgba(41,151,255,0.12);
+  --pill-text: #2997ff;
+  --shadow-screenshot: 0 32px 80px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; background: var(--bg); }
+
+body {
+  font-family: var(--mono);
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background .4s ease, color .4s ease;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── NAV ───────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 52px;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-border);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transition: background .4s, border-color .4s;
+}
+.nav-logo { display: flex; align-items: center; gap: 9px; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-primary); }
+.app-icon {
+  width: 27px; height: 27px; border-radius: 7px; flex-shrink: 0;
+  background: var(--vyb-grad);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-family: var(--system); font-weight: 700; font-size: 16px;
+  box-shadow: inset 0 0 0 .5px rgba(255,255,255,.25);
+}
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-link { font-size: 15px; color: var(--text-secondary); transition: color .2s; }
+.nav-link:hover { color: var(--text-primary); }
+.nav-buy-btn {
+  display: inline-flex; align-items: center; padding: 8px 17px;
+  background: var(--accent); color: #fff; border-radius: 6px;
+  font-size: 13px; font-weight: 600; border: none; cursor: pointer;
+  font-family: inherit; letter-spacing: -0.01em; white-space: nowrap;
+  transition: opacity .2s;
+}
+.nav-buy-btn:hover { opacity: .72; }
+@media (max-width: 767px) { .nav-link { display: none; } }
+
+/* theme toggle (sliding switch) */
+.theme-toggle {
+  position: relative; width: 44px; height: 26px;
+  background: var(--toggle-bg); border-radius: 13px; border: none;
+  cursor: pointer; transition: background .3s; flex-shrink: 0;
+}
+.theme-toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 20px; height: 20px; border-radius: 50%; background: var(--toggle-thumb);
+  box-shadow: 0 1px 4px rgba(0,0,0,.25);
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+[data-theme="dark"] .theme-toggle::after { transform: translateX(18px); }
+.tt-icon { position: absolute; top: 50%; transform: translateY(-50%); font-size: 11px; pointer-events: none; transition: opacity .2s; }
+.tt-sun { left: 6px; opacity: 1; }
+.tt-moon { right: 5px; opacity: .5; }
+[data-theme="dark"] .tt-sun { opacity: .5; }
+[data-theme="dark"] .tt-moon { opacity: 1; }
+
+/* ── SHARED ────────────────────────────────────────────── */
+.section-inner { max-width: 1080px; margin: 0 auto; }
+.section-eyebrow { font-size: 15px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.section-title { font-size: 18px; font-weight: 400; line-height: 1.6; color: var(--hero-text); margin-bottom: 12px; }
+.section-subtitle { font-size: 18px; color: var(--text-secondary); line-height: 1.7; max-width: 60ch; }
+
+section { padding: 40px 32px; border-top: 1px solid var(--surface-border); transition: background .4s; }
+
+.download-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 32px; background: var(--text-primary); color: var(--bg);
+  border-radius: 6px; font-size: 17px; font-weight: 600; cursor: pointer;
+  border: none; font-family: inherit; transition: opacity .2s;
+}
+.download-btn:hover { opacity: .72; }
+.download-btn svg { flex-shrink: 0; }
+
+/* ── HERO ──────────────────────────────────────────────── */
+.hero {
+  border-top: none;
+  padding: 104px 32px 56px;
+  display: grid; grid-template-columns: minmax(0,1fr) minmax(0,440px);
+  gap: 48px; align-items: center;
+  max-width: 1144px; margin: 0 auto;
+}
+.hero-content { max-width: 560px; }
+.hero-title { font-size: 39px; font-weight: 600; line-height: 1.34; color: var(--hero-text); margin-bottom: 24px; }
+.hero-cursor { display: inline-block; width: 2px; height: 1em; background: currentColor; margin-left: 3px; vertical-align: text-bottom; animation: blink 1s step-start infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+.hero-subtitle { font-size: 18px; color: var(--hero-sub); line-height: 1.6; margin: 0 0 36px; }
+.hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.hero-note { margin-top: 14px; font-size: 14px; color: var(--hero-sub); opacity: .7; }
+.hero-note + .hero-note { margin-top: 4px; }
+
+.hero-visual { position: relative; display: flex; justify-content: center; }
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding-top: 92px; }
+  .hero-visual { justify-content: flex-start; margin-top: 8px; }
+}
+
+/* ── DEVICE / iMESSAGE MOCK ────────────────────────────── */
+.phone {
+  position: relative; width: 300px; height: 624px;
+  border-radius: 50px; padding: 10px; flex-shrink: 0;
+  background: linear-gradient(160deg, #2a2a2e, #0c0c0e);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,.5) inset, 0 0 0 2px rgba(255,255,255,.05) inset,
+    var(--shadow-screenshot);
+}
+.phone-screen { position: relative; width: 100%; height: 100%; border-radius: 41px; overflow: hidden; background: #fafafa; }
+.notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 96px; height: 27px; border-radius: 999px; background: #0a0a0c; z-index: 30; }
+.imsg { position: absolute; inset: 0; background: #fafafa; color: #1c1c1e; display: flex; flex-direction: column; font-family: var(--system); }
+.imsg-status { height: 46px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px 0 26px; font-size: 13px; font-weight: 600; color: #1c1c1e; }
+.imsg-status .dots { display: flex; align-items: center; gap: 5px; }
+.imsg-head { padding: 50px 14px 11px; text-align: center; border-bottom: .5px solid rgba(0,0,0,.06); background: rgba(250,250,250,.92); }
+.imsg-avatar { width: 46px; height: 46px; border-radius: 50%; margin: 0 auto 6px; background: var(--vyb-grad); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 21px; }
+.imsg-title { font-size: 14px; font-weight: 600; }
+.imsg-sub { font-size: 10.5px; color: rgba(28,28,30,.5); margin-top: 1px; }
+.imsg-body { flex: 1; padding: 12px 12px 16px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+.imsg-body > * { flex-shrink: 0; }
+.imsg-day { text-align: center; font-size: 10px; color: rgba(28,28,30,.4); font-weight: 600; margin: 2px 0 3px; }
+.bub { max-width: 80%; padding: 8px 12px; border-radius: 18px; font-size: 13px; line-height: 1.32; }
+.bub-in { align-self: flex-start; background: #e9e9eb; color: #1c1c1e; border-bottom-left-radius: 5px; }
+.bub-out { align-self: flex-end; background: #0a84ff; color: #fff; border-bottom-right-radius: 5px; }
+.bub-name { font-size: 9.5px; color: rgba(28,28,30,.45); margin: 3px 0 -4px 12px; font-weight: 600; }
+.prop { align-self: flex-start; width: 92%; background: #fff; border-radius: 16px; overflow: hidden; border: .5px solid rgba(0,0,0,.08); box-shadow: 0 8px 20px -8px rgba(20,16,40,.2); }
+.prop-top { display: flex; align-items: center; gap: 8px; padding: 10px 12px 8px; border-bottom: .5px solid rgba(0,0,0,.06); }
+.prop-mark { width: 21px; height: 21px; border-radius: 6px; background: var(--vyb-grad); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 11px; flex-shrink: 0; }
+.prop-kicker { font-size: 8px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: rgba(28,28,30,.45); }
+.prop-h { font-size: 13px; font-weight: 650; margin-top: 1px; }
+.prop-rows { padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; }
+.prop-row { display: flex; justify-content: space-between; font-size: 11px; }
+.prop-row span { color: rgba(28,28,30,.5); }
+.prop-row b { font-weight: 600; }
+.prop-cta { display: flex; gap: 6px; padding: 0 12px 12px; }
+.prop-confirm { flex: 1; height: 32px; border-radius: 9px; background: #34c759; color: #fff; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }
+.prop-later { width: 66px; height: 32px; border-radius: 9px; background: #f0f0f2; color: rgba(28,28,30,.6); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.imsg-input { margin: 0 10px 12px; height: 34px; border-radius: 999px; border: .5px solid rgba(0,0,0,.12); display: flex; align-items: center; padding: 0 14px; color: rgba(28,28,30,.4); font-size: 12px; background: #fff; }
+
+/* floating overlay card (hero) */
+.float-card {
+  position: absolute; z-index: 4; width: 220px; right: -22px; bottom: 64px;
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: 16px; padding: 14px 16px; backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: var(--shadow-screenshot); font-family: var(--system);
+}
+.float-card .fc-kicker { font-size: 9px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.float-card .fc-h { font-size: 14px; font-weight: 650; color: var(--text-primary); margin: 5px 0 8px; line-height: 1.25; }
+.float-card .fc-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-secondary); padding: 3px 0; border-top: .5px solid var(--surface-border); }
+.float-card .fc-row b { color: var(--text-primary); font-weight: 600; }
+@media (max-width: 460px) { .float-card { display: none; } }
+
+/* ── SEE IT IN ACTION (typed demo) ─────────────────────── */
+.demo-window {
+  margin-top: 28px; max-width: 760px;
+  border: 1px solid var(--surface-border); border-radius: 14px; overflow: hidden;
+  background: var(--card-bg); backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-screenshot);
+}
+.demo-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--surface-border); }
+.demo-bar i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.demo-bar .r { background: #ff5f57; } .demo-bar .y { background: #febc2e; } .demo-bar .g { background: #28c840; }
+.demo-bar span { margin-left: 8px; font-size: 11px; color: var(--text-tertiary); letter-spacing: .02em; }
+.demo-body { padding: 24px 24px 28px; font-size: 17px; line-height: 1.75; min-height: 210px; }
+.demo-ctx { color: var(--text-tertiary); }
+.demo-trigger-line { margin-top: 6px; }
+.demo-prompt { color: var(--accent); }
+.demo-trigger { color: var(--text-primary); }
+.demo-cursor { display: inline-block; width: 8px; height: 1.05em; background: var(--accent); vertical-align: text-bottom; margin-left: 1px; animation: blink 1s step-start infinite; }
+.demo-out { margin-top: 14px; padding-left: 14px; border-left: 2px solid var(--accent); color: var(--text-primary); white-space: pre-wrap; }
+.demo-tag { display: inline-block; font-size: 10px; font-weight: 600; font-family: var(--system); color: #fff; background: var(--accent); padding: 1px 7px; border-radius: 20px; margin-bottom: 8px; letter-spacing: .02em; }
+
+/* ── GROUP CHAT DEMO ───────────────────────────────────── */
+.chat-stage { margin-top: 32px; display: flex; justify-content: flex-start; }
+.chat-stage .phone { width: 320px; height: 668px; }
+
+/* ── FEATURES GRID ─────────────────────────────────────── */
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); column-gap: 48px; margin-top: 36px; }
+.feature-card { border-top: 1px solid var(--surface-border); padding: 26px 0; }
+.feature-icon { display: block; font-size: 21px; color: var(--feature-icon); margin-bottom: 12px; line-height: 1; }
+.feature-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 9px; }
+.feature-body { font-size: 17px; color: var(--text-secondary); line-height: 1.6; }
+.feature-body b { color: var(--text-primary); font-weight: 600; }
+
+/* ── SYNC / CARD SHOWCASE ──────────────────────────────── */
+.showcase { margin-top: 44px; display: flex; }
+.vcard {
+  position: relative; width: 420px; max-width: 100%; aspect-ratio: 1.586;
+  border-radius: 22px; padding: 26px; color: #fff; overflow: hidden;
+  background: linear-gradient(135deg, #0a1230 0%, #1f2350 48%, #2f2a6a 100%);
+  box-shadow: var(--shadow-screenshot); font-family: var(--system);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.vcard::after { content:""; position:absolute; inset:0; background: radial-gradient(120% 90% at 88% -10%, rgba(41,151,255,.5), transparent 60%); }
+.vcard-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }
+.vcard-wm { font-weight: 700; font-size: 22px; letter-spacing: -0.02em; }
+.vcard-chip { width: 38px; height: 28px; border-radius: 6px; background: linear-gradient(135deg,#e8c977,#b98d3e); opacity: .9; }
+.vcard-num { font-variant-numeric: tabular-nums; font-size: 15px; letter-spacing: .12em; position: relative; z-index: 2; }
+.vcard-bottom { display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 2; }
+.vcard-bottom .lbl { font-size: 8px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; opacity: .6; }
+.vcard-bottom .val { font-size: 12px; font-weight: 600; margin-top: 3px; }
+
+/* ── HOW IT WORKS ──────────────────────────────────────── */
+.steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; margin-top: 44px; }
+.steps.steps-5 { grid-template-columns: repeat(5,1fr); gap: 26px; }
+.steps.steps-6 { grid-template-columns: repeat(3,1fr); gap: 32px 26px; }
+@media (max-width: 980px) { .steps.steps-5 { grid-template-columns: repeat(3,1fr); } }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr; gap: 26px; } .steps.steps-5, .steps.steps-6 { grid-template-columns: 1fr; } }
+.step-number { font-size: 15px; font-weight: 700; color: var(--accent); letter-spacing: .5px; margin-bottom: 12px; font-variant-numeric: tabular-nums; }
+.step-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 9px; }
+.step-body { font-size: 17px; color: var(--text-secondary); line-height: 1.6; }
+.step-code { display: inline-block; font-family: var(--mono); font-size: 15px; background: var(--pill-bg); color: var(--pill-text); padding: 2px 8px; border-radius: 6px; margin-top: 8px; }
+
+/* ── VYB FOR ENTERPRISE ────────────────────────────────── */
+.ent-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; margin-top: 40px; border-top: 1px solid var(--surface-border); }
+@media (max-width: 760px) { .ent-grid { grid-template-columns: 1fr; } }
+.ent-card { padding: 30px 28px 30px 0; border-bottom: 1px solid var(--surface-border); }
+.ent-card + .ent-card { padding-left: 28px; border-left: 1px solid var(--surface-border); }
+@media (max-width: 760px) { .ent-card + .ent-card { padding-left: 0; border-left: none; } }
+.ent-stat { font-size: 40px; font-weight: 600; line-height: 1; letter-spacing: -0.02em; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.ent-stat .unit { font-size: 22px; color: var(--accent); margin-left: 2px; }
+.ent-label { font-size: 13px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--accent); margin: 16px 0 9px; }
+.ent-body { font-size: 16px; color: var(--text-secondary); line-height: 1.65; }
+.ent-body b { color: var(--text-primary); font-weight: 600; }
+.ent-foot { margin-top: 30px; font-size: 16px; color: var(--text-secondary); line-height: 1.7; max-width: 70ch; }
+.ent-foot b { color: var(--text-primary); font-weight: 600; }
+
+/* A-to-Z finance flow */
+.ent-flow-head { margin-top: 44px; font-size: 13px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--accent); }
+.ent-flow-title { margin-top: 9px; font-size: 18px; font-weight: 400; line-height: 1.6; color: var(--hero-text); }
+.ent-flow { margin-top: 24px; display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--surface-border); border: 1px solid var(--surface-border); border-radius: 12px; overflow: hidden; }
+@media (max-width: 760px) { .ent-flow { grid-template-columns: 1fr; } }
+.flow-item { background: var(--bg); padding: 20px 22px; display: flex; gap: 14px; align-items: flex-start; transition: background .25s; }
+.flow-item:hover { background: var(--pill-bg); }
+.flow-step { font-size: 13px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; flex-shrink: 0; padding-top: 2px; min-width: 22px; }
+.flow-name { font-size: 16px; font-weight: 600; color: var(--text-primary); line-height: 1.35; }
+.flow-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-top: 3px; }
+
+/* ── A-to-Z ORBITAL DIAGRAM ────────────────────────────── */
+.flow-diagram { position: relative; width: 100%; max-width: 680px; margin: 28px auto 8px; aspect-ratio: 1 / 1; }
+.flow-diagram svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.fd-ring { fill: none; stroke: var(--surface-border); stroke-width: 1.5; }
+.fd-track { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 60 1636; opacity: .9; animation: fdOrbit 9s linear infinite; }
+@keyframes fdOrbit { to { stroke-dashoffset: -1696; } }
+.fd-spoke { stroke: var(--surface-border); stroke-width: 1.5; stroke-dasharray: 3 5; }
+.fd-pulse { fill: var(--accent); }
+
+.fd-node {
+  position: absolute; transform: translate(-50%, -50%);
+  width: 156px; display: flex; flex-direction: column; align-items: center; gap: 7px;
+  text-align: center;
+}
+.fd-badge {
+  width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg); border: 1.5px solid var(--accent); color: var(--accent);
+  font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 5px var(--bg); position: relative; z-index: 2;
+  transition: transform .25s, background .25s, color .25s;
+}
+.fd-node:hover .fd-badge { background: var(--accent); color: #fff; transform: scale(1.08); }
+.fd-name { font-size: 13px; font-weight: 600; color: var(--text-primary); line-height: 1.3; letter-spacing: -0.01em; }
+.fd-sub { font-size: 11px; color: var(--text-secondary); line-height: 1.35; }
+
+.fd-hub {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 132px; height: 132px; border-radius: 50%; z-index: 3;
+  background: var(--vyb-grad); color: #fff;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  box-shadow: 0 18px 50px -16px rgba(0,113,227,.6), inset 0 0 0 1px rgba(255,255,255,.2), 0 0 0 8px var(--bg);
+}
+.fd-hub .hub-mark { font-family: var(--system); font-size: 34px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+.fd-hub .hub-sub { font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+
+@media (max-width: 600px) {
+  .flow-diagram { max-width: 440px; }
+  .fd-node { width: 104px; }
+  .fd-name { font-size: 11px; }
+  .fd-sub { display: none; }
+  .fd-badge { width: 34px; height: 34px; font-size: 13px; }
+  .fd-hub { width: 96px; height: 96px; }
+  .fd-hub .hub-mark { font-size: 26px; }
+}
+@media (prefers-reduced-motion: reduce) { .fd-track { animation: none; } .fd-pulse { display: none; } }
+
+/* ── FOOTER ────────────────────────────────────────────── */
+footer { border-top: 1px solid var(--nav-border); padding: 48px 32px; transition: background .4s, border-color .4s; }
+.footer-inner { max-width: 1080px; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
+.footer-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-primary); }
+.footer-brand .app-icon { width: 34px; height: 34px; border-radius: 8px; font-size: 19px; }
+.footer-meta { font-size: 14px; color: var(--text-tertiary); margin-top: 10px; }
+.footer-links { display: flex; gap: 24px; align-items: center; }
+.footer-links a { font-size: 14px; color: var(--text-tertiary); transition: color .2s; }
+.footer-links a:hover { color: var(--accent); }
+@media (max-width: 760px) { .footer-inner { flex-direction: column; align-items: flex-start; } }
+
+/* ── ANIMATIONS ────────────────────────────────────────── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.fade-up { opacity: 0; animation: fadeUp .7s cubic-bezier(.22,1,.36,1) forwards; }
+.fade-up-1 { animation-delay: .05s; }
+.fade-up-2 { animation-delay: .15s; }
+.fade-up-3 { animation-delay: .28s; }
+.fade-up-4 { animation-delay: .42s; }
+.fade-up-5 { animation-delay: .56s; }
+[data-io] { opacity: 0; transform: translateY(28px); transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+[data-io].in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, [data-io] { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .hero-cursor, .demo-cursor { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+
+/* VYB Payfac stack — The Engine */
+#engine .pf-stack { max-width: 760px; margin-top: 44px; }
+#engine .pf-band { border: 1px solid var(--card-border); background: var(--card-bg); border-radius: 16px; padding: 18px 20px; }
+#engine .pf-label { display: block; font: 600 12px/1.3 var(--mono); text-transform: uppercase; letter-spacing: .8px; color: var(--text-tertiary); margin-bottom: 12px; }
+#engine .pf-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+#engine .pf-chip { font: 600 14px/1.2 var(--mono); color: var(--pill-text); background: var(--pill-bg); border-radius: 999px; padding: 9px 14px; }
+#engine .pf-chip-muted { color: var(--text-secondary); background: var(--toggle-bg); }
+#engine .pf-arrow { color: var(--text-tertiary); font-size: 20px; line-height: 1; text-align: center; margin: 10px 0; }
+#engine .pf-core { border-color: var(--accent); }
+#engine .pf-label-on { color: var(--accent); font-size: 13px; margin-bottom: 6px; }
+#engine .pf-core-sub { font-size: 16px; font-weight: 500; color: var(--text-primary); margin-bottom: 16px; }
+#engine .pf-trio { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+#engine .pf-k { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 5px; }
+#engine .pf-d { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+#engine .pf-bar-s { font-size: 16px; color: var(--text-secondary); line-height: 1.55; }
+@media (max-width: 760px) { #engine .pf-trio { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   /pulse — VYB Pulse
+   Secondary layout: full-bleed dark hero + sticky section rail.
+   Deliberately distinct from the index page's stacked sections.
+   ============================================================ */
+
+.pl-page { --pl-measure: 68ch; }
+
+/* nav sits transparent over the dark hero, then solidifies on scroll */
+body.nav-over nav {
+  background: transparent; border-bottom-color: transparent; backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+body.nav-over .nav-logo { color: #f5f5f7; }
+body.nav-over .nav-link { color: rgba(255,255,255,0.70); }
+body.nav-over .nav-link:hover { color: #f5f5f7; }
+body.nav-over .theme-toggle { background: rgba(255,255,255,0.20); }
+nav, .nav-logo, .nav-link, .theme-toggle { transition: background .25s, color .25s, border-color .25s; }
+
+/* ---------- full-bleed dark hero ---------- */
+.pl-hero {
+  background: #000;
+  color: #f5f5f7;
+  padding: 132px 32px 72px;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+.pl-hero-inner { max-width: 1140px; margin: 0 auto; }
+.pl-kicker {
+  font-size: 13px; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 26px;
+}
+.pl-hero h1 {
+  font-size: 58px; font-weight: 600; line-height: 1.14; letter-spacing: -.025em;
+  color: #f5f5f7; max-width: 22ch; margin-bottom: 28px;
+}
+.pl-hero .pl-sub {
+  font-size: 20px; line-height: 1.65; color: #a1a1a6; max-width: 62ch;
+}
+.pl-hero-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 38px; }
+.pl-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--accent); color: #fff;
+  font-size: 16px; font-weight: 600;
+  padding: 15px 26px; border-radius: 980px;
+  transition: background .2s, transform .2s;
+}
+.pl-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.pl-btn-ghost {
+  display: inline-flex; align-items: center;
+  font-size: 16px; font-weight: 500; color: #a1a1a6;
+  padding: 15px 4px; transition: color .2s;
+}
+.pl-btn-ghost:hover { color: #f5f5f7; }
+
+/* hero stat strip */
+.pl-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  margin-top: 64px; border-top: 1px solid rgba(255,255,255,0.14);
+}
+.pl-strip div { padding: 26px 24px 0 0; }
+.pl-strip .n { font-size: 34px; font-weight: 600; letter-spacing: -.02em; color: #f5f5f7; line-height: 1.05; white-space: nowrap; }
+.pl-strip .u { display: block; font-size: 13px; font-weight: 400; letter-spacing: .4px; text-transform: uppercase; color: #6e6e73; margin-top: 9px; white-space: normal; }
+.pl-strip .l { font-size: 14px; line-height: 1.55; color: #8e8e93; margin-top: 12px; max-width: 26ch; }
+
+/* ---------- two-column shell with sticky rail ---------- */
+.pl-shell {
+  display: grid; grid-template-columns: 208px minmax(0, 1fr);
+  gap: 72px; max-width: 1140px; margin: 0 auto; padding: 0 32px 40px;
+}
+.pl-rail { position: sticky; top: 92px; align-self: start; padding-top: 60px; }
+.pl-rail-h {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase;
+  color: var(--text-tertiary); margin-bottom: 18px;
+}
+.pl-rail a {
+  display: flex; gap: 12px; align-items: baseline;
+  font-size: 14px; line-height: 1.4; color: var(--text-secondary);
+  padding: 8px 0; border-left: 2px solid transparent; padding-left: 14px;
+  margin-left: -16px; transition: color .2s, border-color .2s;
+}
+.pl-rail a .i { font-size: 11px; color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+.pl-rail a:hover { color: var(--text-primary); }
+.pl-rail a.on { color: var(--accent); border-left-color: var(--accent); }
+.pl-rail a.on .i { color: var(--accent); }
+
+/* ---------- sections inside the main column ---------- */
+.pl-main { padding-top: 0; }
+section.pl-sec { padding: 60px 0; border-top: 1px solid var(--surface-border); scroll-margin-top: 88px; }
+section.pl-sec:first-child { border-top: none; }
+.pl-sec-num {
+  font-size: 12px; font-weight: 700; letter-spacing: 1.8px;
+  color: var(--accent); margin-bottom: 16px; font-variant-numeric: tabular-nums;
+}
+.pl-h {
+  font-size: 32px; font-weight: 600; line-height: 1.24; letter-spacing: -.02em;
+  color: var(--hero-text); margin-bottom: 16px; max-width: 32ch;
+}
+.pl-lede { font-size: 18px; line-height: 1.7; color: var(--text-secondary); max-width: var(--pl-measure); }
+.pl-lede b { color: var(--hero-text); font-weight: 600; }
+.pl-note { font-size: 13px; line-height: 1.7; color: var(--text-tertiary); margin-top: 26px; max-width: var(--pl-measure); }
+
+/* ---------- numbered list rows (the model, the journey) ---------- */
+.pl-rows { margin-top: 34px; border-top: 1px solid var(--surface-border); }
+.pl-row {
+  display: grid; grid-template-columns: 44px minmax(0,210px) minmax(0,1fr);
+  gap: 24px; align-items: start;
+  padding: 22px 0; border-bottom: 1px solid var(--surface-border);
+}
+.pl-row .r-i { font-size: 13px; font-weight: 700; color: var(--accent); padding-top: 4px; font-variant-numeric: tabular-nums; }
+.pl-row .r-t { font-size: 17px; font-weight: 600; color: var(--hero-text); line-height: 1.4; }
+.pl-row .r-d { font-size: 15px; line-height: 1.65; color: var(--text-secondary); }
+.pl-row .r-d b { color: var(--hero-text); font-weight: 600; }
+
+/* ---------- grant panel ---------- */
+.pl-grant {
+  display: grid; grid-template-columns: minmax(0,300px) minmax(0,1fr);
+  gap: 36px; margin-top: 34px; align-items: start;
+}
+.pl-grant-box {
+  border: 1px solid var(--card-border); border-radius: 18px; padding: 26px;
+  background: var(--card-bg);
+}
+.pl-grant-box .amt { font-size: 36px; font-weight: 600; letter-spacing: -.025em; color: var(--hero-text); line-height: 1.05; }
+.pl-grant-box .amt-sub { font-size: 14px; line-height: 1.65; color: var(--text-secondary); margin-top: 12px; }
+.pl-sub-h { font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 14px; }
+
+.pl-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.pl-chip {
+  font-size: 14px; line-height: 1.2; color: var(--text-secondary);
+  background: var(--pill-bg); border: 1px solid var(--card-border);
+  border-radius: 999px; padding: 9px 14px;
+}
+
+/* ---------- terms: three stacked statements ---------- */
+.pl-terms { margin-top: 34px; }
+.pl-term {
+  display: grid; grid-template-columns: minmax(0,190px) minmax(0,1fr);
+  gap: 32px; padding: 26px 0; border-top: 1px solid var(--surface-border); align-items: start;
+}
+.pl-term .t-n { font-size: 32px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); line-height: 1.05; }
+.pl-term .t-n span { display: block; font-size: 13px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--accent); margin-top: 8px; }
+.pl-term .t-b { font-size: 16px; line-height: 1.7; color: var(--text-secondary); }
+.pl-term .t-b b { color: var(--hero-text); font-weight: 600; }
+.pl-term .t-b .t-h { display: block; font-size: 16px; font-weight: 600; color: var(--hero-text); margin-bottom: 8px; }
+
+/* ---------- passport ---------- */
+.pl-pass { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 16px; margin-top: 34px; }
+.pl-pass-col { border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; background: var(--card-bg); }
+.pl-pass-col h3 { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.pl-pass-col ul { list-style: none; }
+.pl-pass-col li { font-size: 14px; line-height: 1.5; color: var(--text-secondary); padding: 7px 0; border-top: 1px solid var(--surface-border); }
+.pl-pass-col li:first-child { border-top: none; padding-top: 0; }
+
+.pl-quotes { margin-top: 22px; border-left: 2px solid var(--accent); padding: 4px 0 4px 24px; }
+.pl-quotes q { display: block; font-size: 17px; line-height: 1.6; color: var(--hero-text); font-style: normal; padding: 9px 0; }
+.pl-quotes q + q { border-top: 1px solid var(--surface-border); }
+
+/* ---------- tiers ---------- */
+.pl-tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr)); gap: 16px; margin-top: 34px; }
+.pl-tier { border: 1px solid var(--card-border); border-radius: 16px; padding: 22px; background: var(--card-bg); }
+.pl-tier .t { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.pl-tier .c { font-size: 24px; font-weight: 600; color: var(--hero-text); letter-spacing: -.02em; }
+.pl-tier .g { font-size: 14px; color: var(--text-secondary); margin-top: 7px; }
+.pl-tier .d { font-size: 14px; color: var(--text-tertiary); margin-top: 14px; line-height: 1.6; }
+
+/* ---------- partners / cta ---------- */
+.pl-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 30px; margin-top: 34px; }
+.pl-col h3 { font-size: 16px; font-weight: 600; color: var(--hero-text); margin-bottom: 10px; }
+.pl-col p { font-size: 15px; line-height: 1.65; color: var(--text-secondary); }
+
+.pl-cta { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 16px; margin-top: 34px; }
+.pl-cta-card { border: 1px solid var(--card-border); border-radius: 16px; padding: 22px; background: var(--card-bg); display: flex; flex-direction: column; }
+.pl-cta-card h3 { font-size: 16px; font-weight: 600; color: var(--hero-text); margin-bottom: 8px; }
+.pl-cta-card p { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 18px; flex: 1; }
+.pl-cta-card a { font-size: 15px; font-weight: 600; color: var(--accent); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1000px) {
+  .pl-shell { grid-template-columns: 1fr; gap: 0; }
+  .pl-rail { display: none; }
+  .pl-hero h1 { font-size: 44px; }
+  .pl-strip { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  .pl-hero { padding: 108px 24px 56px; }
+  .pl-hero h1 { font-size: 34px; max-width: none; }
+  .pl-hero .pl-sub { font-size: 18px; }
+  .pl-shell { padding: 0 24px 32px; }
+  .pl-h { font-size: 25px; }
+  .pl-row { grid-template-columns: 30px minmax(0,1fr); gap: 14px; }
+  .pl-row .r-d { grid-column: 2; }
+  .pl-grant { grid-template-columns: 1fr; gap: 24px; }
+  .pl-term { grid-template-columns: 1fr; gap: 12px; }
+}
+@media (max-width: 480px) {
+  .pl-strip { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   /forecast — additions on top of the /pulse layout
+   ============================================================ */
+
+.fc-stats {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 34px;
+}
+.fc-stats > div { border-top: 2px solid var(--accent); padding-top: 14px; }
+.fc-stats .n { font-size: 28px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); line-height: 1.05; font-variant-numeric: tabular-nums; }
+.fc-stats .u { font-size: 12.5px; line-height: 1.5; color: var(--text-secondary); margin-top: 8px; }
+
+.fc-table-wrap { margin-top: 30px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.fc-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.fc-table th {
+  text-align: left; font-size: 11.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--text-tertiary); padding: 0 14px 12px 0; border-bottom: 1px solid var(--surface-border); white-space: nowrap;
+}
+.fc-table td { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--surface-border); color: var(--text-secondary); vertical-align: top; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.fc-table td:first-child { color: var(--hero-text); font-weight: 600; white-space: nowrap; }
+.fc-table td b { color: var(--hero-text); font-weight: 600; }
+.fc-table tr.hi td { color: var(--hero-text); }
+.fc-table tr.hi td:first-child { color: var(--accent); }
+.fc-table tr.tot td { color: var(--accent); font-weight: 600; border-bottom: none; border-top: 1px solid var(--surface-border); }
+.fc-table tr.tot td:first-child { color: var(--accent); }
+
+.fc-callout {
+  margin-top: 30px; border: 1px solid var(--card-border); border-left: 3px solid var(--accent);
+  border-radius: 16px; padding: 22px 26px; background: var(--card-bg);
+}
+.fc-callout-h { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.fc-callout p { font-size: 15px; line-height: 1.7; color: var(--text-secondary); }
+.fc-callout p b { color: var(--hero-text); font-weight: 600; }
+
+.fc-levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 34px; }
+.fc-level { border: 1px solid var(--card-border); border-radius: 18px; padding: 24px; background: var(--card-bg); display: flex; flex-direction: column; }
+.fc-level.hi { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.fc-level .t { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.fc-level .c { font-size: 34px; font-weight: 600; letter-spacing: -.025em; color: var(--hero-text); line-height: 1.05; font-variant-numeric: tabular-nums; }
+.fc-level .g { font-size: 13px; color: var(--text-tertiary); margin-top: 6px; }
+.fc-level .d { font-size: 14.5px; line-height: 1.65; color: var(--text-secondary); margin-top: 16px; flex: 1; }
+.fc-level .s { font-size: 13.5px; font-weight: 600; color: var(--hero-text); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--surface-border); }
+
+.fc-two { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 40px; margin-top: 30px; align-items: start; }
+.fc-two .fc-table { font-size: 14px; }
+.fc-kv { border-top: 1px solid var(--surface-border); }
+.fc-kv-row { display: grid; grid-template-columns: minmax(0, 130px) minmax(0, 1fr); gap: 16px; padding: 13px 0; border-bottom: 1px solid var(--surface-border); }
+.fc-kv-row .k { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-tertiary); padding-top: 2px; }
+.fc-kv-row .v { font-size: 14.5px; line-height: 1.55; color: var(--hero-text); }
+
+@media (max-width: 1000px) {
+  .pl-shell { grid-template-columns: minmax(0, 1fr); }
+  .fc-stats { grid-template-columns: repeat(3, 1fr); }
+  .fc-levels { grid-template-columns: 1fr; }
+  .fc-two { grid-template-columns: 1fr; gap: 26px; }
+}
+@media (max-width: 600px) {
+  .fc-stats { grid-template-columns: repeat(2, 1fr); }
+  .fc-table { font-size: 13.5px; }
+}
+
+/* ---------- charts & flowchart ---------- */
+.pl-page { --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; }
+[data-theme="dark"] .pl-page { --s1: #3987e5; --s2: #d95926; --s3: #199e70; }
+.fc-chart-wrap { position: relative; margin-top: 30px; border: 1px solid var(--card-border); border-radius: 18px; padding: 18px 22px 10px; background: var(--card-bg); }
+.fc-chart { width: 100%; height: auto; display: block; font-family: var(--system); }
+.fc-chart .grid { stroke: var(--surface-border); stroke-width: 1; }
+.fc-chart .axis { stroke: var(--text-tertiary); stroke-width: 1; }
+.fc-chart .tick { font-size: 12px; fill: var(--text-tertiary); }
+.fc-chart .dl { font-size: 12.5px; font-weight: 600; fill: var(--text-secondary); }
+.fc-chart .hit { cursor: crosshair; }
+.fc-legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+.fc-legend span { display: inline-flex; align-items: center; gap: 7px; }
+.fc-legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.fc-tip { position: absolute; top: 46px; background: var(--bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 9px 12px; font-size: 13px; color: var(--text-secondary); box-shadow: 0 8px 24px rgba(0,0,0,.12); pointer-events: none; min-width: 150px; z-index: 2; }
+.fc-tip b { display: block; color: var(--hero-text); margin-bottom: 4px; }
+.fc-tip span { display: flex; justify-content: space-between; gap: 14px; padding: 2px 0; }
+.fc-tip em { font-style: normal; color: var(--hero-text); font-variant-numeric: tabular-nums; }
+
+.fc-flow-wrap { margin-top: 30px; border: 1px solid var(--card-border); border-radius: 18px; padding: 18px; background: var(--card-bg); overflow-x: auto; }
+.fc-flow { width: 100%; height: auto; display: block; min-width: 640px; font-family: var(--system); }
+.fc-flow .fb { fill: var(--bg); stroke: var(--card-border); stroke-width: 1; }
+.fc-flow .ft { font-size: 14px; font-weight: 600; fill: var(--hero-text); }
+.fc-flow .fs { font-size: 11px; fill: var(--text-secondary); }
+.fc-flow .tag { font-size: 11px; font-weight: 700; letter-spacing: 1px; fill: #fff; }
+.fc-flow .fa { fill: none; stroke: var(--text-tertiary); stroke-width: 1.5; }
+.fc-flow .fah { fill: var(--text-tertiary); }
+
+/* ---------- institutional layer: KPIs, expansion, stack, scale, flywheel, heatmap, donut ---------- */
+.pl-page { --s4: #eda100; --s5: #e87ba4; }
+[data-theme="dark"] .pl-page { --s4: #c98500; --s5: #d55181; }
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 30px; }
+.kpis-hero { margin-top: 56px; border-top: 1px solid rgba(255,255,255,0.14); padding-top: 8px; }
+.kpi { border-top: 2px solid var(--accent); padding: 16px 16px 0 0; }
+.kpi .n { font-size: 30px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); line-height: 1.05; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.kpi .u { font-size: 11.5px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: var(--text-tertiary); margin-top: 9px; }
+.kpi .l { font-size: 13px; line-height: 1.5; color: var(--text-secondary); margin-top: 8px; }
+.pl-hero .kpi .n { color: #f5f5f7; } .pl-hero .kpi .u { color: #6e6e73; } .pl-hero .kpi .l { color: #8e8e93; }
+.pl-hero h1 { max-width: 26ch; }
+
+.fc-expand { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; }
+.fc-expand .ex { border: 1px solid var(--card-border); border-radius: 18px; padding: 22px; background: var(--card-bg); }
+.fc-expand .ex.hi { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.fc-expand .t { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+.fc-expand .n { font-size: 40px; font-weight: 600; letter-spacing: -.03em; color: var(--hero-text); line-height: 1; margin-top: 12px; font-variant-numeric: tabular-nums; }
+.fc-expand .m { font-size: 15px; font-weight: 600; color: var(--text-secondary); margin-top: 8px; }
+.fc-expand .bar { height: 8px; border-radius: 4px; background: var(--surface-border); margin-top: 14px; overflow: hidden; }
+.fc-expand .bar i { display: block; height: 100%; border-radius: 4px; }
+.fc-expand .d { font-size: 13.5px; line-height: 1.6; color: var(--text-secondary); margin-top: 14px; }
+
+.fc-chain { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 30px; }
+.fc-chain .cn { border: 1px solid var(--card-border); border-radius: 14px; padding: 14px 22px; background: var(--card-bg); min-width: 300px; text-align: center; }
+.fc-chain .cn.wide { width: 100%; text-align: left; }
+.fc-chain .cn.hi { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.fc-chain .k { font-size: 11.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-tertiary); }
+.fc-chain .v { font-size: 26px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); margin-top: 4px; font-variant-numeric: tabular-nums; }
+.fc-chain .ar { font-size: 18px; color: var(--text-tertiary); line-height: 1; }
+.fc-chain .layers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 14px; }
+.fc-chain .layers > div { display: grid; grid-template-columns: 10px 1fr; grid-template-rows: auto auto auto; column-gap: 10px; align-items: center; }
+.fc-chain .layers i { width: 10px; height: 10px; border-radius: 50%; grid-row: 1 / 4; align-self: start; margin-top: 6px; }
+.fc-chain .layers b { font-size: 14px; color: var(--hero-text); }
+.fc-chain .layers span { font-size: 22px; font-weight: 600; color: var(--hero-text); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.fc-chain .layers small { font-size: 12.5px; line-height: 1.45; color: var(--text-secondary); }
+.fc-stack { width: 100%; height: auto; display: block; font-family: var(--system); }
+.fc-stack .tick { font-size: 11.5px; fill: var(--text-secondary); }
+
+.fc-list { list-style: none; }
+.fc-list li { font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); padding: 10px 0; border-top: 1px solid var(--surface-border); }
+.fc-list li:first-child { border-top: none; padding-top: 0; }
+.fc-list li b { color: var(--hero-text); font-weight: 600; }
+
+.fc-scale { margin-top: 30px; border: 1px solid var(--card-border); border-radius: 18px; padding: 22px 24px; background: var(--card-bg); }
+.fc-scale label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-tertiary); }
+.fc-scale label b { color: var(--accent); font-size: 18px; letter-spacing: 0; }
+.fc-scale input[type=range] { width: 100%; margin: 14px 0 4px; accent-color: var(--accent); }
+.fc-scale .kpis { margin-top: 10px; }
+
+.fc-fly-wrap { margin-top: 30px; display: flex; justify-content: center; }
+.fc-fly { position: relative; width: min(100%, 640px); aspect-ratio: 1; font-family: var(--system); }
+.fc-fly svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.fw-c { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 42%; text-align: center; }
+.fw-c .t { font-size: 20px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); }
+.fw-c .s { font-size: 13px; line-height: 1.45; color: var(--text-secondary); margin-top: 6px; }
+.fw-n { position: absolute; transform: translate(-50%,-50%); width: 26%; text-align: center; }
+.fw-n .b { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; margin: 0 auto 6px; box-shadow: 0 0 0 6px var(--bg); }
+.fw-n .l { font-size: 12.5px; font-weight: 600; line-height: 1.3; color: var(--hero-text); background: var(--bg); border-radius: 8px; padding: 2px 4px; }
+
+.fc-heat { display: grid; grid-template-columns: 110px repeat(3, 1fr); gap: 6px; margin-top: 30px; }
+.fc-heat .hd { font-size: 11.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-tertiary); padding: 0 0 6px 10px; align-self: end; }
+.fc-heat .hl { font-size: 14px; font-weight: 600; color: var(--hero-text); display: flex; align-items: center; }
+.fc-heat .hc { border-radius: 12px; padding: 18px 14px; background: color-mix(in srgb, var(--s1) calc(var(--a) * 100%), var(--bg)); }
+.fc-heat .hc b { display: block; font-size: 22px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); font-variant-numeric: tabular-nums; }
+.fc-heat .hc span { font-size: 12px; color: var(--text-secondary); }
+
+.fc-donut-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.fc-donut { width: min(100%, 260px); height: auto; font-family: var(--system); }
+.fc-donut .dn-n { font-size: 22px; font-weight: 600; fill: var(--hero-text); }
+.fc-donut .dn-s { font-size: 11px; fill: var(--text-secondary); }
+.fc-quality { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 26px; }
+.fc-quality .q { border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; background: var(--card-bg); }
+.fc-quality .t { font-size: 11.5px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent); }
+.fc-quality .n { font-size: 28px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); margin-top: 10px; font-variant-numeric: tabular-nums; }
+.fc-quality .d { font-size: 13.5px; line-height: 1.55; color: var(--text-secondary); margin-top: 10px; }
+
+.fc-level-block { margin-top: 34px; padding-top: 26px; border-top: 1px solid var(--surface-border); }
+.fc-level-block .lh { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 14px; }
+.fc-level-block .fc-two { margin-top: 0; }
+
+@media (max-width: 1000px) {
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .fc-expand, .fc-quality { grid-template-columns: 1fr; }
+  .fc-chain .layers { grid-template-columns: repeat(2, 1fr); }
+  .fc-heat { grid-template-columns: 80px repeat(3, 1fr); }
+  .fw-n .l { font-size: 11px; }
+}
+@media (max-width: 600px) {
+  .fc-heat { grid-template-columns: 1fr; }
+  .fc-heat .hd:first-child { display: none; }
+  .fc-chain .layers { grid-template-columns: 1fr; }
+  .fc-fly { width: 100%; }
+  .fw-n { width: 30%; } .fw-c { width: 46%; } .fw-c .t { font-size: 15px; } .fw-c .s { display: none; }
+}
+
+/* ============================================================
+   /raise — additions on top of the /pulse + /forecast layers
+   ============================================================ */
+.pl-page { --s6: #008300; --s7: #4a3aa7; }
+[data-theme="dark"] .pl-page { --s6: #008300; --s7: #9085e9; }
+
+.rs-stages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; }
+.rs-stage { border: 1px solid var(--card-border); border-radius: 18px; padding: 22px; background: var(--card-bg); display: flex; flex-direction: column; }
+.rs-num { font-size: 11.5px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+.rs-stage h3 { font-size: 22px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); margin-top: 10px; }
+.rs-stage p { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin-top: 10px; }
+.rs-stage .pl-chip { font-size: 12.5px; padding: 7px 11px; }
+.rs-ach { margin-top: auto; padding-top: 16px; font-size: 13.5px; line-height: 1.5; color: var(--text-secondary); border-top: 1px solid var(--surface-border); margin-top: 18px; }
+.rs-ach b { color: var(--hero-text); font-weight: 600; }
+
+.rs-arch { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; align-items: start; }
+.rs-arch .fc-chain .cn { min-width: 0; width: 100%; }
+.rs-arch .fc-chain .cn .s { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; }
+.rs-ladder { display: flex; flex-direction: column; align-items: center; gap: 2px; margin-top: 4px; }
+.rs-ladder > div { font-size: 16px; font-weight: 600; color: var(--hero-text); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px 26px; min-width: 200px; text-align: center; background: var(--card-bg); }
+.rs-ladder > div.x { border: none; background: none; color: var(--text-tertiary); padding: 2px; font-size: 16px; min-width: 0; }
+.rs-vyb { margin-top: 16px; display: flex; align-items: center; gap: 12px; justify-content: center; font-size: 14px; font-weight: 600; color: var(--hero-text); padding: 14px 18px; border-radius: 14px; background: var(--pill-bg); }
+.rs-vyb .app-icon { width: 26px; height: 26px; border-radius: 7px; font-size: 15px; }
+
+.rs-mission { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 14px; align-items: start; margin-top: 30px; }
+.rs-mission .m { border: 1px solid var(--card-border); border-radius: 16px; padding: 18px; background: var(--card-bg); }
+.rs-mission .m.hi { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.rs-mission .ar { font-size: 22px; color: var(--text-tertiary); padding-top: 26px; }
+.rs-mission .pl-chip { font-size: 12.5px; padding: 7px 11px; }
+
+.ik-hchain-lite { margin-top: 22px; font-size: 14px; font-weight: 600; color: var(--text-secondary); text-align: center; padding: 14px; border: 1px dashed var(--card-border); border-radius: 12px; }
+
+.rs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 24px; margin-top: 14px; }
+.rs-grid > div { display: grid; grid-template-columns: 130px 1fr; gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--surface-border); }
+.rs-grid b { font-size: 15px; font-weight: 600; color: var(--hero-text); font-variant-numeric: tabular-nums; }
+.rs-grid span { font-size: 14px; color: var(--text-secondary); }
+
+.rs-phil { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 30px; }
+.rs-phil > div { border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; background: var(--card-bg); }
+.rs-phil > div.hi { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.rs-phil b { display: block; font-size: 24px; font-weight: 600; letter-spacing: -.02em; color: var(--hero-text); }
+.rs-phil span { display: block; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-top: 8px; }
+
+.pl-lede a, .pl-note a { color: var(--accent); }
+
+@media (max-width: 1000px) {
+  .rs-stages, .rs-arch { grid-template-columns: 1fr; }
+  .rs-mission { grid-template-columns: 1fr; }
+  .rs-mission .ar { padding: 0; text-align: center; transform: rotate(90deg); }
+  .rs-grid { grid-template-columns: 1fr; }
+  .rs-phil { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo"><span class="app-icon">v</span> vyb</a>
+  <div class="nav-right">
+    <a href="/#features" class="nav-link">Features</a>
+    <a href="/#enterprise" class="nav-link">Enterprise</a>
+    <a href="/forecast" class="nav-link">Forecast</a>
+    <a href="/pulse" class="nav-link">VYB Pulse</a>
+    <a href="mailto:blake@vybapp.io?subject=VYB%20seed" class="nav-buy-btn">Talk to us</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="tt-icon tt-sun">☀️</span><span class="tt-icon tt-moon">🌙</span></button>
+  </div>
+</nav>
+
+<div class="pl-page">
+
+<header class="pl-hero" id="top">
+  <div class="pl-hero-inner">
+    <p class="pl-kicker">Capital strategy · seed</p>
+    <h1>$5M to prove it. $100M+ to scale it.</h1>
+    <p class="pl-sub">VYB is building the financial operating system for live commerce — the financial workflows of artists, management, promoters, venues, vendors and event operators on one ledger. The financing strategy is a deliberate progression: a <em>$5M seed</em> funds production infrastructure and three strategic commercial deployments that turn a forecast into proof, so that the next round is an <em>institutional Series A</em> for scaling a financial network that already exists.</p>
+    <div class="pl-hero-actions">
+      <a href="#validation" class="pl-btn">The validation strategy →</a>
+      <a href="#seed" class="pl-btn-ghost">The seed</a>
+      <a href="#seriesa" class="pl-btn-ghost">The Series A</a>
+    </div>
+    <div class="kpis kpis-hero">
+      <div class="kpi"><div class="n">$5M</div><div class="u">seed · target raise</div><div class=l>Build production infrastructure, deploy commercially, generate TPV and recurring revenue.</div></div>
+      <div class="kpi"><div class="n">$25M → $30M</div><div class="u">pre → post-money · target</div><div class=l>≈ 16.7% to new investors before other capitalization considerations.</div></div>
+      <div class="kpi"><div class="n">3</div><div class="u">strategic deployments</div><div class=l>Promoter → artist management → institutional venue.</div></div>
+      <div class="kpi"><div class="n">$100M+</div><div class="u">Series A · strategic target</div><div class=l>$75M–$125M+, sized to the metrics VYB has generated by then.</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="pl-shell">
+  <aside class="pl-rail">
+    <div class="pl-rail-h">The plan</div>
+    <div id="plRail" class="pl-rail-nav">
+      <a href="#thesis"><span class="i">01</span> The progression</a>
+      <a href="#validation"><span class="i">02</span> Customer validation</a>
+      <a href="#sequence"><span class="i">03</span> Why the sequence</a>
+      <a href="#seed"><span class="i">04</span> The $5M seed</a>
+      <a href="#proceeds"><span class="i">05</span> Use of proceeds</a>
+      <a href="#mission"><span class="i">06</span> Forecast → proof</a>
+      <a href="#economics"><span class="i">07</span> The economic model</a>
+      <a href="#network"><span class="i">08</span> Network economics</a>
+      <a href="#seriesa"><span class="i">09</span> The Series A</a>
+      <a href="#narrative"><span class="i">10</span> The narrative</a>
+      <a href="#deploy"><span class="i">11</span> Series A deployment</a>
+      <a href="#capital"><span class="i">12</span> Equity vs. financing capital</a>
+      <a href="#roadmap"><span class="i">13</span> Capital roadmap</a>
+      <a href="#captable"><span class="i">14</span> Cap table objective</a>
+      <a href="#philosophy"><span class="i">15</span> Capital philosophy</a>
+    </div>
+  </aside>
+
+  <main class="pl-main">
+
+    <section class="pl-sec" id="thesis">
+      <div class="pl-sec-num">01 — THE PROGRESSION</div>
+      <h2 class="pl-h">Seed → commercial validation → product-market fit → institutional Series A.</h2>
+      <p class="pl-lede">The seed is not runway. It is the capital that builds production infrastructure, executes strategic commercial deployments, generates meaningful transaction volume, establishes recurring revenue, and proves VYB can operate across multiple layers of the live-entertainment ecosystem.</p>
+      <div class="fc-chain" data-io="">
+        <div class="cn"><div class="k">Seed</div><div class="v">$5M</div></div><div class="ar">↓</div>
+        <div class="cn"><div class="k">Commercial validation</div><div class="v">three deployments</div></div><div class="ar">↓</div>
+        <div class="cn"><div class="k">Product-market fit</div><div class="v">repeatability</div></div><div class="ar">↓</div>
+        <div class="cn hi"><div class="k">Institutional Series A</div><div class="v">$100M+</div></div>
+      </div>
+    </section>
+
+    <section class="pl-sec" id="validation">
+      <div class="pl-sec-num">02 — CUSTOMER VALIDATION</div>
+      <h2 class="pl-h">Three relationships. Three different things proven.</h2>
+      <p class="pl-lede">The target customer progression is <b>IKON → Red Light Management → Mercedes-Benz Stadium</b>. Each is a different validation point, not a logo.</p>
+      <div class="rs-stages">
+        <div class="rs-stage" data-io="">
+      <div class="rs-num" style="color:var(--s1)">Stage 1 · Promoter / event</div>
+      <h3>IKON</h3>
+      <p>The first commercial deployment: VYB in a real live-event environment. The objective is the first meaningful body of transaction and operational data showing VYB can function as financial infrastructure inside live commerce.</p>
+      <div class="pl-sub-h" style="margin-top:16px;">Validates</div><div class="pl-chips"><span class="pl-chip">Event payments</span><span class="pl-chip">Artist payments</span><span class="pl-chip">Vendor payments</span><span class="pl-chip">Settlement</span><span class="pl-chip">Reconciliation</span><span class="pl-chip">Financial reporting</span><span class="pl-chip">Payment routing</span><span class="pl-chip">Transaction-level data</span><span class="pl-chip">Time-to-settlement</span></div>
+      <div class="rs-ach"><b>Validation achieved:</b> VYB works in a live event environment.</div>
+    </div>
+        <div class="rs-stage" data-io="">
+      <div class="rs-num" style="color:var(--s2)">Stage 2 · Artist / management</div>
+      <h3>Red Light Management</h3>
+      <p>Moves VYB from an individual event environment into the artist-management and touring ecosystem — and from event infrastructure toward artist and entertainment financial infrastructure. The objective is to show VYB following the money across multiple counterparties in the same ecosystem.</p>
+      <div class="pl-sub-h" style="margin-top:16px;">Validates</div><div class="pl-chips"><span class="pl-chip">Artists</span><span class="pl-chip">Managers</span><span class="pl-chip">Touring</span><span class="pl-chip">Promoters</span><span class="pl-chip">Venues</span><span class="pl-chip">Vendors</span><span class="pl-chip">Event-related expenses</span><span class="pl-chip">Settlement</span><span class="pl-chip">Artist business operations</span><span class="pl-chip">Financial reporting</span></div>
+      <div class="rs-ach"><b>Validation achieved:</b> VYB expands from individual events into the broader entertainment financial network.</div>
+    </div>
+        <div class="rs-stage" data-io="">
+      <div class="rs-num" style="color:var(--s3)">Stage 3 · Venue / operator</div>
+      <h3>Mercedes-Benz Stadium</h3>
+      <p>Institutional venue scale, from the venue and operator side of the ecosystem: orchestration, settlement and financial intelligence for a building that hosts everyone else’s events.</p>
+      <div class="pl-sub-h" style="margin-top:16px;">Validates</div><div class="pl-chips"><span class="pl-chip">Venue payments</span><span class="pl-chip">Event payments</span><span class="pl-chip">Vendor payments</span><span class="pl-chip">Talent payments</span><span class="pl-chip">Payment orchestration</span><span class="pl-chip">Settlement</span><span class="pl-chip">Reconciliation</span><span class="pl-chip">Event-level financial intelligence</span><span class="pl-chip">Financial reporting</span><span class="pl-chip">Working-capital / financing products</span><span class="pl-chip">Real-time financial visibility</span></div>
+      <div class="rs-ach"><b>Validation achieved:</b> VYB operates as financial infrastructure at institutional venue scale.</div>
+    </div>
+      </div>
+    </section>
+
+    <section class="pl-sec" id="sequence">
+      <div class="pl-sec-num">03 — WHY THE SEQUENCE MATTERS</div>
+      <h2 class="pl-h">Promoter, then artist, then venue: VYB sits between all three.</h2>
+      <p class="pl-lede">Substantially more powerful than accumulating customer logos: each deployment is a different side of the same transactions. Together they demonstrate that VYB can become the financial infrastructure connecting the participants who collectively create live commerce.</p>
+      <div class="rs-arch" data-io="">
+        <div class="rs-col">
+          <div class="pl-sub-h">The deployments</div>
+          <div class="fc-chain" style="margin-top:0;">
+            <div class="cn"><div class="k">Stage 1</div><div class="v">IKON</div><div class="s">promoter / event</div></div><div class="ar">↓</div>
+            <div class="cn"><div class="k">Stage 2</div><div class="v">Red Light Management</div><div class="s">artist / management</div></div><div class="ar">↓</div>
+            <div class="cn"><div class="k">Stage 3</div><div class="v">Mercedes-Benz Stadium</div><div class="s">venue / operator</div></div>
+          </div>
+        </div>
+        <div class="rs-col">
+          <div class="pl-sub-h">The long-term architecture</div>
+          <div class="rs-ladder">
+            <div>Artist</div><div class="x">↕</div><div>Management</div><div class="x">↕</div><div>Promoter</div><div class="x">↕</div><div>Venue</div><div class="x">↕</div><div>Vendors</div>
+          </div>
+          <div class="rs-vyb"><span class="app-icon">v</span> VYB coordinates the financial activity between them.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pl-sec" id="seed">
+      <div class="pl-sec-num">04 — THE $5M SEED</div>
+      <h2 class="pl-h">The appropriate amount at a reasonable valuation.</h2>
+      <p class="pl-lede">The primary objective is a clean cap table and meaningful founder ownership going into the institutional round — not maximizing the seed valuation at the expense of future flexibility.</p>
+      <div class="kpis" data-io="">
+        <div class="kpi"><div class="n">$5M</div><div class="u">target raise</div></div>
+        <div class="kpi"><div class="n">$25M</div><div class="u">pre-money · illustrative</div></div>
+        <div class="kpi"><div class="n">$30M</div><div class="u">post-money · target</div><div class=l>$25M–$30M post-money economics</div></div>
+        <div class="kpi"><div class="n">16.7%</div><div class="u">issued to new investors</div><div class=l>before other capitalization considerations</div></div>
+      </div>
+      <div class="fc-two" data-io="">
+        <div><div class="fc-kv"><div class="fc-kv-row"><div class="k">Structure</div><div class="v">A priced round is the base case: $25M pre-money + $5M new capital = $30M post-money.</div></div><div class="fc-kv-row"><div class="k">Alternative</div><div class="v">A post-money SAFE, if strategically advantageous — counsel to evaluate dilution, cap-table implications, investor rights and future financing consequences before the instrument is chosen.</div></div><div class="fc-kv-row"><div class="k">Objective</div><div class="v">Preserve founder ownership and enter the Series A with an institutionally attractive capitalization.</div></div></div></div>
+        <div class="fc-callout"><div class="fc-callout-h">What the seed is for</div><p>Production infrastructure. Strategic commercial deployments. Meaningful transaction volume. Recurring revenue. Proof that VYB operates across multiple layers of the ecosystem — the promoter, the artist’s management, the venue.</p></div>
+      </div>
+    </section>
+
+    <section class="pl-sec" id="proceeds">
+      <div class="pl-sec-num">05 — USE OF PROCEEDS</div>
+      <h2 class="pl-h">$5M, allocated.</h2>
+      <div class="fc-chart-wrap" data-io=""><div class="fc-legend"><span><i style="background:var(--s1)"></i>Product & engineering · $1.5M</span><span><i style="background:var(--s2)"></i>Payments, compliance & infrastructure · $750K</span><span><i style="background:var(--s3)"></i>Enterprise GTM & deployment · $750K</span><span><i style="background:var(--s4)"></i>Strategic commercial deployment & market validation · $750K</span><span><i style="background:var(--s5)"></i>Key hires · $500K</span><span><i style="background:var(--s6)"></i>Legal, security & operations · $250K</span><span><i style="background:var(--s7)"></i>Reserve / working capital · $500K</span></div><svg class="fc-stack" viewBox="0 0 760 44" role="img" aria-labelledby="up-t"><title id="up-t">Seed use of proceeds</title>
+<rect x="1.0" y="8" width="226.0" height="28" rx="4" fill="var(--s1)"><title>Product & engineering · $1.5M</title></rect>
+<rect x="229.0" y="8" width="112.0" height="28" rx="4" fill="var(--s2)"><title>Payments, compliance & infrastructure · $750K</title></rect>
+<rect x="343.0" y="8" width="112.0" height="28" rx="4" fill="var(--s3)"><title>Enterprise GTM & deployment · $750K</title></rect>
+<rect x="457.0" y="8" width="112.0" height="28" rx="4" fill="var(--s4)"><title>Strategic commercial deployment & market validation · $750K</title></rect>
+<rect x="571.0" y="8" width="74.0" height="28" rx="4" fill="var(--s5)"><title>Key hires · $500K</title></rect>
+<rect x="647.0" y="8" width="36.0" height="28" rx="4" fill="var(--s6)"><title>Legal, security & operations · $250K</title></rect>
+<rect x="685.0" y="8" width="74.0" height="28" rx="4" fill="var(--s7)"><title>Reserve / working capital · $500K</title></rect>
+</svg></div>
+      <div class="fc-table-wrap" data-io=""><table class="fc-table"><thead><tr><th>Use of proceeds</th><th>Allocation</th><th>Share</th></tr></thead><tbody><tr><td>Product & engineering</td><td>$1.5M</td><td>30%</td></tr><tr><td>Payments, compliance & infrastructure</td><td>$750K</td><td>15%</td></tr><tr><td>Enterprise GTM & deployment</td><td>$750K</td><td>15%</td></tr><tr><td>Strategic commercial deployment & market validation</td><td>$750K</td><td>15%</td></tr><tr><td>Key hires</td><td>$500K</td><td>10%</td></tr><tr><td>Legal, security & operations</td><td>$250K</td><td>5%</td></tr><tr><td>Reserve / working capital</td><td>$500K</td><td>10%</td></tr><tr class="tot"><td>Total</td><td>$5M</td><td>100%</td></tr></tbody></table></div>
+      <div class="fc-callout" data-io=""><div class="fc-callout-h">Strategic commercial deployment &amp; market validation · $750K</div><p>Specifically intended to execute the commercial progression above. It is not funding an event. It is capital deployed to establish VYB’s financial infrastructure in a high-volume live environment and generate measurable commercial evidence.</p></div>
+    </section>
+
+    <section class="pl-sec" id="mission">
+      <div class="pl-sec-num">06 — FORECAST → PROOF</div>
+      <h2 class="pl-h">What the seed takes VYB from, and to.</h2>
+      <div class="rs-mission" data-io="">
+        <div class="m"><div class="pl-sub-h">Today</div><div class="pl-chips"><span class="pl-chip">Working proof of concept</span><span class="pl-chip">Enterprise conversations</span><span class="pl-chip">Strategic opportunities</span><span class="pl-chip">Forecasted economics</span></div></div>
+        <div class="ar">→</div>
+        <div class="m hi"><div class="pl-sub-h">Seed deployment</div><div class="pl-chips"><span class="pl-chip">IKON</span><span class="pl-chip">Red Light Management</span><span class="pl-chip">Mercedes-Benz Stadium</span></div></div>
+        <div class="ar">→</div>
+        <div class="m"><div class="pl-sub-h">Result</div><div class="pl-chips"><span class="pl-chip">Live TPV</span><span class="pl-chip">Recurring revenue</span><span class="pl-chip">Enterprise customers</span><span class="pl-chip">Payment economics</span><span class="pl-chip">Settlement data</span><span class="pl-chip">Reconciliation data</span><span class="pl-chip">Financial data</span><span class="pl-chip">Financing demand</span><span class="pl-chip">Customer retention</span><span class="pl-chip">Enterprise case studies</span></div></div>
+      </div>
+    </section>
+
+    <section class="pl-sec" id="economics">
+      <div class="pl-sec-num">07 — THE ECONOMIC MODEL</div>
+      <h2 class="pl-h">One enterprise relationship: $142.10M of volume, $55K → $333K → $963K.</h2>
+      <p class="pl-lede">The <a href="/forecast">VYB forecast</a> models one high-volume enterprise promoter at $142.10M of annual paid-out volume. VYB revenue expands as the platform moves deeper into that customer’s financial infrastructure — within the same underlying relationship.</p>
+      <div class="fc-expand" data-io="">
+        <div class="ex"><div class="t" style="color:var(--s1)">Base</div><div class="n">$55K</div><div class="m">software</div><div class="bar"><i style="width:5.7%;background:var(--s1)"></i></div></div>
+        <div class="ex"><div class="t" style="color:var(--s2)">Medium</div><div class="n">$333K</div><div class="m">payment orchestration · cards</div><div class="bar"><i style="width:34.6%;background:var(--s2)"></i></div></div>
+        <div class="ex hi"><div class="t" style="color:var(--s3)">Full</div><div class="n">$963K</div><div class="m">settlement · financing · intelligent operations</div><div class="bar"><i style="width:100%;background:var(--s3)"></i></div></div>
+      </div>
+      <div class="ik-hchain-lite" data-io="">Software → Payment orchestration → Cards → Settlement → Financing → Intelligent financial operations</div>
+    </section>
+
+    <section class="pl-sec" id="network">
+      <div class="pl-sec-num">08 — NETWORK ECONOMICS</div>
+      <h2 class="pl-h">A concentrated network of high-value relationships.</h2>
+      <p class="pl-lede">Why the strategy is high-value enterprise relationships rather than customer count. At approximately $142.10M of annual volume per comparable relationship — illustrative scaling scenarios, not forecasts:</p>
+      <div class="kpis" data-io=""><div class="kpi"><div class="n">$1.4B</div><div class="u">10 customers · TPV</div></div><div class="kpi"><div class="n">$3.6B</div><div class="u">25 customers · TPV</div></div><div class="kpi"><div class="n">$7.1B</div><div class="u">50 customers · TPV</div></div><div class="kpi"><div class="n">$14.2B</div><div class="u">100 customers · TPV</div></div></div>
+      <p class="pl-note">The strategic implication: VYB could build substantial transaction volume through a relatively small number of enterprise relationships. Revenue per customer, not customer count, is the first lever.</p>
+    </section>
+
+    <section class="pl-sec" id="seriesa">
+      <div class="pl-sec-num">09 — THE INSTITUTIONAL SERIES A</div>
+      <h2 class="pl-h">Not a $15M–$30M Series A. A $75M–$125M+ one, with $100M+ as the target.</h2>
+      <p class="pl-lede">Raised after genuine product-market fit and repeatability, and sized to the metrics VYB has generated by then. The seed exists to make this round possible.</p>
+      <div class="pl-sub-h" style="margin-top:30px;">Evidence to bring to the round · strategic targets, not forecasts or commitments</div>
+      <div class="rs-grid" data-io="">
+        <div><b>$500M–$1B+</b><span>annualized TPV</span></div>
+        <div><b>$5M–$15M+</b><span>annualized revenue</span></div>
+        <div><b>Strong</b><span>year-over-year growth</span></div>
+        <div><b>Multiple</b><span>enterprise customers</span></div>
+        <div><b>Strong</b><span>customer retention</span></div>
+        <div><b>Rising</b><span>TPV per customer</span></div>
+        <div><b>Expansion</b><span>revenue within accounts</span></div>
+        <div><b>Rising</b><span>share of customer financial activity routed through VYB</span></div>
+        <div><b>Demonstrated</b><span>payment take rate</span></div>
+        <div><b>Demonstrated</b><span>settlement and reconciliation savings</span></div>
+        <div><b>Demonstrated</b><span>card economics</span></div>
+        <div><b>Demonstrated</b><span>financing demand</span></div>
+        <div><b>Proven</b><span>enterprise implementation process</span></div>
+        <div><b>Strong</b><span>strategic partnerships</span></div>
+      </div>
+    </section>
+
+    <section class="pl-sec" id="narrative">
+      <div class="pl-sec-num">10 — THE NARRATIVE CHANGES</div>
+      <h2 class="pl-h">The investor conversation evolves with each deployment.</h2>
+      <div class="pl-rows">
+        <div class="pl-row" data-io=""><div class="r-i">01</div><div class="r-t">Seed</div><div class="r-d">VYB is building the financial operating system for live commerce.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">02</div><div class="r-t">After IKON</div><div class="r-d">VYB has demonstrated its financial infrastructure in a live event environment.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">03</div><div class="r-t">After Red Light Management</div><div class="r-d">VYB is expanding from event infrastructure into the artist and management ecosystem.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">04</div><div class="r-t">After Mercedes-Benz Stadium</div><div class="r-d">VYB has demonstrated its infrastructure across multiple sides of the live-commerce ecosystem.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">05</div><div class="r-t">Series A</div><div class="r-d"><b>VYB has proven the model and is now scaling a financial network.</b> That is the transformation the seed is meant to create.</div></div>
+      </div>
+    </section>
+
+    <section class="pl-sec" id="deploy">
+      <div class="pl-sec-num">11 — SERIES A DEPLOYMENT</div>
+      <h2 class="pl-h">A $100M round accelerates a proven network. It does not extend runway.</h2>
+      <p class="pl-lede">A potential allocation; the exact split would depend on business conditions at the time.</p>
+      <div class="fc-chart-wrap" data-io=""><div class="fc-legend"><span><i style="background:var(--s1)"></i>Payments infrastructure & financial rails · $25M</span><span><i style="background:var(--s2)"></i>Enterprise sales & implementation · $20M</span><span><i style="background:var(--s3)"></i>Financial products, cards & financing · $15M</span><span><i style="background:var(--s4)"></i>AI / agentic financial infrastructure · $15M</span><span><i style="background:var(--s5)"></i>Geographic expansion · $10M</span><span><i style="background:var(--s6)"></i>Strategic acquisitions / technology · $10M</span><span><i style="background:var(--s7)"></i>Corporate reserve · $5M</span></div><svg class="fc-stack" viewBox="0 0 760 44" role="img" aria-labelledby="sa-t"><title id="sa-t">Series A deployment</title>
+<rect x="1.0" y="8" width="188.0" height="28" rx="4" fill="var(--s1)"><title>Payments infrastructure & financial rails · $25M</title></rect>
+<rect x="191.0" y="8" width="150.0" height="28" rx="4" fill="var(--s2)"><title>Enterprise sales & implementation · $20M</title></rect>
+<rect x="343.0" y="8" width="112.0" height="28" rx="4" fill="var(--s3)"><title>Financial products, cards & financing · $15M</title></rect>
+<rect x="457.0" y="8" width="112.0" height="28" rx="4" fill="var(--s4)"><title>AI / agentic financial infrastructure · $15M</title></rect>
+<rect x="571.0" y="8" width="74.0" height="28" rx="4" fill="var(--s5)"><title>Geographic expansion · $10M</title></rect>
+<rect x="647.0" y="8" width="74.0" height="28" rx="4" fill="var(--s6)"><title>Strategic acquisitions / technology · $10M</title></rect>
+<rect x="723.0" y="8" width="36.0" height="28" rx="4" fill="var(--s7)"><title>Corporate reserve · $5M</title></rect>
+</svg></div>
+      <div class="fc-table-wrap" data-io=""><table class="fc-table"><thead><tr><th>Series A deployment · $100M</th><th>Allocation</th><th>Share</th></tr></thead><tbody><tr><td>Payments infrastructure & financial rails</td><td>$25M</td><td>25%</td></tr><tr><td>Enterprise sales & implementation</td><td>$20M</td><td>20%</td></tr><tr><td>Financial products, cards & financing</td><td>$15M</td><td>15%</td></tr><tr><td>AI / agentic financial infrastructure</td><td>$15M</td><td>15%</td></tr><tr><td>Geographic expansion</td><td>$10M</td><td>10%</td></tr><tr><td>Strategic acquisitions / technology</td><td>$10M</td><td>10%</td></tr><tr><td>Corporate reserve</td><td>$5M</td><td>5%</td></tr><tr class="tot"><td>Total</td><td>$100M</td><td>100%</td></tr></tbody></table></div>
+    </section>
+
+    <section class="pl-sec" id="capital">
+      <div class="pl-sec-num">12 — EQUITY VS. FINANCING CAPITAL</div>
+      <h2 class="pl-h">Corporate equity builds the company. Structured capital finances the commerce.</h2>
+      <p class="pl-lede">Long term, VYB distinguishes between the two — so financial products can scale without equivalent shareholder dilution.</p>
+      <div class="fc-two" data-io="">
+        <div class="fc-callout"><div class="fc-callout-h">Equity capital</div><div class="pl-chips"><span class="pl-chip">Employees</span><span class="pl-chip">Engineering</span><span class="pl-chip">Product</span><span class="pl-chip">Sales</span><span class="pl-chip">Infrastructure</span><span class="pl-chip">Expansion</span><span class="pl-chip">Strategic acquisitions</span></div></div>
+        <div class="fc-callout"><div class="fc-callout-h">Debt · warehouse · structured capital</div><div class="pl-chips"><span class="pl-chip">Customer financing</span><span class="pl-chip">Receivables</span><span class="pl-chip">Working capital</span><span class="pl-chip">Event financing</span><span class="pl-chip">Other financial products</span></div></div>
+      </div>
+      <p class="pl-note">See the <a href="/forecast#capital">forecast’s capital-efficiency section</a>: in the modeled Full integration, a capital partner funds each advance and VYB originates and services it — capital facilitated, not capital deployed.</p>
+    </section>
+
+    <section class="pl-sec" id="roadmap">
+      <div class="pl-sec-num">13 — LONG-TERM CAPITAL ROADMAP</div>
+      <h2 class="pl-h">Build, prove, scale, expand, finance.</h2>
+      <div class="fc-chain" data-io="">
+        <div class="cn wide"><div class="k">$5M seed · build + prove</div><div class="v">IKON → Red Light Management → Mercedes-Benz Stadium</div></div><div class="ar">↓</div>
+        <div class="cn wide"><div class="k">Product-market fit</div><div class="v">prove repeatability</div></div><div class="ar">↓</div>
+        <div class="cn wide hi"><div class="k">$75M–$125M+ Series A</div><div class="v">scale the financial network</div></div><div class="ar">↓</div>
+        <div class="cn wide"><div class="k">$150M–$300M+ Series B</div><div class="v">expand infrastructure + market</div></div><div class="ar">↓</div>
+        <div class="cn wide"><div class="k">Growth / strategic capital</div><div class="v">category expansion</div></div><div class="ar">↓</div>
+        <div class="cn wide"><div class="k">Debt · warehouse · structured facilities</div><div class="v">finance the underlying commerce</div></div>
+      </div>
+    </section>
+
+    <section class="pl-sec" id="captable">
+      <div class="pl-sec-num">14 — FOUNDER / CAP TABLE OBJECTIVE</div>
+      <h2 class="pl-h">Avoid unnecessary dilution at the seed. Enter the Series A clean.</h2>
+      <p class="pl-lede">Raise the appropriate amount at a reasonable valuation and use it to create a major increase in enterprise value — rather than maximize the seed valuation at the expense of future flexibility.</p>
+      <div class="pl-sub-h" style="margin-top:30px;">For counsel to model</div>
+      <div class="pl-chips"><span class="pl-chip">Founder ownership after the seed</span><span class="pl-chip">Existing capitalization</span><span class="pl-chip">Option pool</span><span class="pl-chip">SAFE vs. priced-round dilution</span><span class="pl-chip">Pro-rata rights</span><span class="pl-chip">Future Series A dilution</span><span class="pl-chip">Series A option-pool refresh</span><span class="pl-chip">Board rights</span><span class="pl-chip">Investor protective provisions</span><span class="pl-chip">Liquidation preferences</span><span class="pl-chip">Conversion mechanics</span><span class="pl-chip">Future debt / warehouse financing</span><span class="pl-chip">Strategic investor rights</span></div>
+      <p class="pl-note">Objective: enter the eventual $100M+ Series A with a clean, institutionally attractive capitalization structure.</p>
+    </section>
+
+    <section class="pl-sec" id="philosophy">
+      <div class="pl-sec-num">15 — CAPITAL PHILOSOPHY</div>
+      <h2 class="pl-h">From a startup with a compelling forecast to a proven financial infrastructure company.</h2>
+      <p class="pl-lede">IKON provides the initial live-event proof. Red Light Management expands VYB into the artist-management and touring ecosystem. Mercedes-Benz Stadium validates VYB at institutional venue scale. Together: <b>Artist → Management → Promoter → Venue → Vendor.</b> The resulting transaction volume, financial data and customer relationships establish product-market fit — and at that point the Series A is capital for scaling an existing network, not for proving one can exist.</p>
+      <div class="rs-phil" data-io="">
+        <div><b>$5M</b><span>Prove</span></div>
+        <div><b>$100M+</b><span>Scale</span></div>
+        <div><b>Debt · warehouse</b><span>Finance</span></div>
+        <div class="hi"><b>Long term</b><span>Own the financial layer of live commerce</span></div>
+      </div>
+      <div class="pl-cta" style="margin-top:40px;">
+        <div class="pl-cta-card" data-io=""><h3>The economics behind the plan</h3><p>One enterprise customer, three depths of integration, and what happens at 10, 25, 50 and 100.</p><a href="/forecast">Read the forecast →</a></div>
+        <div class="pl-cta-card" data-io=""><h3>Talk to the founder</h3><p>Blake Jackovitch · Founder, VYB.</p><a href="mailto:blake@vybapp.io?subject=VYB%20seed">blake@vybapp.io →</a></div>
+      </div>
+      <p class="pl-note">Strategic targets and illustrative structures, not forecasts, commitments, or an offer to sell securities. Named relationships are targets at their respective stages.</p>
+    </section>
+
+  </main>
+</div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div><div class="footer-brand"><span class="app-icon">v</span> vyb</div><div class="footer-meta">© 2026 VYB · CAPITAL STRATEGY · CONFIDENTIAL</div></div>
+    <div class="footer-links"><a href="/">Home</a><a href="/forecast">Forecast</a><a href="/pulse">VYB Pulse</a><a href="mailto:blake@vybapp.io?subject=VYB%20seed">Contact</a></div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var html = document.documentElement;
+  var KEY = 'vyb-theme';
+  var toggle = document.getElementById('themeToggle');
+  var meta = document.getElementById('themeColorMeta');
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function apply(dark) {
+    html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    if (meta) meta.setAttribute('content', dark ? '#000000' : '#ffffff');
+  }
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch (e) {}
+  var dark = stored ? stored === 'dark' : mq.matches;
+  apply(dark);
+
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      dark = !dark;
+      apply(dark);
+      try { localStorage.setItem(KEY, dark ? 'dark' : 'light'); } catch (e) {}
+    });
+  }
+  mq.addEventListener('change', function (e) {
+    if (!stored) { dark = e.matches; apply(dark); }
+  });
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var io = document.querySelectorAll('[data-io]');
+  if (reduce || !('IntersectionObserver' in window)) {
+    io.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    io.forEach(function (el) { obs.observe(el); });
+  }
+
+  /* transparent nav while over the dark hero */
+  var hero = document.querySelector('.pl-hero');
+  if (hero) {
+    var syncNav = function () {
+      var over = window.scrollY < hero.offsetHeight - 56;
+      document.body.classList.toggle('nav-over', over);
+    };
+    syncNav();
+    window.addEventListener('scroll', syncNav, { passive: true });
+    window.addEventListener('resize', syncNav);
+  }
+
+  /* rail scrollspy */
+  var rail = document.getElementById('plRail');
+  if (rail) {
+    var links = [].slice.call(rail.querySelectorAll('a'));
+    var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    if (links.length) { links[0].classList.add('on'); }
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var i = secs.indexOf(e.target);
+        if (i < 0) return;
+        links.forEach(function (l) { l.classList.remove('on'); });
+        links[i].classList.add('on');
+      });
+    }, { rootMargin: '-12% 0px -72% 0px' });
+    secs.forEach(function (s) { if (s) spy.observe(s); });
+  }
+})();
+</script>
+</body></html>
