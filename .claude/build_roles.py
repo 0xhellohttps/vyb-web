@@ -95,7 +95,6 @@ body = f"""<nav>
     <a href="/#enterprise" class="nav-link">Enterprise</a>
     <a href="/forecast" class="nav-link">Forecast</a>
     <a href="/roles" class="nav-link" aria-current="page">Roles</a>
-    <a href="mailto:blake@vybapp.io?subject=VYB%20roles" class="nav-buy-btn">Apply</a>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="tt-icon tt-sun">☀️</span><span class="tt-icon tt-moon">🌙</span></button>
   </div>
 </nav>
