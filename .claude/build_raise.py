@@ -8,14 +8,15 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = '/Users/b/Projects/vyb-web/marketing/plain/raise.html'  # plaintext; gate with marketing/pdf-build/gate.py to publish
 
-SEED = 10e6; PRE = 40e6; POST = PRE + SEED; OWN = SEED / POST
-USE = [('Product & engineering', 3.0e6), ('Payments, compliance & infrastructure', 1.5e6), ('Enterprise GTM & deployment', 1.5e6),
-       ('Strategic commercial deployment & market validation', 1.5e6), ('Key hires', 1.0e6), ('Legal, security & operations', .5e6), ('Reserve / working capital', 1.0e6)]
-SERIES_A = [('Payments infrastructure & financial rails', 6e6), ('Enterprise sales & implementation', 5e6), ('AI / agentic financial infrastructure', 5e6),
-            ('Financial products, cards & financing', 4e6), ('Geographic expansion', 2e6), ('Strategic acquisitions / technology', 2e6), ('Corporate reserve', 1e6)]
+import json
+CAPITAL = '/Users/b/Projects/vyb-ios/docs/strategy/capital.json'   # single source for the figures
+C = json.load(open(CAPITAL))
+SEED = C['seed']['amount']; PRE = C['seed']['pre_money']; POST = PRE + SEED; OWN = SEED / POST
+USE = [tuple(x) for x in C['seed']['use_of_proceeds']]
+SERIES_A = [tuple(x) for x in C['series_a']['deployment']]
+assert sum(v for _, v in USE) == SEED and sum(v for _, v in SERIES_A) == C['series_a']['amount']
 TPV1 = 142.1e6; REV = {'Base': 55e3, 'Medium': 333e3, 'Full': 963e3}
 SCALE = [10, 25, 50, 100]
-
 def money(x):
     if x >= 1e9: return f'${x/1e9:.1f}B'
     if x >= 1e6: return f'${x/1e6:.2f}M'.replace('.00M', 'M').replace('.50M', '.5M')
