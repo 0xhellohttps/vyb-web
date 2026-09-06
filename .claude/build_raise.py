@@ -132,25 +132,25 @@ body = f"""<nav>
     <section class="pl-sec" id="validation">
       <div class="pl-sec-num">02 — CUSTOMER VALIDATION</div>
       <h2 class="pl-h">Three relationships. Three different things proven.</h2>
-      <p class="pl-lede">The seed deployment involves <b>IKON, Red Light Management and Mercedes-Benz Stadium</b>. Each is a different validation point, not a logo — and each enters on different terms. <b>IKON is the design partner and pilot customer</b>: it helps design the production-side financial workflows before the round, runs the first production pilot after it, and commits capital inside the seed. Red Light Management and Mercedes-Benz Stadium are the two deployments that follow, as customers and network partners.</p>
+      <p class="pl-lede">The seed deployment involves <b>IKON, Mercedes-Benz Stadium and Red Light Management</b>, in that order. Each is a different validation point, not a logo — and each enters on different terms. <b>IKON is the design partner and pilot customer</b>: it helps design the production-side financial workflows before the round, runs the first production pilot after it, and commits capital inside the seed. Mercedes-Benz Stadium and Red Light Management are the two deployments that follow, as customers and network partners.</p>
       <div class="rs-stages">
         {stage(1, 'IKON', 'Design partner · pilot customer · promoter / event', 'The design partner and pilot customer, and the only one of the three that enters before the round. IKON helps VYB design and validate the production-side financial workflows around real live events, then runs the first production pilot: VYB in a real live-event environment. The objective is the first meaningful body of transaction and operational data showing VYB can function as financial infrastructure inside live commerce.', ['Event payments', 'Artist payments', 'Vendor payments', 'Settlement', 'Reconciliation', 'Financial reporting', 'Payment routing', 'Transaction-level data', 'Time-to-settlement'], 'VYB works in a live event environment.', 'var(--s1)')}
-        {stage(2, 'Red Light Management', 'Artist / management', 'Moves VYB from an individual event environment into the artist-management and touring ecosystem — and from event infrastructure toward artist and entertainment financial infrastructure. The objective is to show VYB following the money across multiple counterparties in the same ecosystem.', ['Artists', 'Managers', 'Touring', 'Promoters', 'Venues', 'Vendors', 'Event-related expenses', 'Settlement', 'Artist business operations', 'Financial reporting'], 'VYB expands from individual events into the broader entertainment financial network.', 'var(--s2)')}
-        {stage(3, 'Mercedes-Benz Stadium', 'Venue / operator', 'Institutional venue scale, from the venue and operator side of the ecosystem: orchestration, settlement and financial intelligence for a building that hosts everyone else’s events.', ['Venue payments', 'Event payments', 'Vendor payments', 'Talent payments', 'Payment orchestration', 'Settlement', 'Reconciliation', 'Event-level financial intelligence', 'Financial reporting', 'Working-capital / financing products', 'Real-time financial visibility'], 'VYB operates as financial infrastructure at institutional venue scale.', 'var(--s3)')}
+        {stage(2, 'Mercedes-Benz Stadium', 'Venue / operator', 'Moves VYB from the promoter side of the event to the venue and operator side, at institutional scale: orchestration, settlement and financial intelligence for a building that hosts everyone else’s events. The objective is to prove VYB operates across both sides of the same transactions.', ['Venue payments', 'Event payments', 'Vendor payments', 'Talent payments', 'Payment orchestration', 'Settlement', 'Reconciliation', 'Event-level financial intelligence', 'Financial reporting', 'Working-capital / financing products', 'Real-time financial visibility'], 'VYB operates as financial infrastructure on both sides of the live event, at institutional venue scale.', 'var(--s2)')}
+        {stage(3, 'Red Light Management', 'Artist / management', 'Adds the artist and management side of the network: the money followed across artists, managers, touring, promoters, venues and vendors in one ecosystem — and VYB moves from event infrastructure toward artist and entertainment financial infrastructure. With the promoter and the venue already live, this is the point at which VYB is a network rather than three customers.', ['Artists', 'Managers', 'Touring', 'Promoters', 'Venues', 'Vendors', 'Event-related expenses', 'Settlement', 'Artist business operations', 'Financial reporting'], 'VYB connects artist, promoter and venue: a financial network, not a set of deployments.', 'var(--s3)')}
       </div>
     </section>
 
     <section class="pl-sec" id="sequence">
       <div class="pl-sec-num">03 — WHY THE SEQUENCE MATTERS</div>
-      <h2 class="pl-h">Promoter, then artist, then venue: VYB sits between all three.</h2>
+      <h2 class="pl-h">Promoter, then venue, then artist: VYB sits between all three.</h2>
       <p class="pl-lede">Substantially more powerful than accumulating customer logos: each deployment is a different side of the same transactions. Together they demonstrate that VYB can become the financial infrastructure connecting the participants who collectively create live commerce.</p>
       <div class="rs-arch" data-io="">
         <div class="rs-col">
           <div class="pl-sub-h">The deployments</div>
           <div class="fc-chain" style="margin-top:0;">
             <div class="cn"><div class="k">Stage 1</div><div class="v">IKON</div><div class="s">promoter / event</div></div><div class="ar">↓</div>
-            <div class="cn"><div class="k">Stage 2</div><div class="v">Red Light Management</div><div class="s">artist / management</div></div><div class="ar">↓</div>
-            <div class="cn"><div class="k">Stage 3</div><div class="v">Mercedes-Benz Stadium</div><div class="s">venue / operator</div></div>
+            <div class="cn"><div class="k">Stage 2</div><div class="v">Mercedes-Benz Stadium</div><div class="s">venue / operator</div></div><div class="ar">↓</div>
+            <div class="cn"><div class="k">Stage 3</div><div class="v">Red Light Management</div><div class="s">artist / management</div></div>
           </div>
         </div>
         <div class="rs-col">
@@ -193,7 +193,7 @@ body = f"""<nav>
       <div class="rs-mission" data-io="">
         <div class="m"><div class="pl-sub-h">Today</div>{chips(['Working proof of concept', 'Enterprise conversations', 'Strategic opportunities', 'Forecasted economics'])}</div>
         <div class="ar">→</div>
-        <div class="m hi"><div class="pl-sub-h">Seed deployment</div>{chips(['IKON · design partner + pilot customer', 'Red Light Management · deployment', 'Mercedes-Benz Stadium · deployment'])}</div>
+        <div class="m hi"><div class="pl-sub-h">Seed deployment</div>{chips(['IKON · design partner + pilot customer', 'Mercedes-Benz Stadium · deployment', 'Red Light Management · deployment'])}</div>
         <div class="ar">→</div>
         <div class="m"><div class="pl-sub-h">Result</div>{chips(['Live TPV', 'Recurring revenue', 'Enterprise customers', 'Payment economics', 'Settlement data', 'Reconciliation data', 'Financial data', 'Financing demand', 'Customer retention', 'Enterprise case studies'])}</div>
       </div>
@@ -249,8 +249,8 @@ body = f"""<nav>
       <div class="pl-rows">
         <div class="pl-row" data-io=""><div class="r-i">01</div><div class="r-t">Seed</div><div class="r-d">VYB is building the financial operating system for live commerce.</div></div>
         <div class="pl-row" data-io=""><div class="r-i">02</div><div class="r-t">After IKON</div><div class="r-d">VYB has demonstrated its financial infrastructure in a live event environment.</div></div>
-        <div class="pl-row" data-io=""><div class="r-i">03</div><div class="r-t">After Red Light Management</div><div class="r-d">VYB is expanding from event infrastructure into the artist and management ecosystem.</div></div>
-        <div class="pl-row" data-io=""><div class="r-i">04</div><div class="r-t">After Mercedes-Benz Stadium</div><div class="r-d">VYB has demonstrated its infrastructure across multiple sides of the live-commerce ecosystem.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">03</div><div class="r-t">After Mercedes-Benz Stadium</div><div class="r-d">VYB has demonstrated its infrastructure on both sides of the live event: the promoter that makes it happen and the venue that hosts it.</div></div>
+        <div class="pl-row" data-io=""><div class="r-i">04</div><div class="r-t">After Red Light Management</div><div class="r-d">VYB connects artist, promoter and venue: a financial network across the live-commerce ecosystem, not a set of customers.</div></div>
         <div class="pl-row" data-io=""><div class="r-i">05</div><div class="r-t">Series A</div><div class="r-d"><b>VYB has proven the model, its volume is bank-financed, and the Series A scales the network.</b> That is the transformation the seed is meant to create.</div></div>
       </div>
     </section>
@@ -278,7 +278,7 @@ body = f"""<nav>
       <div class="pl-sec-num">13 — LONG-TERM CAPITAL ROADMAP</div>
       <h2 class="pl-h">Build, prove, scale, expand, finance.</h2>
       <div class="fc-chain" data-io="">
-        <div class="cn wide"><div class="k">{money(SEED)} seed · build + prove</div><div class="v">IKON design partner → IKON → Red Light Management → Mercedes-Benz Stadium</div></div><div class="ar">↓</div>
+        <div class="cn wide"><div class="k">{money(SEED)} seed · build + prove</div><div class="v">IKON design partner → IKON → Mercedes-Benz Stadium → Red Light Management</div></div><div class="ar">↓</div>
         <div class="cn wide"><div class="k">$25M credit facility → $75M+ accordion</div><div class="v">finance the transaction volume as it appears</div></div><div class="ar">↓</div>
         <div class="cn wide"><div class="k">Product-market fit</div><div class="v">prove repeatability</div></div><div class="ar">↓</div>
         <div class="cn wide hi"><div class="k">$25M Series A at $125M+</div><div class="v">scale the financial network</div></div><div class="ar">↓</div>
@@ -299,7 +299,7 @@ body = f"""<nav>
     <section class="pl-sec" id="philosophy">
       <div class="pl-sec-num">15 — CAPITAL PHILOSOPHY</div>
       <h2 class="pl-h">From a startup with a compelling forecast to a proven financial infrastructure company.</h2>
-      <p class="pl-lede">IKON provides the initial live-event proof. Red Light Management expands VYB into the artist-management and touring ecosystem. Mercedes-Benz Stadium validates VYB at institutional venue scale. Together: <b>Artist → Management → Promoter → Venue → Vendor.</b> The resulting transaction volume, financial data and customer relationships establish product-market fit and are financed by an institutional facility rather than by equity — and at that point the Series A is capital for scaling an existing network, not for proving one can exist.</p>
+      <p class="pl-lede">IKON provides the initial live-event proof. Mercedes-Benz Stadium validates VYB at institutional venue scale, on the other side of the same events. Red Light Management adds the artist-management and touring ecosystem and turns three deployments into a network. Together: <b>Artist → Management → Promoter → Venue → Vendor.</b> The resulting transaction volume, financial data and customer relationships establish product-market fit and are financed by an institutional facility rather than by equity — and at that point the Series A is capital for scaling an existing network, not for proving one can exist.</p>
       <div class="rs-phil" data-io="">
         <div><b>{money(SEED)}</b><span>Prove</span></div>
         <div><b>$25M → $100M+ credit</b><span>Finance</span></div>

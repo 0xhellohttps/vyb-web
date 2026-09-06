@@ -4,7 +4,7 @@ Reuses site.css + pulse_extra.css + forecast_extra.css + raise_extra.css + roles
 import os, urllib.parse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = '/Users/b/Projects/vyb-web/roles.html'
+OUT = '/Users/b/Projects/vyb-web/marketing/plain/roles.html'  # plaintext; gate with marketing/pdf-build/gate.py to publish
 
 META = [('Location', 'Atlanta, GA · hybrid or remote'), ('Employment', 'Full-time'), ('Level', 'Executive / senior leadership'), ('Reports to', 'Founder & CEO')]
 
@@ -34,7 +34,7 @@ ROLES = [
  dict(id='enterprise', num='03', col='var(--s2)', short='Enterprise', title='Head of Enterprise &amp; Strategic Partnerships', tag='You own the customers.',
   about='VYB’s customers operate across the interconnected ecosystem of artists, management companies, promoters, venues, studios, vendors and event operators. The opportunity is to replace fragmented financial workflows with a unified platform for payments, settlement, reconciliation, financial intelligence and eventually embedded financial services.',
   role='An exceptional enterprise operator to build VYB’s strategic commercial engine — turning early relationships and deployments into repeatable enterprise distribution. You work directly with the founder and with senior executives across entertainment, sports, venues, hospitality, payments and financial services. This is not a traditional sales position: you need to understand how complex organizations operate financially and sell a transformation rather than a software license.',
-  mandate='Build VYB’s enterprise network across <b>promoters → artists → management → venues → vendors → financial institutions</b>. The initial strategic progression runs <b>IKON → Red Light Management → Mercedes-Benz Stadium</b> — each a different layer of the live-commerce ecosystem.',
+  mandate='Build VYB’s enterprise network across <b>promoters → artists → management → venues → vendors → financial institutions</b>. The initial strategic progression runs <b>IKON → Mercedes-Benz Stadium → Red Light Management</b> — each a different layer of the live-commerce ecosystem.',
   own=[('Enterprise sales · the complete process', ['Account identification', 'Executive relationship development', 'Discovery', 'Solution development', 'Pilot structuring', 'Commercial negotiations', 'Contracting', 'Deployment', 'Expansion']),
        ('Strategic partnerships', ['Promoters', 'Venue operators', 'Stadiums', 'Management companies', 'Artist organizations', 'Studios', 'Ticketing companies', 'Hospitality operators', 'Payment companies', 'Banks', 'Financial institutions', 'Technology providers']),
        ('Enterprise deployment · what you will understand', ['How customers currently move money', 'Where financial fragmentation occurs', 'Where reconciliation breaks', 'Where settlement slows down', 'Where money is unnecessarily trapped', 'Where financing is required', 'Where VYB can create measurable economic value']),
