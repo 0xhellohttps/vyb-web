@@ -12,7 +12,7 @@ rounded. The page names no company and no artist.
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = '/Users/b/Projects/vyb-web/forecast.html'
+OUT = '/Users/b/Projects/vyb-web/marketing/plain/forecast.html'  # plaintext; gate with marketing/pdf-build/gate.py to publish
 
 # ---------------------------------------------------------------- baseline (derived from the documents)
 BASELINE = {

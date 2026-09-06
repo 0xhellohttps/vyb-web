@@ -3,7 +3,7 @@
 import os, json, math
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = '/Users/b/Projects/vyb-web/forecast.html'
+OUT = '/Users/b/Projects/vyb-web/marketing/plain/forecast.html'  # plaintext; gate with marketing/pdf-build/gate.py to publish
 sr = BASELINE['stadium_run']
 TPV = B['paid']
 
@@ -292,7 +292,7 @@ body = f"""<nav>
         <div class="ex"><div class="t" style="color:{S2}">Medium</div><div class="n">{money(Y1['Medium'])}</div><div class="m">{mx(mult['bm'])}</div><div class="bar"><i style="width:{Y1['Medium']/Y1['Full']*100:.1f}%;background:{S2}"></i></div><div class="d">Payment orchestration on the customer's own rails and virtual cards, under its approval policy. {pct(A['routed_q']['Medium'][3])} of TPV routed by Q4.</div></div>
         <div class="ex hi"><div class="t" style="color:{S3}">Full</div><div class="n">{money(Y1['Full'])}</div><div class="m">{mx(mult['bf'])}</div><div class="bar"><i style="width:100%;background:{S3}"></i></div><div class="d">Agents execute inside the policy; VYB originates working capital against contracted receivables. {pct(A['routed_q']['Full'][3])} routed by Q4; {mx(mult['mf'])} Medium.</div></div>
       </div>
-      <div class="fc-callout" data-io=""><div class="fc-callout-h">The investor takeaway</div><p>VYB can expand revenue <b>{mx(mult['bf'])}</b> inside an existing enterprise relationship without acquiring another customer — by moving from software into payments, cards and financing. Revenue per customer, not customer count, is the first growth lever.</p></div>
+      <div class="fc-callout" data-io=""><div class="fc-callout-h">The takeaway</div><p>VYB can expand revenue <b>{mx(mult['bf'])}</b> inside an existing enterprise relationship without acquiring another customer — by moving from software into payments, cards and financing. Revenue per customer, not customer count, is the first growth lever.</p></div>
     </section>
 
     <section class="pl-sec" id="stack">
