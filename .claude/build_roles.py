@@ -142,7 +142,7 @@ body = f"""<nav>
         <div class="fc-level"><div class="t" style="color:var(--s2)">Enterprise</div><div class="c" style="font-size:22px;">Owns distribution</div><div class="d">Turns early relationships into repeatable enterprise distribution and expands VYB’s economic footprint inside every customer.</div></div>
         <div class="fc-level"><div class="t" style="color:var(--s3)">Product &amp; AI</div><div class="c" style="font-size:22px;">Owns the intelligence layer</div><div class="d">Data → intelligence → agent → action: from software that records financial activity to software that understands and orchestrates it.</div></div>
       </div>
-      <p class="pl-note">These are senior, hands-on roles, not corporate job descriptions. Each comes with a clear mandate, measurable outcomes and enough authority to actually build the function. Read the <a href="/forecast">forecast</a> and the <a href="/raise">capital strategy</a> for the economics and the plan behind them.</p>
+      <p class="pl-note">These are senior, hands-on roles, not corporate job descriptions. Each comes with a clear mandate, measurable outcomes and enough authority to actually build the function. Read the <a href="/forecast">forecast</a> for the economics and the plan behind them.</p>
     </section>
 
     {''.join(role_section(r) for r in ROLES)}
@@ -176,7 +176,7 @@ body = f"""<nav>
 <footer>
   <div class="footer-inner">
     <div><div class="footer-brand"><span class="app-icon">v</span> vyb</div><div class="footer-meta">© 2026 VYB · ROLES</div></div>
-    <div class="footer-links"><a href="/">Home</a><a href="/forecast">Forecast</a><a href="/raise">Raise</a><a href="mailto:blake@vybapp.io?subject=VYB%20roles">Contact</a></div>
+    <div class="footer-links"><a href="/">Home</a><a href="/forecast">Forecast</a><a href="mailto:blake@vybapp.io?subject=VYB%20roles">Contact</a></div>
   </div>
 </footer>
 """
