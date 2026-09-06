@@ -14,13 +14,14 @@ DOCS = {
  'ikon strategy':        '/Users/b/Projects/vyb-ios/docs/strategy/ikon-strategy.html',
  'governance':           '/Users/b/Projects/vyb-ios/docs/strategy/governance.html',
  'payfac positioning':   '/Users/b/Projects/vyb-ios/docs/strategy/payfac-seed-positioning.md',
+ 'runway':               '/Users/b/Projects/vyb-ios/docs/strategy/runway.html',
 }
 def text(p):
     t=open(p,encoding='utf-8').read(); t=re.sub(r'<script.*?</script>|<style.*?</style>','',t,flags=re.S); t=re.sub(r'<[^>]+>',' ',t); return re.sub(r'\s+',' ',html.unescape(t))
 bad=0
 for name,p in DOCS.items():
     t=text(p); miss=[e for e in EXPECT if e not in t]; hit=[r for r in RETIRED if re.search(r,t)]
-    if name in ('governance','payfac positioning'): miss=[x for x in miss if x not in (m(s['post_money']),)]
+    if name in ('governance','payfac positioning','runway'): miss=[x for x in miss if x not in (m(s['post_money']),)]
     # allow the retirement note in payfac positioning ("$7M figure ... is retired")
     if name=='payfac positioning': hit=[h for h in hit if h!=r'\$7M']
     # governance's ownership floor: the founder's dilution table has "$25M pre" nowhere; fine
