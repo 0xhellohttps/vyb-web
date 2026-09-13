@@ -42,11 +42,15 @@ for c in CASES.values():
     c['gross'] = c['paid'] / 0.686   # trailing paid-out / gross ratio
 
 # ---------------------------------------------------------------- assumptions
+import json
+ECON = json.load(open('/Users/b/Projects/vyb-ios/docs/strategy/financial-model.json'))['economics']['base']   # the owner of payment economics
 A = {
     'impl': 25e3,                       # one-time implementation (pitch: $2.5K–$25K)
     'platform_base': 2.5e3 * 12,        # $2,500 / mo (pitch: $250–$2,500 / mo enterprise platform fee)
     'platform_full': 5e3 * 12,          # intelligence + agent layer tier
-    'take': 0.0040,                     # blended take on orchestrated payment volume (pitch: 0.25%–1%)
+    # Payment economics come from the owner: /Users/b/Projects/vyb-ios/docs/strategy/financial-model.json (adopted 2026-09-13).
+    # 'take' IS the net payment take rate = gross payment yield − payment COGS; never an unqualified "take".
+    'gross_yield': ECON['gross_yield_bps'] / 1e4, 'payment_cogs': ECON['payment_cogs_bps'] / 1e4, 'take': ECON['net_take_bps'] / 1e4,
     'card_share': 0.010,                # VYB share of interchange on virtual-card spend
     'card_frac': {'Medium': 0.045, 'Full': 0.065},   # share of paid-out volume that moves to virtual cards
     'routed_q': {'Medium': [.20, .35, .50, .60], 'Full': [.40, .55, .75, .85]},  # share of paid-out volume routed, by quarter

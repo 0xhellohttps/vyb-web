@@ -222,7 +222,7 @@ body = f"""<nav>
       {kpi(money(Y1['Base']), 'Base · year one', f'{bps(take_bps["Base"])} · software only')}
       {kpi(money(Y1['Medium']), 'Medium · year one', f'{bps(take_bps["Medium"])} · software + payments + cards')}
       {kpi(money(Y1['Full']), 'Full · year one', f'{bps(take_bps["Full"])} · + financing')}
-      {kpi(f'{take_bps["Base"]:.0f}–{take_bps["Full"]:.0f} bps', 'effective take rate', 'Revenue ÷ TPV, by integration depth.')}
+      {kpi(f'{take_bps["Base"]:.0f}–{take_bps["Full"]:.0f} bps', 'effective revenue yield', 'All VYB revenue ÷ TPV, by integration depth — not the payment take.')}
       {kpi(money(per_1m['Full']), 'revenue per $1M of TPV', 'At Full. Medium: ' + money(per_1m['Medium']) + '.')}
       {kpi(money(fin_vol_y1), 'financing facilitated · year one', f'{fin_dates_y1:.0f} dates × {money(A["adv_per_date"])}; {money(fin_vol_rr)} at ten dates a year.')}
       {kpi(money(stream_y1['finance']), 'financing revenue · year one', 'Origination fee plus interest participation. VYB balance sheet deployed: $0.')}
@@ -306,7 +306,7 @@ body = f"""<nav>
           <div class="k">Monetization layers · Full · year one</div>
           <div class="layers">
             <div><i style="background:{S1}"></i><b>Software</b><span>{money(stream_y1['platform'] + stream_y1['impl'])}</span><small>platform {money(stream_y1['platform'])} + implementation {money(stream_y1['impl'])}</small></div>
-            <div><i style="background:{S2}"></i><b>Payments</b><span>{money(stream_y1['payments'])}</span><small>{A['take']*100:.2f}% on {money(routed_y1['Full'])} routed</small></div>
+            <div><i style="background:{S2}"></i><b>Payments</b><span>{money(stream_y1['payments'])}</span><small>{A['take']*100:.2f}% net ({A['gross_yield']*100:.2f}% gross yield less {A['payment_cogs']*100:.2f}% payment COGS) on {money(routed_y1['Full'])} routed</small></div>
             <div><i style="background:{S5}"></i><b>Cards</b><span>{money(stream_y1['cards'])}</span><small>interchange share on virtual-card spend</small></div>
             <div><i style="background:{S3}"></i><b>Financing</b><span>{money(stream_y1['finance'])}</span><small>origination + interest participation on {money(fin_vol_y1)} facilitated</small></div>
           </div>
@@ -318,16 +318,16 @@ body = f"""<nav>
 
     <section class="pl-sec" id="unit">
       <div class="pl-sec-num">04 — UNIT ECONOMICS</div>
-      <h2 class="pl-h">TPV → take rate → revenue → gross profit.</h2>
+      <h2 class="pl-h">TPV → gross payment yield → payment COGS → net payment revenue → gross profit.</h2>
       <p class="pl-lede">Modeled gross margins by stream. Payments carry rail and network cost; implementation is services; financing is high-margin to VYB because the capital partner carries the funding cost and VYB earns fees and a share of interest.</p>
       <div class="kpis" data-io="">
         {kpi(money(TPV), 'TPV')}
-        {kpi(bps(take_bps['Full']), 'effective take rate · Full')}
+        {kpi(bps(take_bps['Full']), 'effective revenue yield · Full')}
         {kpi(money(Y1['Full']), 'revenue · Full · year one')}
         {kpi(money(gp_full), f'gross profit · {pct(gp_full/Y1["Full"])} margin')}
       </div>
       <div class="fc-table-wrap" data-io=""><table class="fc-table"><thead><tr><th>Stream · Full · year one</th><th>Revenue</th><th>Gross margin</th><th>Gross profit</th><th>Cost basis</th></tr></thead><tbody>{unit_rows}<tr class="tot"><td>Total</td><td>{money(Y1['Full'])}</td><td>{pct(gp_full/Y1['Full'])}</td><td>{money(gp_full)}</td><td></td></tr></tbody></table></div>
-      <div class="fc-table-wrap" data-io=""><table class="fc-table"><thead><tr><th>By level · year one</th><th>Revenue</th><th>Take rate</th><th>Revenue per $1M TPV</th><th>Gross profit</th></tr></thead><tbody>
+      <div class="fc-table-wrap" data-io=""><table class="fc-table"><thead><tr><th>By level · year one</th><th>Revenue</th><th>Revenue yield</th><th>Revenue per $1M TPV</th><th>Gross profit</th></tr></thead><tbody>
         {''.join(f'<tr{" class=hi" if lvl=="Full" else ""}><td>{lvl}</td><td>{money(Y1[lvl])}</td><td>{bps(take_bps[lvl])}</td><td>{money(per_1m[lvl])}</td><td>{money(gp_level[lvl])}</td></tr>' for lvl in LEVELS)}
       </tbody></table></div>
       <p class="pl-note">Not yet modeled, to be added as operating data arrives: contribution margin after support and risk reserves, customer acquisition cost, and CAC payback. At these revenue levels a single enterprise sale repays a substantial acquisition cost inside year one.</p>
@@ -410,7 +410,7 @@ body = f"""<nav>
       <h2 class="pl-h">Volume × integration depth, year one.</h2>
       <p class="pl-lede">Base is a software fee and does not move with volume. Medium scales with the money that moves. Full scales with the money and with the stadium calendar, because that is where the financing lives.</p>
       <div data-io="">{HEAT}</div>
-      <p class="pl-note">Cell shading is proportional to revenue; the small figure is the effective take rate on that case's TPV.</p>
+      <p class="pl-note">Cell shading is proportional to revenue; the small figure is the effective revenue yield (all VYB revenue ÷ TPV) on that case's TPV.</p>
     </section>
 
     <section class="pl-sec" id="ramp">
@@ -542,4 +542,7 @@ page = f"""<!DOCTYPE html>
 """
 open(OUT, 'w', encoding='utf-8').write(page)
 print(f"wrote {OUT} ({len(page)} bytes)")
+json.dump(dict(generated_by='vyb-web/.claude/build_forecast.py', tpv_year_one=TPV, revenue_year_one={k: round(v) for k, v in Y1.items()},
+               revenue_yield_bps={k: round(v, 1) for k, v in take_bps.items()}, net_take=A['take'], gross_yield=A['gross_yield'], payment_cogs=A['payment_cogs']),
+          open('/Users/b/Projects/vyb-ios/docs/strategy/forecast-page.json', 'w'), indent=1)
 print('take bps', {k: round(v, 1) for k, v in take_bps.items()}, '| mult', {k: round(v, 2) for k, v in mult.items()}, '| streams', {k: money(v) for k, v in stream_y1.items()}, '| GP full', money(gp_full), pct(gp_full / Y1['Full']))

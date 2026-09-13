@@ -15,7 +15,8 @@ SEED = C['seed']['amount']; PRE = C['seed']['pre_money']; POST = PRE + SEED; OWN
 USE = [tuple(x) for x in C['seed']['use_of_proceeds']]
 SERIES_A = [tuple(x) for x in C['series_a']['deployment']]
 assert sum(v for _, v in USE) == SEED and sum(v for _, v in SERIES_A) == C['series_a']['amount']
-TPV1 = 142.1e6; REV = {'Base': 55e3, 'Medium': 333e3, 'Full': 963e3}
+FP = json.load(open('/Users/b/Projects/vyb-ios/docs/strategy/forecast-page.json'))   # the forecast page's own figures (build_forecast.py), never retyped
+TPV1 = FP['tpv_year_one']; REV = FP['revenue_year_one']
 SCALE = [10, 25, 50, 100]
 def money(x):
     if x >= 1e9: return f'${x/1e9:.1f}B'
@@ -235,7 +236,7 @@ body = f"""<nav>
         <div><b>Rising</b><span>TPV per customer</span></div>
         <div><b>Expansion</b><span>revenue within accounts</span></div>
         <div><b>Rising</b><span>share of customer financial activity routed through VYB</span></div>
-        <div><b>Demonstrated</b><span>payment take rate</span></div>
+        <div><b>Demonstrated</b><span>net payment take rate</span></div>
         <div><b>Demonstrated</b><span>settlement and reconciliation savings</span></div>
         <div><b>Demonstrated</b><span>card economics</span></div>
         <div><b>Demonstrated</b><span>financing demand</span></div>
